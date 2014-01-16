@@ -1,0 +1,24 @@
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\obj\Debug\Young.Tools.csprojResolveAssemblyReference.cache
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\bin\Debug\Young.Tools.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\bin\Debug\Young.Tools.pdb
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\bin\Debug\EntityFramework.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\bin\Debug\Young.DAL.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\bin\Debug\Young.Model.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\bin\Debug\Young.DAL.pdb
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\bin\Debug\Young.Model.pdb
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\bin\Debug\EntityFramework.xml
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\obj\Debug\Young.Tools.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Tools\obj\Debug\Young.Tools.pdb
+C:\Young\Young.Tools\obj\Debug\Young.Tools.csprojResolveAssemblyReference.cache
+C:\Young\Young.Tools\obj\Debug\Young.Tools.dll
+C:\Young\Young.Tools\bin\Debug\Young.Tools.dll
+C:\Young\Young.Tools\bin\Debug\Young.Tools.pdb
+C:\Young\Young.Tools\bin\Debug\EntityFramework.dll
+C:\Young\Young.Tools\bin\Debug\Young.DAL.dll
+C:\Young\Young.Tools\bin\Debug\Young.Model.dll
+C:\Young\Young.Tools\bin\Debug\Young.DAL.pdb
+C:\Young\Young.Tools\bin\Debug\Young.Model.pdb
+C:\Young\Young.Tools\bin\Debug\EntityFramework.xml
+C:\Young\Young.Tools\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Young\Young.Tools\obj\Debug\Young.Tools.pdb

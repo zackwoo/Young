@@ -1,0 +1,32 @@
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\EntityFramework.xml
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\EntityFramework.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\Young.Model.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\Young.Model.pdb
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\obj\Debug\Young.DAL.csprojResolveAssemblyReference.cache
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\obj\Debug\Young.DAL.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\obj\Debug\Young.DAL.pdb
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\Young.DAL.dll.config
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\Young.DAL.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\bin\Debug\Young.DAL.pdb
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\obj\Debug\Young.DAL.Migrations.removeTermPE.resources
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.DAL\obj\Debug\Young.DAL.csproj.GenerateResource.Cache
+C:\Young\Young.DAL\bin\Debug\Young.DAL.dll.config
+C:\Young\Young.DAL\bin\Debug\Young.DAL.dll
+C:\Young\Young.DAL\bin\Debug\Young.DAL.pdb
+C:\Young\Young.DAL\bin\Debug\EntityFramework.dll
+C:\Young\Young.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Young\Young.DAL\bin\Debug\Young.Model.dll
+C:\Young\Young.DAL\bin\Debug\Young.Model.pdb
+C:\Young\Young.DAL\bin\Debug\EntityFramework.xml
+C:\Young\Young.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Young\Young.DAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Young\Young.DAL\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+C:\Young\Young.DAL\obj\Debug\Young.DAL.csprojResolveAssemblyReference.cache
+C:\Young\Young.DAL\obj\Debug\Young.DAL.Migrations.removeTermPE.resources
+C:\Young\Young.DAL\obj\Debug\Young.DAL.csproj.GenerateResource.Cache
+C:\Young\Young.DAL\obj\Debug\Young.DAL.dll
+C:\Young\Young.DAL\obj\Debug\Young.DAL.pdb

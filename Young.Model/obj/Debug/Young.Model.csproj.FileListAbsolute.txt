@@ -1,0 +1,22 @@
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\bin\Debug\Young.Model.dll.config
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\bin\Debug\Young.Model.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\bin\Debug\Young.Model.pdb
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\bin\Debug\EntityFramework.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\bin\Debug\EntityFramework.xml
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\obj\Debug\Young.Model.dll
+C:\Users\mingzhen_wu\documents\visual studio 2012\Projects\Young\Young.Model\obj\Debug\Young.Model.pdb
+C:\Young\Young.Model\bin\Debug\Young.Model.dll.config
+C:\Young\Young.Model\bin\Debug\Young.Model.dll
+C:\Young\Young.Model\bin\Debug\Young.Model.pdb
+C:\Young\Young.Model\bin\Debug\EntityFramework.dll
+C:\Young\Young.Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Young\Young.Model\bin\Debug\EntityFramework.xml
+C:\Young\Young.Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Young\Young.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Young\Young.Model\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+C:\Young\Young.Model\obj\Debug\Young.Model.dll
+C:\Young\Young.Model\obj\Debug\Young.Model.pdb
