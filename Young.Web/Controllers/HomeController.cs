@@ -11,7 +11,6 @@ namespace Young.Web.Controllers
     {
         public ActionResult Index()
         {
-            var instance = Util.QueryInstanceByProperty("用户对象", "用户登录名", "zack");
             return View();
         }
     }

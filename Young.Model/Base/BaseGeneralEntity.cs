@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Young.Model
+﻿namespace Young.Model.Base
 {
     /// <summary>
     /// Young model 基类

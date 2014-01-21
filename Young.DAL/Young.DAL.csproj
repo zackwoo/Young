@@ -51,6 +51,10 @@
     <Compile Include="Migrations\201401140904417_removeTermPE.Designer.cs">
       <DependentUpon>201401140904417_removeTermPE.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201401210912362_removeTermPE1.cs" />
+    <Compile Include="Migrations\201401210912362_removeTermPE1.Designer.cs">
+      <DependentUpon>201401210912362_removeTermPE1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,6 +72,12 @@
     <EmbeddedResource Include="Migrations\201401140904417_removeTermPE.resx">
       <DependentUpon>201401140904417_removeTermPE.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401210912362_removeTermPE1.resx">
+      <DependentUpon>201401210912362_removeTermPE1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="更新命令.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

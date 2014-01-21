@@ -46,20 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseGeneralEntity.cs" />
-    <Compile Include="BooleanPropertyEntity.cs" />
-    <Compile Include="DatePropertyEntity.cs" />
-    <Compile Include="DoublePropertyEntity.cs" />
-    <Compile Include="EntityBase.cs" />
-    <Compile Include="IntPropertyEntity.cs" />
-    <Compile Include="ObjectInstanceEntity.cs" />
-    <Compile Include="ObjectTypeEntity.cs" />
-    <Compile Include="BasePropertyEntity.cs" />
-    <Compile Include="PropertyTypeEntity.cs" />
-    <Compile Include="StringPropertyEntity.cs" />
+    <Compile Include="Base\BaseGeneralEntity.cs" />
+    <Compile Include="Base\EntityBase.cs" />
     <Compile Include="TermEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TermPropertyEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

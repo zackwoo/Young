@@ -1,0 +1,6 @@
+Enable-Migrations
+
+UPDATE-DATABASE -Verbose
+
+add-migration removeTermPE
+

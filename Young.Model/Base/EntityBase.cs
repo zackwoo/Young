@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Young.Model
+namespace Young.Model.Base
 {
     public class EntityBase
     {
