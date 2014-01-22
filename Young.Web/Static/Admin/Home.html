@@ -4,9 +4,45 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
     <script src="../../Scripts/angular.min.js"></script>
+    <script src="../../Scripts/angular-route.min.js"></script>
+    <script src="../../Scripts/Controller/ManagementControllers.js"></script>
+    <script src="../../Scripts/Module/ManagementApp.js"></script>
     <script src="../../Scripts/jquery-1.7.1.min.js"></script>
+    <link href="../../Content/Reset.css" rel="stylesheet" />
+    <style>
+        input{ border:1px solid  #E6E6E6}
+        
+        #head{ height: 30px;line-height: 30px;background-color: #0072C6;color: #fff;font-weight: bold;padding-left: 20px;font-size: 1.8em;}
+        #head .login{ background-color: #F1F1F1;width: 80px;color: rgb(120,120,120);font-size:0.6em;text-align: center;text-decoration: none;}
+        #foot{ background-color: #E6E6E6;height: 20px;line-height: 20px;text-align: center;color: #77c;position: absolute;bottom: 0;width: 100%;}
+        
+        /* nav */
+        #nav{height: 30px;line-height: 30px;background-color: #F1F1F1;}
+        /* menu */
+        .menu{ width: 200px;}
+        .menu li{ list-style: none;display: block;border: 1px solid #ccc;height: 30px;line-height: 30px;text-align: center;margin-top: 20px;}
+        .menu li a{ text-decoration: none;display: block;}
+
+        
+
+        #main{ width: 964px;margin: 0 auto;}
+    </style>
 </head>
-<body>
-    
-</body>
+    <body ng-app="managementApp">
+        <div id="head">
+            Young
+            <a class="login float-right" href="#/login">登录</a>
+        </div>
+        <div id="nav"></div>
+        <div class="menu float-left">
+            <ul>
+                <li><a href="#">术语维护</a></li>
+                <li><a href="#">对象维护</a></li>
+            </ul>
+        </div>
+        <div id="main" class="clear-fix">
+          <ng-view></ng-view>
+        </div>
+        <div id="foot">©2014 Young </div>
+    </body>
 </html>
