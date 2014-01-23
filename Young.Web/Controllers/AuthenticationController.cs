@@ -11,15 +11,6 @@ namespace Young.Web.Controllers
 {
     public class AuthenticationController : ApiController
     {
-        // POST api/authentication
-        public void Post([FromBody]string name, [FromBody]string password)
-        {
-            if (name == "zack" && password == "zack")
-            {
-                FormsAuthentication.SetAuthCookie("zack", true);
-            }
-        }
-
         public AuthenticationModel Get()
         {
             var model = new AuthenticationModel

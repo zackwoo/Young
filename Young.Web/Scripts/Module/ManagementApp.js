@@ -11,6 +11,6 @@ mApp.config(['$routeProvider',
             controller: 'LoginCtrl'
         }).
         otherwise({
-            redirectTo: '/login'
+            redirectTo: '/'
         });
   }]);

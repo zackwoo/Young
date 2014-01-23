@@ -14,6 +14,13 @@ namespace Young.Web.Controllers
             return View();
         }
 
-       
+        public ActionResult Login(string name, string password)
+       {
+           if (name=="zack" && password=="123456")
+           {
+               System.Web.Security.FormsAuthentication.SetAuthCookie("zack", true);
+           }
+           return Redirect("/Static/Admin/Home.html");
+       }
     }
 }
