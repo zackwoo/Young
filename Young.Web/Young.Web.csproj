@@ -131,6 +131,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthenticationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,8 +193,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular-sanitize.min.js.map" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\Controller\ManagementControllers.js" />
@@ -214,6 +217,7 @@
     <Content Include="Scripts\Module\ManagementApp.js" />
     <Content Include="Static\Admin\Home.html" />
     <Content Include="Static\Admin\partials\login.html" />
+    <Content Include="Static\Admin\partials\menu.html" />
     <Content Include="Static\Test.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -245,7 +249,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
