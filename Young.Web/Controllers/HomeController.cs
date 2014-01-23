@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Young.Tools.Objects;
 
 namespace Young.Web.Controllers
@@ -14,13 +15,21 @@ namespace Young.Web.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Login(string name, string password)
-       {
-           if (name=="zack" && password=="123456")
-           {
-               System.Web.Security.FormsAuthentication.SetAuthCookie("zack", true);
-           }
-           return Redirect("/Static/Admin/Home.html");
-       }
+        {
+            if (name == "zack" && password == "123456")
+            {
+                FormsAuthentication.SetAuthCookie("zack", true);
+                
+            }
+            return Redirect("/Static/Admin/Home.html");
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return Redirect("/Static/Admin/Home.html");
+        }
     }
 }
