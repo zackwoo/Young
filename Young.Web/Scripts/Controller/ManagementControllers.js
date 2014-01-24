@@ -8,6 +8,16 @@ managementControllers.controller('LoginCtrl', ['$scope', '$http',
 
       //$scope.orderProp = 'age';
   }]);
+//术语管理
+managementControllers.controller('TermCtrl', ['$scope', '$http',
+  function ($scope, $http) {
+      $("#browser").treeview({
+          toggle: function () {
+              console.log("%s was toggled.", $(this).find(">span").text());
+          }
+      });
+  }]);
+
 
 //初始用户信息
 managementControllers.controller('UserInfoCtrl', ['$scope', '$http',
