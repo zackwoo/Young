@@ -211,6 +211,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\page_add.png" />
+    <Content Include="Images\page_delete.png" />
+    <Content Include="Images\page_edit.png" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
@@ -234,6 +237,9 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\Module\ManagementApp.js" />
+    <Content Include="Scripts\Plugin\jquery.contextmenu.r2.js" />
+    <Content Include="Scripts\Plugin\jquery.contextmenu.r2.packed.js" />
+    <Content Include="Scripts\Plugin\jquery.treeview.edit.js" />
     <Content Include="Scripts\Plugin\jquery.treeview.js" />
     <Content Include="Static\Admin\Home.html" />
     <Content Include="Static\Admin\partials\login.html" />

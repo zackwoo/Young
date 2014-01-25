@@ -16,6 +16,20 @@ managementControllers.controller('TermCtrl', ['$scope', '$http',
               console.log("%s was toggled.", $(this).find(">span").text());
           }
       });
+    
+      $('#browser li').contextMenu('termContextMenu', {
+          bindings: {
+              'add': function (t) {
+                  console.log(t);
+              },
+              'edit': function (t) {
+                  alert('Trigger was ' + t.id + '\nAction was Email');
+              },
+              'delete': function (t) {
+                  alert('Trigger was ' + t.id + '\nAction was Delete');
+              }
+          }
+      });
   }]);
 
 
