@@ -13,7 +13,7 @@ managementControllers.controller('TermCtrl', ['$scope', '$http',
   function ($scope, $http) {
       $("#browser").dynatree({
           onActivate: function (node) {
-              alert("You activated " + node);
+             // alert("You activated " + node);
           }
       });
     

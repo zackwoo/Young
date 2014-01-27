@@ -135,6 +135,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\dynatree-custom.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\application_cascade.png" />
     <Content Include="Content\images\file.gif" />
