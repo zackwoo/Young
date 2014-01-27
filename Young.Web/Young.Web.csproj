@@ -153,8 +153,13 @@
     <Content Include="Content\images\treeview-gray.gif" />
     <Content Include="Content\images\treeview-red-line.gif" />
     <Content Include="Content\images\treeview-red.gif" />
-    <Content Include="Content\jquery.treeview.css" />
     <Content Include="Content\Reset.css" />
+    <Content Include="Content\dynatree-skin\icons-rtl.gif" />
+    <Content Include="Content\dynatree-skin\icons.gif" />
+    <Content Include="Content\dynatree-skin\loading.gif" />
+    <Content Include="Content\dynatree-skin\ui.dynatree.css" />
+    <Content Include="Content\dynatree-skin\vline-rtl.gif" />
+    <Content Include="Content\dynatree-skin\vline.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -239,8 +244,7 @@
     <Content Include="Scripts\Module\ManagementApp.js" />
     <Content Include="Scripts\Plugin\jquery.contextmenu.r2.js" />
     <Content Include="Scripts\Plugin\jquery.contextmenu.r2.packed.js" />
-    <Content Include="Scripts\Plugin\jquery.treeview.edit.js" />
-    <Content Include="Scripts\Plugin\jquery.treeview.js" />
+    <Content Include="Scripts\Plugin\jquery.dynatree.js" />
     <Content Include="Static\Admin\Home.html" />
     <Content Include="Static\Admin\partials\login.html" />
     <Content Include="Static\Admin\partials\menu.html" />

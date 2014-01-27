@@ -11,9 +11,9 @@ managementControllers.controller('LoginCtrl', ['$scope', '$http',
 //术语管理
 managementControllers.controller('TermCtrl', ['$scope', '$http',
   function ($scope, $http) {
-      $("#browser").treeview({
-          toggle: function () {
-              console.log("%s was toggled.", $(this).find(">span").text());
+      $("#browser").dynatree({
+          onActivate: function (node) {
+              alert("You activated " + node);
           }
       });
     
