@@ -61,3 +61,4 @@ C:\Users\mingzhen\Documents\work\Young\Young.Console\bin\Debug\zh-Hans\EntityFra
 C:\Users\mingzhen\Documents\work\Young\Young.Console\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
 C:\Users\mingzhen\Documents\work\Young\Young.Console\obj\Debug\Young.Console.exe
 C:\Users\mingzhen\Documents\work\Young\Young.Console\obj\Debug\Young.Console.pdb
+C:\Users\mingzhen\Documents\work\Young\Young.Console\obj\Debug\Young.Console.csprojResolveAssemblyReference.cache

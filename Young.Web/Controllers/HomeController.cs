@@ -21,9 +21,14 @@ namespace Young.Web.Controllers
             if (name == "zack" && password == "123456")
             {
                 FormsAuthentication.SetAuthCookie("zack", true);
-                
+
             }
             return Redirect("/Static/Admin/Home.html");
+        }
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
         }
 
         public ActionResult Logout()

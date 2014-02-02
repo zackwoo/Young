@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+<div class="center" style="width: 310px; margin-top: 120px">
+    <div class="easyui-panel" title="登陆" style="width: 300px">
+        <div style="padding: 10px 0 10px 40px">
+            <form action="/" method="post">
+                <table>
+                    <tr>
+                        <td class="txt-right">用户名:</td>
+                        <td>
+                            <input class="easyui-validatebox" type="text"  style="width: 150px" name="name" data-options="required:true"></input></td>
+                    </tr>                    
+                    <tr>
+                        <td class="txt-right">密&nbsp;&nbsp;码:</td>
+                        <td>
+                            <input class="easyui-validatebox" type="password"  style="width: 150px" name="password" data-options="required:true"></input></td>
+                    </tr>              
+                </table>
+            </form>
+        </div>
+        <div style="text-align: center; padding: 5px">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm();">登陆</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm();">重置</a>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        var clearForm = function () {
+            $('input').val('');
+        };
+        var submitForm = function () {
+            var jform = $('form');
+            if (jform.form('validate')) {
+                jform.submit();
+            }
+        };
+    </script>
+}

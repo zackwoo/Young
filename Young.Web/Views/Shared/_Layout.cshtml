@@ -5,12 +5,133 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/default/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        input
+        {
+            border: 1px solid #E6E6E6;
+        }
+
+        .hide
+        {
+            display: none;
+        }
+
+        #head
+        {
+            height: 30px;
+            line-height: 30px;
+            background-color: #0072C6;
+            color: #fff;
+            font-weight: bold;
+            padding-left: 20px;
+            font-size: 1.8em;
+        }
+
+            #head a
+            {
+                background-color: #F1F1F1;
+                width: 80px;
+                color: rgb(120,120,120);
+                text-align: center;
+                text-decoration: none;
+                font-size: 0.6em;
+            }
+
+                #head a:hover
+                {
+                    background-color: #AAA;
+                }
+
+            #head .login
+            {
+            }
+
+            #head .display-name
+            {
+            }
+
+            #head .exit
+            {
+                width: 60px;
+                color: rgb(140,140,140);
+            }
+
+        #foot
+        {
+            background-color: #E6E6E6;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            color: #77c;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* nav */
+        #nav
+        {
+            height: 30px;
+            line-height: 30px;
+            background-color: #F1F1F1;
+        }
+        /* menu */
+        .menu
+        {
+            width: 200px;
+        }
+
+            .menu li
+            {
+                list-style: none;
+                display: block;
+                border: 1px solid #ccc;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                margin-top: 20px;
+            }
+
+                .menu li a
+                {
+                    text-decoration: none;
+                    display: block;
+                }
+
+
+
+        #main
+        {
+            width: 964px;
+            margin: 0 auto;
+        }
+        /*layout*/
+        .center {
+            margin: 0 auto;
+        }
+        .txt-right {
+            text-align: right;
+        }
+
+    </style>
 </head>
 <body>
-    @RenderBody()
+    
+    <div id="head">
+        Young
+    </div>
+    <div id="nav"></div>
+    <div id="main" class="clear-fix">
+      @RenderBody()
+    </div>
+    <div id="foot">©2014 Young </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/easyui")
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>
