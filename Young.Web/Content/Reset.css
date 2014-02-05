@@ -5,13 +5,17 @@
 
 body {
     background-color: #fff;
-    color: #333;
+    color: rgb(120,120,120);
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
 }
 
+body, ul, ol, p, div, li, table {
+    margin:0;
+    padding:0;
+}
 
 .float-left {
     float: left;

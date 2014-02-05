@@ -11,22 +11,21 @@ managementControllers.controller('LoginCtrl', ['$scope', '$http',
 //术语管理
 managementControllers.controller('TermCtrl', ['$scope', '$http',
   function ($scope, $http) {
-      $("#browser").treeview({
-          toggle: function () {
-              console.log("%s was toggled.", $(this).find(">span").text());
-          }
-      });
+      $("#browser").dynatree();
     
       $('#browser li').contextMenu('termContextMenu', {
           bindings: {
               'add': function (t) {
-                  console.log(t);
+                  var node = $("#browser").dynatree("getActiveNode");
+                  if (node == null) return;
               },
               'edit': function (t) {
-                  alert('Trigger was ' + t.id + '\nAction was Email');
+                  var node = $("#browser").dynatree("getActiveNode");
+                  if (node == null) return;
               },
               'delete': function (t) {
-                  alert('Trigger was ' + t.id + '\nAction was Delete');
+                  var node = $("#browser").dynatree("getActiveNode");
+                  if (node == null) return;
               }
           }
       });

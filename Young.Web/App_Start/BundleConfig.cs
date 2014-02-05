@@ -26,7 +26,9 @@ namespace Young.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Reset.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                                        "~/Content/Reset.css",
+                                        "~/Content/young.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/default/css").Include(
                         "~/Content/themes/default/easyui.css",

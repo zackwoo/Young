@@ -128,6 +128,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WebmasterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,7 +154,6 @@
     <Content Include="Content\images\treeview-gray.gif" />
     <Content Include="Content\images\treeview-red-line.gif" />
     <Content Include="Content\images\treeview-red.gif" />
-    <Content Include="Content\jquery.treeview.css" />
     <Content Include="Content\Reset.css" />
     <Content Include="Content\themes\default\accordion.css" />
     <Content Include="Content\themes\default\calendar.css" />
@@ -201,6 +201,9 @@
     <Content Include="Content\themes\default\validatebox.css" />
     <Content Include="Content\themes\default\window.css" />
     <Content Include="Content\themes\icon.css" />
+    <Content Include="Content\themes\icons\application_view_list.png" />
+    <Content Include="Content\themes\icons\application_view_tile.png" />
+    <Content Include="Content\themes\icons\arrow_join.png" />
     <Content Include="Content\themes\icons\back.png" />
     <Content Include="Content\themes\icons\blank.gif" />
     <Content Include="Content\themes\icons\cancel.png" />
@@ -209,6 +212,7 @@
     <Content Include="Content\themes\icons\edit_remove.png" />
     <Content Include="Content\themes\icons\filesave.png" />
     <Content Include="Content\themes\icons\filter.png" />
+    <Content Include="Content\themes\icons\group.png" />
     <Content Include="Content\themes\icons\help.png" />
     <Content Include="Content\themes\icons\mini_add.png" />
     <Content Include="Content\themes\icons\mini_edit.png" />
@@ -216,13 +220,18 @@
     <Content Include="Content\themes\icons\no.png" />
     <Content Include="Content\themes\icons\ok.png" />
     <Content Include="Content\themes\icons\pencil.png" />
+    <Content Include="Content\themes\icons\plugin.png" />
     <Content Include="Content\themes\icons\print.png" />
     <Content Include="Content\themes\icons\redo.png" />
     <Content Include="Content\themes\icons\reload.png" />
     <Content Include="Content\themes\icons\search.png" />
     <Content Include="Content\themes\icons\sum.png" />
+    <Content Include="Content\themes\icons\table.png" />
+    <Content Include="Content\themes\icons\tag_blue_edit.png" />
     <Content Include="Content\themes\icons\tip.png" />
     <Content Include="Content\themes\icons\undo.png" />
+    <Content Include="Content\themes\icons\wrench.png" />
+    <Content Include="Content\young.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\page_add.png" />
@@ -270,7 +279,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\heroAccent.png" />
@@ -291,6 +299,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Webmaster\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,7 +333,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>7184</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:2303/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

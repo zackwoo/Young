@@ -55,6 +55,30 @@
 .icon-filter{
 	background:url('icons/filter.png') no-repeat center center;
 }
+.icon-application-view-tile{
+	background:url('icons/application_view_tile.png') no-repeat center center;
+}
+.icon-application-view-list{
+	background:url('icons/application_view_list.png') no-repeat center center;
+}
+.icon-wrench{
+	background:url('icons/wrench.png') no-repeat center center;
+}
+.icon-group{
+	background:url('icons/group.png') no-repeat center center;
+}
+.icon-table{
+	background:url('icons/table.png') no-repeat center center;
+}
+.icon-arrow-join{
+	background:url('icons/arrow_join.png') no-repeat center center;
+}
+.icon-tag-blue-edit{
+	background:url('icons/tag_blue_edit.png') no-repeat center center;
+}
+.icon-plugin{
+	background:url('icons/plugin.png') no-repeat center center;
+}
 
 
 .icon-mini-add{

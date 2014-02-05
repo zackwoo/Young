@@ -23,7 +23,7 @@ namespace Young.Web.Controllers
                 FormsAuthentication.SetAuthCookie("zack", true);
 
             }
-            return Redirect("/Static/Admin/Home.html");
+            return RedirectToAction("index", "Webmaster");
         }
         [HttpGet]
         public ActionResult Login()
