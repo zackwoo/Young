@@ -13,10 +13,12 @@ namespace Young.Model
     /// </summary>
     public class TermEntity : BaseGeneralEntity
     {
-        [ForeignKey("ParentId")]
+        [ForeignKey("ID")]
         public virtual TermEntity Parent { get; set; }
+        [ForeignKey("ParentId")]
+        public virtual ICollection<TermEntity> Chirdren { get; set; }
 
-        public int ParentId { get; set; }
+        public Nullable<int> ParentId { get; set; }
 
     }
 }

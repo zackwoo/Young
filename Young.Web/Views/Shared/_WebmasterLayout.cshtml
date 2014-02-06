@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/default/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body>
+
+    <div id="head">
+        Young
+    </div>
+    <div id="nav"></div>
+    <div id="main" class="clear-fix">
+        <div class="easyui-layout" style="width: 100%; height: 700px;">
+
+            <div data-options="region:'west',split:true,iconCls:'icon-application-view-tile'" title="功能区" style="width: 160px;">
+                <div class="easyui-accordion" data-options="multiple:true,fit:false,border:false">
+                    <div title="系统配置" data-options="iconCls:'icon-wrench'" style="overflow: auto;">
+                        <ul class="left-nav">
+                            <li>
+                                <a class="icon-group" href="#">用户组织管理</a>
+                            </li>
+                            <li>
+                                <a class="icon-table" href="#">自定义列表</a>
+                            </li>
+                            <li>
+                                <a class="icon-arrow-join" href="#">工作流设置</a>
+                            </li>
+                            <li>
+                                <a class="icon-tag-blue-edit" href="~/Term/index">术语管理</a>
+                            </li>
+                            <li>
+                                <a class="icon-plugin" href="#">自定义功能扩展</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div data-options="region:'center',title:'工作区',iconCls:'icon-application-view-list'">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div id="foot">©2014 Young </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/easyui")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -61,6 +61,9 @@
 .icon-application-view-list{
 	background:url('icons/application_view_list.png') no-repeat center center;
 }
+.icon-application-cascade{
+	background:url('icons/application_cascade.png') no-repeat center center;
+}
 .icon-wrench{
 	background:url('icons/wrench.png') no-repeat center center;
 }
@@ -78,6 +81,12 @@
 }
 .icon-plugin{
 	background:url('icons/plugin.png') no-repeat center center;
+}
+.icon-book-open{
+	background:url('icons/book_open.png') no-repeat center center;
+}
+.icon-tag-blue{
+	background:url('icons/tag_blue.png') no-repeat center center;
 }
 
 

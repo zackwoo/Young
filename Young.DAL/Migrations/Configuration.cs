@@ -17,8 +17,33 @@ namespace Young.DAL.Migrations
 
         protected override void Seed(Young.DAL.DataBaseContext context)
         {
-            
-           
+                TermEntity root = new TermEntity
+                {
+                    Name = "术语管理集合",
+                    ParentId = null,
+                    Description = "管理术语集合根节点"
+                };
+                using (DataBaseContext db = new DataBaseContext())
+                {
+                    db.Terms.AddOrUpdate(f => f.Name, root);
+                    TermEntity sysNode = new TermEntity
+                    {
+                        Name = "系统术语集合",
+                        ParentId = root.ID,
+                        Description = "管理系统术语根节点"
+                    };
+                    db.Terms.AddOrUpdate(f => f.Name, sysNode);
+                    TermEntity custNode = new TermEntity
+                    {
+                        Name = "自定义术语集合",
+                        ParentId = root.ID,
+                        Description = "自定义术语根节点"
+                    };
+                    db.Terms.AddOrUpdate(f => f.Name, custNode);
+                   
+                    db.SaveChanges();
+
+                }
         }
     }
 }

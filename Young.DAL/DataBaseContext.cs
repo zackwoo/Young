@@ -11,21 +11,21 @@ using Young.Model.Base;
 
 namespace Young.DAL
 {
-    public  class DataBaseContext : DbContext
+    public class DataBaseContext : DbContext
     {
         public DataBaseContext()
             : base("YoungDB")
         {
-         
+
         }
-    
-        
+
+
         public DbSet<TermEntity> Terms { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+         
             //modelBuilder.Entity<BasePropertyEntity>().HasKey(x => x.ID);
             //modelBuilder.Entity<BasePropertyEntity>().Property(x => x.ID)
             //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity); 
