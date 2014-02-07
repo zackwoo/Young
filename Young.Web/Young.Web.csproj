@@ -210,6 +210,7 @@
     <Content Include="Content\themes\icons\arrow_join.png" />
     <Content Include="Content\themes\icons\back.png" />
     <Content Include="Content\themes\icons\blank.gif" />
+    <Content Include="Content\themes\icons\book.png" />
     <Content Include="Content\themes\icons\book_open.png" />
     <Content Include="Content\themes\icons\cancel.png" />
     <Content Include="Content\themes\icons\cut.png" />
@@ -240,6 +241,7 @@
     <Content Include="Content\young.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\loading.gif" />
     <Content Include="Images\page_add.png" />
     <Content Include="Images\page_delete.png" />
     <Content Include="Images\page_edit.png" />
@@ -251,7 +253,7 @@
     <Content Include="Content\themes\default\images\Thumbs.db" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\Controller\ManagementControllers.js" />
+    <Content Include="Scripts\Controller\TermControllers.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -266,7 +268,7 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Scripts\Module\ManagementApp.js" />
+    <Content Include="Scripts\Module\WebmasterApp-route.js" />
     <Content Include="Scripts\Plugin\easyui-lang-zh_CN.js" />
     <Content Include="Scripts\Plugin\jquery.contextmenu.r2.js" />
     <Content Include="Scripts\Plugin\jquery.contextmenu.r2.packed.js" />

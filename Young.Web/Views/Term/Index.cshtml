@@ -6,46 +6,18 @@
 @section scripts{
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-route.min.js"></script>
+    
+    <script src="~/Scripts/Controller/TermControllers.js"></script>
+    <script src="~/Scripts/Module/WebmasterApp-route.js"></script>
 }
 
-<div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'west',split:true,border:false" style="width: 200px; padding: 10px">
-        <ul class="easyui-tree">
-            <li data-options="iconCls:'icon-book-open'">
-                <span>术语管理</span>
-                <ul>
-                    <li data-options="iconCls:'icon-application-cascade'">
-                        <span>Photos</span>
-                        <ul>
-                            <li data-options="iconCls:'icon-tag-blue'">
-                                <span>Friend</span>
-                            </li>
-                            <li data-options="iconCls:'icon-tag-blue'">
-                                <span>Wife</span>
-                            </li>
-                            <li data-options="iconCls:'icon-tag-blue'">
-                                <span>Company</span>
-                            </li>
-                        </ul>
-                    </li>
-                    <li data-options="iconCls:'icon-application-cascade'">
-                        <span>Program Files</span>
-                        <ul>
-                           <li data-options="iconCls:'icon-tag-blue'">Intel</li>
-                           <li data-options="iconCls:'icon-tag-blue'">Java</li>
-                           <li data-options="iconCls:'icon-tag-blue'">Microsoft Office</li>
-                           <li data-options="iconCls:'icon-tag-blue'">Games</li>
-                        </ul>
-                    </li>
-                    <li data-options="iconCls:'icon-tag-blue'"><span>index.html</span></li>
-                    <li data-options="iconCls:'icon-tag-blue'"><span>about.html</span></li>
-                    <li data-options="iconCls:'icon-tag-blue'"><span>welcome.html</span></li>
-                </ul>
-            </li>
-        </ul>
+<div class="easyui-layout" data-options="fit:true" ng-app="WebmasterApp">
+    <div data-options="region:'west',split:true,border:false" style="width: 200px; padding: 10px" ng-controller="TermInitCtrl">
+        <img src="~/Images/loading.gif" style=" width:100px; margin:0 auto; display:block;" id="tree_loading" />
+        <ul id="tree_term"></ul>
     </div>
     <div data-options="region:'center',border:false" style="padding: 10px">
-        Right Content
+        
     </div>
 </div>
 

@@ -71,7 +71,7 @@ input {
     height:30px;
     line-height:30px;
     border-bottom:solid 1px #AAA;
-    background-position-x:25px;
+    background-position:25px center;
 }
     .left-nav a:hover {
         background-color:#c3e0f6

@@ -208,3 +208,5 @@ C:\Users\mingzhen\Documents\work\Young\Young.Web\obj\Debug\Young.Web.dll
 C:\Users\mingzhen\Documents\work\Young\Young.Web\obj\Debug\Young.Web.pdb
 C:\Users\mingzhen\Documents\work\Young\Young.Web\bin\Young.DAL.dll
 C:\Users\mingzhen\Documents\work\Young\Young.Web\bin\Young.DAL.pdb
+C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.DAL.dll
+C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.DAL.pdb

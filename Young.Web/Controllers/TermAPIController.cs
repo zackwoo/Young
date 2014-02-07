@@ -14,14 +14,17 @@ namespace Young.Web.Controllers
     public class TermAPIController : ApiController
     {
         // GET api/termapi
-        public string Get()
+        public ICollection<JsonTmp> Get()
         {
             using (DataBaseContext db = new DataBaseContext())
             {
                 var root = db.Terms.FirstOrDefault(f => f.ParentId == null);
 
-                var json = JsonConvert.SerializeObject(Convert(root), Formatting.None);
-                return json;
+                //var json = JsonConvert.SerializeObject(Convert(root), Formatting.None);
+                //return json;
+                List<JsonTmp> tmp = new List<JsonTmp>();
+                tmp.Add(Convert(root));
+                return tmp;
             }
         }
 
@@ -29,16 +32,34 @@ namespace Young.Web.Controllers
         {
             JsonTmp tmp = new JsonTmp
             {
-                ID = root.ID,
-                Name = root.Name,
+                id = root.ID,
+                text = root.Name,
                 Description = root.Description
             };
-            tmp.Children = new List<JsonTmp>();
+            tmp.children = new List<JsonTmp>();
             foreach (var item in root.Chirdren)
             {
-                tmp.Children.Add(Convert(item));
+                tmp.children.Add(Convert(item));
             }
+            SetNodeIcon(tmp, root.ParentId == null);
             return tmp;
+        }
+
+        private void SetNodeIcon(JsonTmp node,bool isRoot)
+        {
+            if (isRoot)
+            {
+                node.iconCls = "icon-book-open";
+            }
+            else if (node.children.Count > 0)
+            {
+                node.iconCls = "icon-application-cascade";
+            }
+            else
+            {
+                node.iconCls = "icon-tag-blue";
+            }
+
         }
 
         // GET api/termapi/5
@@ -50,6 +71,7 @@ namespace Young.Web.Controllers
         // POST api/termapi
         public void Post([FromBody]string value)
         {
+           
         }
 
         // PUT api/termapi/5
@@ -65,10 +87,11 @@ namespace Young.Web.Controllers
 
     public class JsonTmp
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public int id { get; set; }
+        public string text { get; set; }
         public string Description { get; set; }
-        public ICollection<JsonTmp> Children { get; set; }
+        public string iconCls { get; set; }
+        public ICollection<JsonTmp> children { get; set; }
 
     }
 }
