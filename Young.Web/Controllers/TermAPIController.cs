@@ -34,7 +34,8 @@ namespace Young.Web.Controllers
             {
                 id = root.ID,
                 text = root.Name,
-                Description = root.Description
+                Description = root.Description,
+                attributes = new { isSystem = root.IsSystem }
             };
             tmp.children = new List<JsonTmp>();
             foreach (var item in root.Chirdren)
@@ -45,7 +46,7 @@ namespace Young.Web.Controllers
             return tmp;
         }
 
-        private void SetNodeIcon(JsonTmp node,bool isRoot)
+        private void SetNodeIcon(JsonTmp node, bool isRoot)
         {
             if (isRoot)
             {
@@ -82,7 +83,7 @@ namespace Young.Web.Controllers
         // POST api/termapi
         public void Post([FromBody]string value)
         {
-           
+
         }
 
         // PUT api/termapi/5
@@ -103,5 +104,6 @@ namespace Young.Web.Controllers
         public string Description { get; set; }
         public string iconCls { get; set; }
         public ICollection<JsonTmp> children { get; set; }
+        public object attributes { get; set; }
     }
 }

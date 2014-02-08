@@ -20,5 +20,8 @@ namespace Young.Model
 
         public Nullable<int> ParentId { get; set; }
 
+        //是否系统术语
+        public bool IsSystem { get; set; }
+
     }
 }

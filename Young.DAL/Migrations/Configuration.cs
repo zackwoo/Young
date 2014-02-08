@@ -21,7 +21,8 @@ namespace Young.DAL.Migrations
                 {
                     Name = "术语管理集合",
                     ParentId = null,
-                    Description = "管理术语集合根节点"
+                    Description = "管理术语集合根节点",
+                    IsSystem = true
                 };
                 using (DataBaseContext db = new DataBaseContext())
                 {
@@ -30,6 +31,7 @@ namespace Young.DAL.Migrations
                     {
                         Name = "系统术语集合",
                         ParentId = root.ID,
+                        IsSystem = true,
                         Description = "管理系统术语根节点"
                     };
                     db.Terms.AddOrUpdate(f => f.Name, sysNode);
@@ -37,6 +39,7 @@ namespace Young.DAL.Migrations
                     {
                         Name = "自定义术语集合",
                         ParentId = root.ID,
+                        IsSystem = true,
                         Description = "自定义术语根节点"
                     };
                     db.Terms.AddOrUpdate(f => f.Name, custNode);

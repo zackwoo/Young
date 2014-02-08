@@ -52,6 +52,14 @@ termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$ro
                 e.preventDefault();
                 // select the node
                 $('#tree_term').tree('select', node.target);
+                if (node.attributes.isSystem) {
+                    //系统节点不允许编辑和删除
+                    var editItem = $('#term-cx-m').menu('findItem', '编辑');
+                    var deleteItem = $('#term-cx-m').menu('findItem', '删除');
+                    $('#term-cx-m')
+                        .menu('disableItem', editItem.target)
+                        .menu('disableItem', deleteItem.target);
+                }
                 // display context menu
                 $('#term-cx-m').menu('show', {
                     left: e.pageX,
@@ -59,7 +67,6 @@ termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$ro
                 });
             }
         });
-
     }]);
 
 termControllers.controller('TermDetailCtrl', ['$scope', '$http', function ($scope, $http) {
