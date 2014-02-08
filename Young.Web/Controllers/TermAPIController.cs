@@ -63,9 +63,20 @@ namespace Young.Web.Controllers
         }
 
         // GET api/termapi/5
-        public string Get(int id)
+        public JsonTmp Get(int id)
         {
-            return "value";
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                var single = db.Terms.SingleOrDefault(f => f.ID == id);
+
+                if (single == null) return null;
+                return new JsonTmp
+                    {
+                        id = single.ID,
+                        text = single.Name,
+                        Description = single.Description
+                    };
+            }
         }
 
         // POST api/termapi
@@ -92,6 +103,5 @@ namespace Young.Web.Controllers
         public string Description { get; set; }
         public string iconCls { get; set; }
         public ICollection<JsonTmp> children { get; set; }
-
     }
 }

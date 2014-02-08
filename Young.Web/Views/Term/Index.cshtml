@@ -2,22 +2,35 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
 }
+@section style{
+
+}
+
 
 @section scripts{
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-route.min.js"></script>
-    
+
     <script src="~/Scripts/Controller/TermControllers.js"></script>
     <script src="~/Scripts/Module/WebmasterApp-route.js"></script>
+
+   
+
 }
 
 <div class="easyui-layout" data-options="fit:true" ng-app="WebmasterApp">
     <div data-options="region:'west',split:true,border:false" style="width: 200px; padding: 10px" ng-controller="TermInitCtrl">
-        <img src="~/Images/loading.gif" style=" width:100px; margin:0 auto; display:block;" id="tree_loading" />
+        <img src="~/Images/loading.gif" style="width: 100px; margin: 0 auto; display: block;" id="tree_loading" />
         <ul id="tree_term"></ul>
+        <div id="term-cx-m" class="easyui-menu" style="width: 120px;">
+            <div data-options="iconCls:'icon-add'" id="cx-m-new">新建子集</div>
+            <div class="menu-sep"></div>
+            <div data-options="iconCls:'icon-edit'" id="cx-m-edit">编辑</div>
+            <div data-options="iconCls:'icon-cancel'" id="cx-m-delete">删除</div>
+        </div>
     </div>
-    <div data-options="region:'center',border:false" style="padding: 10px">
-        
+    <div data-options="region:'center',border:false" style="padding: 10px;">
+        <ng-view></ng-view>
     </div>
 </div>
 

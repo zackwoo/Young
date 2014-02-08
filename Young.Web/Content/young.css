@@ -1,13 +1,16 @@
 ﻿
-input {
+input, textarea
+{
     border: 1px solid #E6E6E6;
 }
 
-.hide {
+.hide
+{
     display: none;
 }
 
-#head {
+#head
+{
     height: 30px;
     line-height: 30px;
     background-color: #0072C6;
@@ -17,7 +20,8 @@ input {
     font-size: 1.8em;
 }
 
-    #head a {
+    #head a
+    {
         background-color: #F1F1F1;
         width: 80px;
         color: rgb(120,120,120);
@@ -26,22 +30,27 @@ input {
         font-size: 0.6em;
     }
 
-        #head a:hover {
+        #head a:hover
+        {
             background-color: #AAA;
         }
 
-    #head .login {
+    #head .login
+    {
     }
 
-    #head .display-name {
+    #head .display-name
+    {
     }
 
-    #head .exit {
+    #head .exit
+    {
         width: 60px;
         color: rgb(140,140,140);
     }
 
-#foot {
+#foot
+{
     background-color: #E6E6E6;
     height: 20px;
     line-height: 20px;
@@ -53,35 +62,43 @@ input {
 }
 
 /* nav */
-#nav {
+#nav
+{
     height: 30px;
     line-height: 30px;
     background-color: #F1F1F1;
 }
 /* left nav */
 
-.left-nav li {
+.left-nav li
+{
     list-style: none;
 }
-.left-nav a {
-    text-decoration:none;
+
+.left-nav a
+{
+    text-decoration: none;
     color: rgb(120,120,120);
-    display:block;
-    padding-left:50px;
-    height:30px;
-    line-height:30px;
-    border-bottom:solid 1px #AAA;
-    background-position:25px center;
+    display: block;
+    padding-left: 50px;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: solid 1px #AAA;
+    background-position: 25px center;
 }
-    .left-nav a:hover {
-        background-color:#c3e0f6
+
+    .left-nav a:hover
+    {
+        background-color: #c3e0f6;
     }
 /* menu */
-.menu {
+.menu
+{
     width: 200px;
 }
 
-    .menu li {
+    .menu li
+    {
         list-style: none;
         display: block;
         border: 1px solid #ccc;
@@ -91,22 +108,70 @@ input {
         margin-top: 20px;
     }
 
-        .menu li a {
+        .menu li a
+        {
             text-decoration: none;
             display: block;
         }
 
 
 
-#main {
+#main
+{
     width: auto;
     margin: 0;
 }
 /*layout*/
-.center {
+.center
+{
     margin: 0 auto;
 }
 
-.txt-right {
+.txt-right
+{
     text-align: right;
 }
+
+.txt-center
+{
+    text-align: center;
+}
+
+.txt-top
+{
+    vertical-align: top;
+}
+
+/* 编辑表单样式 */
+.edit-form
+{
+    color: #444;
+}
+
+    .edit-form tr
+    {
+        height: 60px;
+    }
+
+    .edit-form td
+    {
+        border-bottom: 1px dashed #999;
+    }
+
+    .edit-form input
+    {
+        width: 300px;
+    }
+
+    .edit-form textarea
+    {
+        height: 100px;
+        width: 300px;
+    }
+
+    .edit-form .button
+    {
+        text-align: center;
+        border-bottom: 0;
+        height: 80px;
+    }
