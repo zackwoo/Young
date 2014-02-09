@@ -81,19 +81,55 @@ namespace Young.Web.Controllers
         }
 
         // POST api/termapi
-        public void Post([FromBody]string value)
+        public JsonTmp Post(JsonTmp item)
         {
-
+            var parentID = item.id;// 父类ID
+            TermEntity entity = new TermEntity
+            {
+                IsSystem = false,
+                Name = item.text,
+                ParentId = parentID,
+                Description = item.Description
+            };
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                db.Terms.Add(entity);
+                db.SaveChanges();
+            }
+            item.id = entity.ID;
+            return item;
         }
 
         // PUT api/termapi/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(JsonTmp item)
         {
+            //update item
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                var single = db.Terms.Single(f => f.ID == item.id);
+                single.Name = item.text;
+                single.Description = item.Description;
+                db.SaveChanges();
+            }
         }
 
         // DELETE api/termapi/5
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            try
+            {
+                using (DataBaseContext db = new DataBaseContext())
+                {
+                    var single = db.Terms.SingleOrDefault(f => f.ID == id);
+                    db.Terms.Remove(single);
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 

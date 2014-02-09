@@ -55,6 +55,10 @@
     <Compile Include="Migrations\201401210912362_removeTermPE1.Designer.cs">
       <DependentUpon>201401210912362_removeTermPE1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201402091244431_termRequired.cs" />
+    <Compile Include="Migrations\201402091244431_termRequired.Designer.cs">
+      <DependentUpon>201402091244431_termRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401210912362_removeTermPE1.resx">
       <DependentUpon>201401210912362_removeTermPE1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201402091244431_termRequired.resx">
+      <DependentUpon>201402091244431_termRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

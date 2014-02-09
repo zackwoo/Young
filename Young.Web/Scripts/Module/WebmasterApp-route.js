@@ -7,12 +7,12 @@ app.config(['$routeProvider',
   function ($routeProvider) {
       $routeProvider.
           when('/term/details/:id', {
-              templateUrl: '/Static/Webmaster/partials/term-edit.html',
+              templateUrl: '/Static/Webmaster/partials/term-details.html',
               controller: 'TermDetailCtrl'
           }).
            when('/term/new/:id', {
                templateUrl: '/Static/Webmaster/partials/term-edit.html',
-               controller: 'TermDetailCtrl'
+               controller: 'TermNewCtrl'
            }).
            when('/term/edit/:id', {
                templateUrl: '/Static/Webmaster/partials/term-edit.html',
@@ -22,7 +22,10 @@ app.config(['$routeProvider',
                templateUrl: '/Static/Webmaster/partials/term-edit.html',
                controller: 'TermDetailCtrl'
            }).
+          when('/term/index', {
+              templateUrl: '/Static/Webmaster/partials/term-index.html',
+          }).
           otherwise({
-              //redirectTo: '/'
+              redirectTo: '/term/index'
           });
   }]);

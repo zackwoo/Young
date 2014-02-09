@@ -1,4 +1,5 @@
-﻿var termControllers = angular.module('termControllers', []);
+﻿
+var termControllers = angular.module('termControllers', []);
 
 //术语管理
 termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$route',
@@ -7,17 +8,32 @@ termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$ro
             onClick: function (item) {
                 var node = $('#tree_term').tree('getSelected');
                 if (node == null) return;
-                
+
                 if (item.id == "cx-m-new") {
                     $location.path("term/new/" + node.id);
+                    $route.reload();
                 }
                 else if (item.id == "cx-m-edit") {
                     $location.path("term/edit/" + node.id);
+                    $route.reload();
                 }
                 else if (item.id == "cx-m-delete") {
-                    $location.path("term/delete/" + node.id);
+                    $.messager.confirm('删除', '你确定要删除术语"' + node.text + '"吗？', function (r) {
+                        if (r) {
+                            $http({ method: 'delete', url: '/api/termapi/' + node.id }).
+                                success(function (data, status, headers, config) {
+                                    if (data == "false") {
+                                        $.messager.alert("消息", "删除术语失败，请联系管理员。", "info");
+                                    } else {
+                                        $location.path("term/index/");
+                                        $route.reload();
+                                        $("#tree_term").tree("reload");
+                                    }
+                                });
+                        }
+                    });
                 }
-                $route.reload();
+
             }
         });
         $("#tree_term").tree({
@@ -28,7 +44,7 @@ termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$ro
             },
             onCollapse: function (node) {
                 var root = $("#tree_term").tree("getRoot");
-                if (node.id==root.id) {
+                if (node.id == root.id) {
                     $("#tree_term").tree("update", {
                         target: node.target,
                         iconCls: 'icon-book'
@@ -44,21 +60,28 @@ termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$ro
                     });
                 }
             },
-            onClick:function(node) {
+            onClick: function (node) {
                 $location.path("term/details/" + node.id);
                 $route.reload();
+            },
+            onDblClick: function (node) {
+                $('#tree_term').tree('toggle', node.target);
             },
             onContextMenu: function (e, node) {
                 e.preventDefault();
                 // select the node
                 $('#tree_term').tree('select', node.target);
+                var editItem = $('#term-cx-m').menu('findItem', '编辑');
+                var deleteItem = $('#term-cx-m').menu('findItem', '删除');
                 if (node.attributes.isSystem) {
                     //系统节点不允许编辑和删除
-                    var editItem = $('#term-cx-m').menu('findItem', '编辑');
-                    var deleteItem = $('#term-cx-m').menu('findItem', '删除');
                     $('#term-cx-m')
                         .menu('disableItem', editItem.target)
                         .menu('disableItem', deleteItem.target);
+                } else {
+                    $('#term-cx-m')
+                        .menu('enableItem', editItem.target)
+                        .menu('enableItem', deleteItem.target);
                 }
                 // display context menu
                 $('#term-cx-m').menu('show', {
@@ -69,16 +92,66 @@ termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$ro
         });
     }]);
 
-termControllers.controller('TermDetailCtrl', ['$scope', '$http', function ($scope, $http) {
+termControllers.controller('TermDetailCtrl', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+    var termId = $routeParams.id;
+    $http({ method: 'GET', url: '/api/termapi/' + termId }).
+        success(function (data, status, headers, config) {
+            $scope.Model = data;
+        });
     $('#btn-save,#btn-reset').linkbutton();
 }]);
 
-termControllers.controller('TermEditCtrl', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+termControllers.controller('TermEditCtrl', ['$scope', '$http', '$routeParams', '$location', '$route', function ($scope, $http, $routeParams, $location, $route) {
     var termId = $routeParams.id;
+    //重置时候使用
+    var text = "";
+    var description = "";
+    $scope.save = function () {
+        $http({
+            method: "put",
+            url: "/api/termapi",
+            data: $scope.Model
+        }).success(function (data, status, headers, config) {
+            $("#tree_term").tree("reload");
+            $location.path('term/details/' + $scope.Model.id);
+            $route.reload();
+
+        });
+    };
+    $scope.reset = function () {
+        $scope.Model.text = text;
+        $scope.Model.Description = description;
+    };
     $http({ method: 'GET', url: '/api/termapi/' + termId }).
          success(function (data, status, headers, config) {
              $scope.Model = data;
+             text = data.text;
+             description = data.Description;
          });
+    $('#btn-save,#btn-reset').linkbutton();
+}]);
+
+termControllers.controller('TermNewCtrl', ['$scope', '$http', '$routeParams', '$location', '$route', function ($scope, $http, $routeParams, $location, $route) {
+    var termParentId = $routeParams.id;
+    $scope.Model = { text: '', Description: '', id: termParentId };
+    $scope.save = function () {
+        $http({
+            method: "post",
+            url: "/api/termapi",
+            data: $scope.Model
+        }).success(function (data, status, headers, config) {
+            $("#tree_term").tree("reload");
+            $location.path('term/details/' + data.id);
+            $route.reload();
+
+        });
+    };
+    $scope.reset = function () {
+        $scope.Model.text = "";
+        $scope.Model.Description = "";
+    };
+
+    //easy ui
     $('#btn-save,#btn-reset').linkbutton();
 }]);
 

@@ -220,6 +220,7 @@
     <Content Include="Content\themes\icons\filter.png" />
     <Content Include="Content\themes\icons\group.png" />
     <Content Include="Content\themes\icons\help.png" />
+    <Content Include="Content\themes\icons\information.png" />
     <Content Include="Content\themes\icons\mini_add.png" />
     <Content Include="Content\themes\icons\mini_edit.png" />
     <Content Include="Content\themes\icons\mini_refresh.png" />
@@ -274,7 +275,9 @@
     <Content Include="Scripts\Plugin\jquery.contextmenu.r2.packed.js" />
     <Content Include="Scripts\Plugin\jquery.easyui.min.js" />
     <Content Include="Scripts\Plugin\jquery.easyui.1.3.5.js" />
+    <Content Include="Static\Webmaster\partials\term-details.html" />
     <Content Include="Static\Webmaster\partials\term-edit.html" />
+    <Content Include="Static\Webmaster\partials\term-index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

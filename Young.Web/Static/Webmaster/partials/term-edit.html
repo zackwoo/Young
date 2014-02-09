@@ -2,17 +2,18 @@
     <tr>
         <td class="txt-right" style="width:100px">名称：</td>
         <td>
-            <input type="text" name="name" value="{{Model.text}}"></td>
+            <input type="text" name="name" ng-model="Model.text"></td>
     </tr>
     <tr>
         <td class="txt-right txt-top">描述：</td>
         <td>
-            <textarea>{{Model.Description}}</textarea></td>
+            <textarea ng-model="Model.Description"></textarea></td>
     </tr>
     <tr>
         <td colspan="2" class="button">
-            <a id="btn-save" href="#" data-options="iconCls:'icon-save'">保存</a>
-            <a id="btn-reset" href="#" data-options="iconCls:'icon-redo'">重置</a>
+            <a id="btn-save" href="javascript:;" data-options="iconCls:'icon-save'" ng-click="save()">保存</a>
+            <a id="btn-reset" href="javascript:;" data-options="iconCls:'icon-redo'" ng-click="reset()">重置</a>
         </td>
     </tr>
 </table>
+<input ng-model="Model.id" type="hidden" />

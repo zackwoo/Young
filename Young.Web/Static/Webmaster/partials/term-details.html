@@ -1,0 +1,16 @@
+﻿<table class="edit-form" style="width:100%;">
+    <tr>
+        <td class="txt-right" style="width:100px">名称：</td>
+        <td>{{Model.text}}</td>
+    </tr>
+    <tr>
+        <td class="txt-right">描述：</td>
+        <td>{{Model.Description}}</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="button">
+            <a id="btn-save" href="#/term/index" data-options="iconCls:'icon-back'">返回</a>            
+        </td>
+    </tr>
+</table>
+<input ng-model="Model.id" type="hidden" />
