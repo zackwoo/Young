@@ -21,6 +21,7 @@ namespace Young.DAL
 
 
         public DbSet<TermEntity> Terms { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.Web", "Young.Web\Youn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.Tools", "Young.Tools\Young.Tools.csproj", "{90E60111-D85F-4575-8F4E-0BC9F7A3FED0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.Provider", "Young.Provider\Young.Provider.csproj", "{E7A4F12F-3521-41A8-B97A-352AF5B9F2F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{90E60111-D85F-4575-8F4E-0BC9F7A3FED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90E60111-D85F-4575-8F4E-0BC9F7A3FED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90E60111-D85F-4575-8F4E-0BC9F7A3FED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7A4F12F-3521-41A8-B97A-352AF5B9F2F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7A4F12F-3521-41A8-B97A-352AF5B9F2F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7A4F12F-3521-41A8-B97A-352AF5B9F2F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7A4F12F-3521-41A8-B97A-352AF5B9F2F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
