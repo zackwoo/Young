@@ -233,6 +233,7 @@
     <Content Include="Content\themes\icons\redo.png" />
     <Content Include="Content\themes\icons\reload.png" />
     <Content Include="Content\themes\icons\search.png" />
+    <Content Include="Content\themes\icons\status_online.png" />
     <Content Include="Content\themes\icons\sum.png" />
     <Content Include="Content\themes\icons\table.png" />
     <Content Include="Content\themes\icons\tag_blue.png" />

@@ -56,9 +56,5 @@ C:\Users\mingzhen\Documents\work\Young\Young.DAL\bin\Debug\EntityFramework.SqlSe
 C:\Users\mingzhen\Documents\work\Young\Young.DAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
 C:\Users\mingzhen\Documents\work\Young\Young.DAL\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
 C:\Users\mingzhen\Documents\work\Young\Young.DAL\obj\Debug\Young.DAL.csprojResolveAssemblyReference.cache
-C:\Users\mingzhen\Documents\work\Young\Young.DAL\obj\Debug\Young.DAL.Migrations.removeTermPE.resources
-C:\Users\mingzhen\Documents\work\Young\Young.DAL\obj\Debug\Young.DAL.Migrations.removeTermPE1.resources
-C:\Users\mingzhen\Documents\work\Young\Young.DAL\obj\Debug\Young.DAL.csproj.GenerateResource.Cache
 C:\Users\mingzhen\Documents\work\Young\Young.DAL\obj\Debug\Young.DAL.dll
 C:\Users\mingzhen\Documents\work\Young\Young.DAL\obj\Debug\Young.DAL.pdb
-C:\Users\mingzhen\Documents\work\Young\Young.DAL\obj\Debug\Young.DAL.Migrations.termRequired.resources
