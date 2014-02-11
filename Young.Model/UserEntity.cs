@@ -29,5 +29,9 @@ namespace Young.Model
         public DateTime LastOperationTime { get; set; }
         //最后一次登陆时间
         public DateTime LastLoginTime { get; set; }
+        //最近一次被锁定时间
+        public DateTime LastLockoutTime { get; set; }
+        //最后一次改变密码时间
+        public DateTime LastPasswordChangedTime { get; set; }
     }
 }

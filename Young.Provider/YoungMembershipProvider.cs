@@ -5,12 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Security;
+using Young.DAL;
+using Young.Model;
 
 namespace Young.Provider
 {
     public class YoungMembershipProvider : MembershipProvider
     {
-       #region 内部参数
+        private MembershipUser ConvertUser(UserEntity user)
+        {
+            var mu = new MembershipUser("providerName", user.UserName, user.ID, user.Email, "passwordQuestion",
+                                        "comment", !user.IsLock, user.IsLock, user.RegisterTime, user.LastLoginTime,
+                                        user.LastOperationTime, user.LastPasswordChangedTime, user.LastLockoutTime);
+
+            return mu;
+        }
+
+        #region 内部参数
         /// <summary>
         /// 程序集名称
         /// </summary>
@@ -200,12 +211,25 @@ namespace Young.Provider
             }
             connStr = ConfigurationManager.ConnectionStrings[config["connectionStringName"]].ConnectionString;
             base.Initialize(name, config);
-        }        
-        
+        }
+
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException();
+            if (ValidateUser(username,oldPassword))
+            {
+                using (var db = new DataBaseContext())
+                {
+                    var user = db.Users.SingleOrDefault(f => f.UserName == username);
+                    if (user!=null)
+                    {
+                        user.Password = newPassword;
+                        db.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)
@@ -215,7 +239,26 @@ namespace Young.Provider
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            throw new NotImplementedException();
+            var user = new UserEntity
+                {
+                    UserName = username,
+                    Password = password,
+                    Email = email,
+                    IsLock = isApproved,
+                    DisplayName = username,
+                    RegisterTime = DateTime.Now,
+                    LastOperationTime = DateTime.Now,
+                    LastLockoutTime = DateTime.Now,
+                    LastLoginTime = DateTime.Now,
+                    LastPasswordChangedTime = DateTime.Now
+                };
+            using (var db = new DataBaseContext())
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+                status = MembershipCreateStatus.Success;
+            }
+            return ConvertUser(user);
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
@@ -223,7 +266,7 @@ namespace Young.Provider
             throw new NotImplementedException();
         }
 
-        
+
 
         public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
         {
@@ -242,7 +285,11 @@ namespace Young.Provider
 
         public override int GetNumberOfUsersOnline()
         {
-            throw new NotImplementedException();
+            using (var db = new DataBaseContext())
+            {
+                var time = DateTime.Now.AddMinutes(-15d);//15分钟内有过操作的用户算在线用户
+                return db.Users.Count(f => f.LastOperationTime > time);
+            }
         }
 
         public override string GetPassword(string username, string answer)
@@ -252,20 +299,46 @@ namespace Young.Provider
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            throw new NotImplementedException();
+            using (var db = new DataBaseContext())
+            {
+                var user = db.Users.SingleOrDefault(f => f.UserName == username);
+                if (user == null) return null;
+                if (userIsOnline)
+                {
+                    user.LastOperationTime = DateTime.Now;
+                    db.SaveChanges();
+                }
+                return ConvertUser(user);
+            }
         }
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
-            throw new NotImplementedException();
+            int id = Convert.ToInt32(providerUserKey);
+            using (var db = new DataBaseContext())
+            {
+                var user = db.Users.Single(f => f.ID == id);
+                if (userIsOnline)
+                {
+                    user.LastOperationTime = DateTime.Now;
+                    db.SaveChanges();
+                }
+                return ConvertUser(user);
+            }
         }
 
         public override string GetUserNameByEmail(string email)
         {
-            throw new NotImplementedException();
+            using (var db = new DataBaseContext())
+            {
+                var user = db.Users.SingleOrDefault(f => f.Email == email);
+                if (user==null)
+                {
+                    return string.Empty;
+                }
+                return user.UserName;
+            }
         }
-
-     
 
         public override string ResetPassword(string username, string answer)
         {
@@ -274,17 +347,44 @@ namespace Young.Provider
 
         public override bool UnlockUser(string userName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var db = new DataBaseContext())
+                {
+                    var user = db.Users.Single(f => f.UserName == userName);
+                    user.IsLock = false;
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+
+                return false;
+            }
         }
 
-        public override void UpdateUser(MembershipUser user)
+        public override void UpdateUser(MembershipUser membershipUser)
         {
-            throw new NotImplementedException();
+            var id = Convert.ToInt32(membershipUser.ProviderUserKey);
+            using (var db = new DataBaseContext())
+            {
+                var user = db.Users.Single(f => f.ID == id);
+                user.IsLock = membershipUser.IsLockedOut;
+                user.LastOperationTime= membershipUser.LastActivityDate;
+                user.LastLockoutTime = membershipUser.LastLockoutDate;
+                user.LastLoginTime = membershipUser.LastLoginDate;
+                user.LastPasswordChangedTime = membershipUser.LastPasswordChangedDate;
+                db.SaveChanges();
+            }
         }
 
         public override bool ValidateUser(string username, string password)
         {
-            throw new NotImplementedException();
+            using (var db = new DataBaseContext())
+            {
+                return db.Users.Any(f => f.UserName == username && f.Password == password);
+            }
         }
     }
 }

@@ -47,18 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBaseContext.cs" />
-    <Compile Include="Migrations\201401140904417_removeTermPE.cs" />
-    <Compile Include="Migrations\201401140904417_removeTermPE.Designer.cs">
-      <DependentUpon>201401140904417_removeTermPE.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401210912362_removeTermPE1.cs" />
-    <Compile Include="Migrations\201401210912362_removeTermPE1.Designer.cs">
-      <DependentUpon>201401210912362_removeTermPE1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201402091244431_termRequired.cs" />
-    <Compile Include="Migrations\201402091244431_termRequired.Designer.cs">
-      <DependentUpon>201402091244431_termRequired.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,17 +59,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201401140904417_removeTermPE.resx">
-      <DependentUpon>201401140904417_removeTermPE.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401210912362_removeTermPE1.resx">
-      <DependentUpon>201401210912362_removeTermPE1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201402091244431_termRequired.resx">
-      <DependentUpon>201402091244431_termRequired.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="更新命令.txt" />

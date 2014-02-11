@@ -27,6 +27,7 @@ namespace Young.DAL.Migrations
                 using (DataBaseContext db = new DataBaseContext())
                 {
                     db.Terms.AddOrUpdate(f => f.Name, root);
+                    db.SaveChanges();
                     TermEntity sysNode = new TermEntity
                     {
                         Name = "系统术语集合",
