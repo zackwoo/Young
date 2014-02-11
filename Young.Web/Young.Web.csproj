@@ -128,6 +128,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MembershipController.cs" />
     <Compile Include="Controllers\TermAPIController.cs" />
     <Compile Include="Controllers\TermController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -308,6 +309,7 @@
     <Content Include="Views\Webmaster\Index.cshtml" />
     <Content Include="Views\Shared\_WebmasterLayout.cshtml" />
     <Content Include="Views\Term\Index.cshtml" />
+    <Content Include="Views\Membership\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
