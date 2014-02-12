@@ -5,8 +5,58 @@
 
 @section scripts{
     <script>
-       
+        function newUser() {
+            $('#dlg').dialog({
+                buttons:[{
+                    text: '保存',
+                    iconCls: 'icon-save',
+                    handler: function () {
+                        $('#fm').form('submit', {
+                            url: "/api/membershipapi",
+                            onSubmit: function(){
+                                // do some check
+                                // return false to prevent submit;
+                            },
+                            success:function(data){
+                                alert(data)
+                            }
+                        });
+                    }
+                },{
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: function () { $('#dlg').dialog('close'); }
+                }]
+            }).dialog('open').dialog('setTitle', '新建用户信息');
+            $('#fm').form('clear');
+        }
     </script>
+}
+@section style{
+    <style type="text/css">
+        #fm {
+            margin: 0;
+            padding: 10px 30px;
+        }
+
+        .ftitle {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .fitem {
+            margin-bottom: 5px;
+        }
+
+            .fitem label {
+                display: inline-block;
+                width: 80px;
+                text-align:right;
+            }
+    </style>
 }
 
 <table id="dg" class="easyui-datagrid" style="width: auto; height: auto"
@@ -27,8 +77,34 @@
         </tr>
     </thead>
 </table>
-<div id="toolbar">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="newUser()">New User</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
+<div id="toolbar" style="padding: 10px 0;">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="newUser()">新建用户</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="editUser()">编辑用户</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="destroyUser()">删除用户</a>
 </div>
+
+
+
+<div id="dlg" class="easyui-dialog" style="width: 400px; height: 280px; padding: 10px 20px"
+    closed="true" modal="true">
+    <div class="ftitle">用户信息</div>
+    <form id="fm" method="post" novalidate>
+        <div class="fitem">
+            <label>登录账号:</label>
+            <input name="UserName" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>用户名称:</label>
+            <input name="DisplayName" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>密码:</label>
+            <input name="Password" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>Email:</label>
+            <input name="Email" class="easyui-validatebox" validtype="email">
+        </div>
+    </form>
+</div>
+
