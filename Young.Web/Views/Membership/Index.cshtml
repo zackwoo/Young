@@ -9,16 +9,21 @@
     </script>
 }
 
-<table id="dg"  class="easyui-datagrid" style="width: auto; height: auto"
+<table id="dg" class="easyui-datagrid" style="width: auto; height: auto"
     url="get_users.php"
     toolbar="#toolbar" pagination="true"
     rownumbers="true" fitcolumns="true" singleselect="true">
     <thead>
         <tr>
-            <th field="firstname" width="50">First Name</th>
-            <th field="lastname" width="50">Last Name</th>
-            <th field="phone" width="50">Phone</th>
-            <th field="email" width="50">Email</th>
+            <th>用户登录账号</th>
+            <th>用户名称</th>
+            <th>Email</th>
+            <th>锁定状态</th>
+            <th>最近一次登录时间</th>
+            <th>最近一次操作时间</th>
+            <th>最近一次锁定时间</th>
+            <th>最近一次修改密码时间</th>
+            <th>注册时间</th>
         </tr>
     </thead>
 </table>
