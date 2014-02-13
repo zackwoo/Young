@@ -46,7 +46,6 @@ C:\Users\mingzhen\Documents\work\Young\Young.Console\bin\Debug\zh-Hans\EntityFra
 C:\Users\mingzhen\Documents\work\Young\Young.Console\obj\Debug\Young.Console.exe
 C:\Users\mingzhen\Documents\work\Young\Young.Console\obj\Debug\Young.Console.pdb
 C:\Users\mingzhen\Documents\work\Young\Young.Console\obj\Debug\Young.Console.csprojResolveAssemblyReference.cache
-C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\obj\Debug\Young.Console.csprojResolveAssemblyReference.cache
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\bin\Debug\Young.Console.exe.config
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\bin\Debug\Young.Console.exe
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\bin\Debug\Young.Console.pdb
@@ -60,5 +59,6 @@ C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\bin\Debug\EntityFramework.
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\bin\Debug\zh-Hans\EntityFramework.resources.dll
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\obj\Debug\Young.Console.csprojResolveAssemblyReference.cache
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\obj\Debug\Young.Console.exe
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\obj\Debug\Young.Console.pdb

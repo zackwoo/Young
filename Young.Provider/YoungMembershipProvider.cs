@@ -14,11 +14,10 @@ namespace Young.Provider
     {
         private MembershipUser ConvertUser(UserEntity user)
         {
-            var mu = new MembershipUser("providerName", user.UserName, user.ID, user.Email, "passwordQuestion",
-                                        "comment", !user.IsLock, user.IsLock, user.RegisterTime, user.LastLoginTime,
-                                        user.LastOperationTime, user.LastPasswordChangedTime, user.LastLockoutTime);
-
-            return mu;
+            return new YoungMembershipUser(this.name, user.UserName, user.ID, user.Email, user.PasswordQuestion,
+                                           "comment", !user.IsLock, user.IsLock, user.RegisterTime, user.LastLoginTime,
+                                           user.LastActivityTime, user.LastPasswordChangedTime, user.LastLockoutTime,
+                                           user.DisplayName);
         }
 
         #region 内部参数
@@ -26,10 +25,6 @@ namespace Young.Provider
         /// 程序集名称
         /// </summary>
         private string name;
-        /// <summary>
-        /// 连接字符串
-        /// </summary>
-        private string connStr;
         /// <summary>
         /// 标示用户是否可以请求重置它们的密码
         /// </summary>
@@ -209,19 +204,18 @@ namespace Young.Provider
                         throw new ConfigurationErrorsException(string.Format("未知的加密格式 \"{0}\".", config["passwordFormat"]));
                 }
             }
-            connStr = ConfigurationManager.ConnectionStrings[config["connectionStringName"]].ConnectionString;
             base.Initialize(name, config);
         }
 
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            if (ValidateUser(username,oldPassword))
+            if (ValidateUser(username, oldPassword))
             {
                 using (var db = new DataBaseContext())
                 {
                     var user = db.Users.SingleOrDefault(f => f.UserName == username);
-                    if (user!=null)
+                    if (user != null)
                     {
                         user.Password = newPassword;
                         db.SaveChanges();
@@ -234,23 +228,43 @@ namespace Young.Provider
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)
         {
-            throw new NotImplementedException();
+            if (ValidateUser(username, password))
+            {
+                using (var db = new DataBaseContext())
+                {
+                    var user = db.Users.SingleOrDefault(f => f.UserName == username);
+                    if (user != null)
+                    {
+                        user.PasswordQuestion = newPasswordQuestion;
+                        user.PasswordAnswer = newPasswordAnswer;
+                        db.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
+          
+            //TODO:用户添加失败处理
             var user = new UserEntity
                 {
                     UserName = username,
                     Password = password,
                     Email = email,
-                    IsLock = isApproved,
+                    IsLock = false,
+                    IsApproved = isApproved,
                     DisplayName = username,
                     RegisterTime = DateTime.Now,
-                    LastOperationTime = DateTime.Now,
+                    LastActivityTime = DateTime.Now,
                     LastLockoutTime = DateTime.Now,
                     LastLoginTime = DateTime.Now,
-                    LastPasswordChangedTime = DateTime.Now
+                    LastPasswordChangedTime = DateTime.Now,
+                    PasswordAnswer = passwordAnswer,
+                    PasswordQuestion = passwordQuestion,
+                    IsDelete = false
                 };
             using (var db = new DataBaseContext())
             {
@@ -263,7 +277,20 @@ namespace Young.Provider
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var db = new DataBaseContext())
+                {
+                    var user = db.Users.Single(f => f.UserName == username);
+                    user.IsDelete = true;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
 
@@ -288,7 +315,7 @@ namespace Young.Provider
             using (var db = new DataBaseContext())
             {
                 var time = DateTime.Now.AddMinutes(-15d);//15分钟内有过操作的用户算在线用户
-                return db.Users.Count(f => f.LastOperationTime > time);
+                return db.Users.Count(f => f.LastActivityTime > time);
             }
         }
 
@@ -305,7 +332,7 @@ namespace Young.Provider
                 if (user == null) return null;
                 if (userIsOnline)
                 {
-                    user.LastOperationTime = DateTime.Now;
+                    user.LastActivityTime = DateTime.Now;
                     db.SaveChanges();
                 }
                 return ConvertUser(user);
@@ -320,7 +347,7 @@ namespace Young.Provider
                 var user = db.Users.Single(f => f.ID == id);
                 if (userIsOnline)
                 {
-                    user.LastOperationTime = DateTime.Now;
+                    user.LastActivityTime = DateTime.Now;
                     db.SaveChanges();
                 }
                 return ConvertUser(user);
@@ -332,7 +359,7 @@ namespace Young.Provider
             using (var db = new DataBaseContext())
             {
                 var user = db.Users.SingleOrDefault(f => f.Email == email);
-                if (user==null)
+                if (user == null)
                 {
                     return string.Empty;
                 }
@@ -366,15 +393,18 @@ namespace Young.Provider
 
         public override void UpdateUser(MembershipUser membershipUser)
         {
-            var id = Convert.ToInt32(membershipUser.ProviderUserKey);
+            var youngUser = membershipUser as YoungMembershipUser;
+            var id = Convert.ToInt32(youngUser.ProviderUserKey);
+
             using (var db = new DataBaseContext())
             {
                 var user = db.Users.Single(f => f.ID == id);
-                user.IsLock = membershipUser.IsLockedOut;
-                user.LastOperationTime= membershipUser.LastActivityDate;
-                user.LastLockoutTime = membershipUser.LastLockoutDate;
-                user.LastLoginTime = membershipUser.LastLoginDate;
-                user.LastPasswordChangedTime = membershipUser.LastPasswordChangedDate;
+                user.IsLock = youngUser.IsLockedOut;
+                user.LastActivityTime = youngUser.LastActivityDate;
+                user.LastLockoutTime = youngUser.LastLockoutDate;
+                user.LastLoginTime = youngUser.LastLoginDate;
+                user.LastPasswordChangedTime = youngUser.LastPasswordChangedDate;
+                user.DisplayName = youngUser.DisplayName;
                 db.SaveChanges();
             }
         }

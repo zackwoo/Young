@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Security;
 using Young.Web.Models;
 
 namespace Young.Web.Controllers
@@ -23,9 +24,12 @@ namespace Young.Web.Controllers
         }
       
         // POST api/membershipapi
-        public ResultModel Post(UserModel user)
+        public ResultModel PostCreateUser(UserModel user)
         {
-            return new ResultModel{ IsSuccess = true};
+            var newUser = Membership.CreateUser(user.UserName, user.Password, user.Email);
+            
+            
+            return new ResultModel{ IsSuccess = true,Message=user.Email};
         }
 
         // PUT api/membershipapi/5

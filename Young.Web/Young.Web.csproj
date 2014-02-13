@@ -327,7 +327,7 @@
       <Name>Young.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Young.Model\Young.Model.csproj">
-      <Project>{009C6DD9-4A7E-4757-BD5E-9BB09429B040}</Project>
+      <Project>{009c6dd9-4a7e-4757-bd5e-9bb09429b040}</Project>
       <Name>Young.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Young.Provider\Young.Provider.csproj">
