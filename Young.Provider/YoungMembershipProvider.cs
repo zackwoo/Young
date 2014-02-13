@@ -5,6 +5,7 @@ using System.Configuration.Provider;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Security;
 using Young.DAL;
@@ -146,6 +147,66 @@ namespace Young.Provider
         }
 
         #endregion
+
+        internal string EncodePassword(string pass)
+        {
+            //加密盐
+            string salt = "21EC2020-3AEA-1069-A2DD-08002B30309D";
+            if (passwordFormat ==  MembershipPasswordFormat.Clear) // MembershipPasswordFormat.Clear
+                return pass;
+            byte[] bIn = Encoding.Unicode.GetBytes(pass);
+            byte[] bSalt = Convert.FromBase64String(salt);
+            byte[] bAll = new byte[bSalt.Length + bIn.Length];
+            byte[] bRet = null;
+            Buffer.BlockCopy(bSalt, 0, bAll, 0, bSalt.Length);
+            Buffer.BlockCopy(bIn, 0, bAll, bSalt.Length, bIn.Length);
+            if (passwordFormat == MembershipPasswordFormat.Hashed)
+            {
+                HashAlgorithm s = HashAlgorithm.Create(Membership.HashAlgorithmType);
+                bRet = s.ComputeHash(bAll);
+            }
+            else
+            {
+                bRet = EncryptPassword(bAll);
+            }
+            return Convert.ToBase64String(bRet);
+        }
+        internal string UnEncodePassword(string pass)
+        {
+            switch (passwordFormat)
+            {
+                case  MembershipPasswordFormat.Clear: // MembershipPasswordFormat.Clear:
+                    return pass;
+                case  MembershipPasswordFormat.Hashed: // MembershipPasswordFormat.Hashed:
+                    throw new ProviderException("密码不可逆");
+                default:
+                    byte[] bIn = Convert.FromBase64String(pass);
+                    byte[] bRet = DecryptPassword(bIn);
+                    if (bRet == null)
+                        return null;
+                    return Encoding.Unicode.GetString(bRet, 16, bRet.Length - 16);
+            }
+        }
+        /// <summary>
+        /// 验证密码
+        /// </summary>
+        /// <param name="pass"></param>
+        /// <returns></returns>
+        internal bool ValidatePassword(string pass)
+        {
+            //MinRequiredNonAlphanumericCharacters
+            if (pass.Length < MinRequiredPasswordLength)
+                return false;
+            var reg = new Regex("[^a-zA-Z]");
+            if (reg.Matches(pass).Count < MinRequiredNonAlphanumericCharacters)
+                return false;
+            if (!string.IsNullOrEmpty(PasswordStrengthRegularExpression))
+            {
+                return Regex.IsMatch(pass, PasswordStrengthRegularExpression);
+            }
+            return true;
+        }
+
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {
             this.name = name;
@@ -212,14 +273,15 @@ namespace Young.Provider
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            if (ValidateUser(username, oldPassword))
+            
+            if (ValidateUser(username, oldPassword) && ValidatePassword(newPassword))
             {
                 using (var db = new DataBaseContext())
                 {
                     var user = db.Users.SingleOrDefault(f => f.UserName == username);
                     if (user != null)
                     {
-                        user.Password = newPassword;
+                        user.Password = EncodePassword(newPassword);
                         db.SaveChanges();
                         return true;
                     }
@@ -249,12 +311,15 @@ namespace Young.Provider
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-          
-            //TODO:用户添加失败处理
+            if (!ValidatePassword(password))
+            {
+                status = MembershipCreateStatus.InvalidPassword;
+                return null;
+            }
             var user = new UserEntity
                 {
                     UserName = username,
-                    Password = password,
+                    Password = EncodePassword(password),
                     Email = email,
                     IsLock = false,
                     IsApproved = isApproved,
@@ -270,50 +335,23 @@ namespace Young.Provider
                 };
             using (var db = new DataBaseContext())
             {
+                if (db.Users.Any(f=>f.UserName == username))
+                {
+                    status = MembershipCreateStatus.DuplicateUserName;
+                    return null;
+                }
+                if (RequiresUniqueEmail && db.Users.Any(f => f.Email == email))
+                {
+                    status = MembershipCreateStatus.DuplicateEmail;
+                    return null;
+                }
                 db.Users.Add(user);
                 db.SaveChanges();
                 status = MembershipCreateStatus.Success;
             }
             return ConvertUser(user);
         }
-        internal string EncodePassword(string pass, int passwordFormat, string salt)
-        {
-            if (passwordFormat == 0) // MembershipPasswordFormat.Clear
-                return pass;
-            byte[] bIn = Encoding.Unicode.GetBytes(pass);
-            byte[] bSalt = Convert.FromBase64String(salt);
-            byte[] bAll = new byte[bSalt.Length + bIn.Length];
-            byte[] bRet = null;
-            Buffer.BlockCopy(bSalt, 0, bAll, 0, bSalt.Length);
-            Buffer.BlockCopy(bIn, 0, bAll, bSalt.Length, bIn.Length);
-            if (passwordFormat == 1)
-            {
-                // MembershipPasswordFormat.Hashed
-                HashAlgorithm s = HashAlgorithm.Create(Membership.HashAlgorithmType);
-                bRet = s.ComputeHash(bAll);
-            }
-            else
-            {
-                bRet = EncryptPassword(bAll);
-            }
-            return Convert.ToBase64String(bRet);
-        }
-        internal string UnEncodePassword(string pass, int passwordFormat)
-        {
-            switch (passwordFormat)
-            {
-                case 0: // MembershipPasswordFormat.Clear:
-                    return pass;
-                case 1: // MembershipPasswordFormat.Hashed:
-                    throw new ProviderException("密码不可逆");
-                default:
-                    byte[] bIn = Convert.FromBase64String(pass);
-                    byte[] bRet = DecryptPassword(bIn);
-                    if (bRet == null)
-                        return null;
-                    return Encoding.Unicode.GetString(bRet, 16, bRet.Length - 16);
-            }
-        }
+
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
         {
             try
@@ -336,17 +374,47 @@ namespace Young.Provider
 
         public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+            using (var db = new DataBaseContext())
+            {
+                totalRecords = db.Users.Where(f => f.Email.Contains(emailToMatch)).Count();
+                var list = db.Users.Where(f => f.Email.Contains(emailToMatch)).Skip(pageIndex * pageSize).Take(pageSize);
+                MembershipUserCollection result = new MembershipUserCollection();
+                foreach (var item in list)
+                {
+                    result.Add(ConvertUser(item));
+                }
+                return result;
+            }
         }
 
         public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+            using (var db = new DataBaseContext())
+            {
+                totalRecords = db.Users.Where(f => f.UserName.Contains(usernameToMatch)).Count();
+                var list = db.Users.Where(f => f.UserName.Contains(usernameToMatch)).Skip(pageIndex * pageSize).Take(pageSize);
+                MembershipUserCollection result = new MembershipUserCollection();
+                foreach (var item in list)
+                {
+                    result.Add(ConvertUser(item));
+                }
+                return result;
+            }
         }
 
         public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+            using (var db = new DataBaseContext())
+            {
+                totalRecords = db.Users.Count();
+                var list = db.Users.Skip(pageIndex * pageSize).Take(pageSize);
+                MembershipUserCollection result = new MembershipUserCollection();
+                foreach (var item in list)
+                {
+                    result.Add(ConvertUser(item));
+                }
+                return result;
+            }
         }
 
         public override int GetNumberOfUsersOnline()
@@ -360,7 +428,24 @@ namespace Young.Provider
 
         public override string GetPassword(string username, string answer)
         {
-            throw new NotImplementedException();
+            if (!EnablePasswordRetrieval) throw new NotSupportedException("应用程序不支持取回密码。");
+            using (var db = new DataBaseContext())
+            {
+                UserEntity user;
+                if (RequiresQuestionAndAnswer)
+                {
+                    user = db.Users.SingleOrDefault(f => f.UserName == username && f.PasswordAnswer == answer);
+                }
+                else
+                {
+                    user = db.Users.SingleOrDefault(f => f.UserName == username);
+                }
+                if (user == null)
+                {
+                    throw new MembershipPasswordException("无" + username + "用户或者密码答案不匹配");
+                }
+                return UnEncodePassword(user.Password);
+            }
         }
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
@@ -383,7 +468,8 @@ namespace Young.Provider
             int id = Convert.ToInt32(providerUserKey);
             using (var db = new DataBaseContext())
             {
-                var user = db.Users.Single(f => f.ID == id);
+                var user = db.Users.SingleOrDefault(f => f.ID == id);
+                if (user == null) return null;
                 if (userIsOnline)
                 {
                     user.LastActivityTime = DateTime.Now;
@@ -397,7 +483,7 @@ namespace Young.Provider
         {
             using (var db = new DataBaseContext())
             {
-                var user = db.Users.SingleOrDefault(f => f.Email == email);
+                var user = db.Users.FirstOrDefault(f => f.Email == email);
                 if (user == null)
                 {
                     return string.Empty;
@@ -408,7 +494,28 @@ namespace Young.Provider
 
         public override string ResetPassword(string username, string answer)
         {
-            throw new NotImplementedException();
+            if (!EnablePasswordReset) throw new NotSupportedException("应用程序不允许重置密码。");
+            using (var db = new DataBaseContext())
+            {
+                UserEntity user;
+                if (RequiresQuestionAndAnswer)
+                {
+                    user = db.Users.SingleOrDefault(f => f.UserName == username && f.PasswordAnswer == answer);
+                }
+                else
+                {
+                    user = db.Users.SingleOrDefault(f => f.UserName == username);
+                }                
+                if (user == null)
+                {
+                    throw new MembershipPasswordException("无" + username + "用户或者密码答案不匹配");
+                }
+                var newPassword = Membership.GeneratePassword(MinRequiredPasswordLength, MinRequiredNonAlphanumericCharacters);
+                user.Password = EncodePassword(newPassword);
+                user.LastPasswordChangedTime = DateTime.Now;
+                db.SaveChanges();
+                return newPassword;
+            }            
         }
 
         public override bool UnlockUser(string userName)
@@ -450,9 +557,10 @@ namespace Young.Provider
 
         public override bool ValidateUser(string username, string password)
         {
+            var dbPassword = EncodePassword(password);
             using (var db = new DataBaseContext())
             {
-                return db.Users.Any(f => f.UserName == username && f.Password == password);
+                return db.Users.Any(f => f.UserName == username && f.Password == dbPassword);
             }
         }
     }

@@ -35,5 +35,9 @@ namespace Young.Web.Models
         /// 用户的密码提示问题
         /// </summary>
         public string PasswordQuestion { get; set; }
+        /// <summary>
+        /// 用户的密码提示问题答案
+        /// </summary>
+        public string PasswordAnswer { get; set; }
     }
 }
