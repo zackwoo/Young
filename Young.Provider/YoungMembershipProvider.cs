@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Configuration.Provider;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Security;
@@ -274,7 +276,44 @@ namespace Young.Provider
             }
             return ConvertUser(user);
         }
-
+        internal string EncodePassword(string pass, int passwordFormat, string salt)
+        {
+            if (passwordFormat == 0) // MembershipPasswordFormat.Clear
+                return pass;
+            byte[] bIn = Encoding.Unicode.GetBytes(pass);
+            byte[] bSalt = Convert.FromBase64String(salt);
+            byte[] bAll = new byte[bSalt.Length + bIn.Length];
+            byte[] bRet = null;
+            Buffer.BlockCopy(bSalt, 0, bAll, 0, bSalt.Length);
+            Buffer.BlockCopy(bIn, 0, bAll, bSalt.Length, bIn.Length);
+            if (passwordFormat == 1)
+            {
+                // MembershipPasswordFormat.Hashed
+                HashAlgorithm s = HashAlgorithm.Create(Membership.HashAlgorithmType);
+                bRet = s.ComputeHash(bAll);
+            }
+            else
+            {
+                bRet = EncryptPassword(bAll);
+            }
+            return Convert.ToBase64String(bRet);
+        }
+        internal string UnEncodePassword(string pass, int passwordFormat)
+        {
+            switch (passwordFormat)
+            {
+                case 0: // MembershipPasswordFormat.Clear:
+                    return pass;
+                case 1: // MembershipPasswordFormat.Hashed:
+                    throw new ProviderException("密码不可逆");
+                default:
+                    byte[] bIn = Convert.FromBase64String(pass);
+                    byte[] bRet = DecryptPassword(bIn);
+                    if (bRet == null)
+                        return null;
+                    return Encoding.Unicode.GetString(bRet, 16, bRet.Length - 16);
+            }
+        }
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
         {
             try
