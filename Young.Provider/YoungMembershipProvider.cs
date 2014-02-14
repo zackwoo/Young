@@ -421,7 +421,7 @@ namespace Young.Provider
         {
             using (var db = new DataBaseContext())
             {
-                var time = DateTime.Now.AddMinutes(-15d);//15分钟内有过操作的用户算在线用户
+                var time = DateTime.Now.AddMinutes(Membership.UserIsOnlineTimeWindow*-1);
                 return db.Users.Count(f => f.LastActivityTime > time);
             }
         }

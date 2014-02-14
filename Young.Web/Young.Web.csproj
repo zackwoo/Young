@@ -126,10 +126,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\APISysConfigController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembershipAPIController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
+    <Compile Include="Controllers\SysConfigController.cs" />
     <Compile Include="Controllers\TermAPIController.cs" />
     <Compile Include="Controllers\TermController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -138,7 +140,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
+    <Compile Include="Models\EasyUIView\PropertyGridModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
+    <Compile Include="Models\SysConfigModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -217,6 +221,7 @@
     <Content Include="Content\themes\icons\book.png" />
     <Content Include="Content\themes\icons\book_open.png" />
     <Content Include="Content\themes\icons\cancel.png" />
+    <Content Include="Content\themes\icons\cog.png" />
     <Content Include="Content\themes\icons\cut.png" />
     <Content Include="Content\themes\icons\edit_add.png" />
     <Content Include="Content\themes\icons\edit_remove.png" />
@@ -314,6 +319,7 @@
     <Content Include="Views\Shared\_WebmasterLayout.cshtml" />
     <Content Include="Views\Term\Index.cshtml" />
     <Content Include="Views\Membership\Index.cshtml" />
+    <Content Include="Views\SysConfig\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

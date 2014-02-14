@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_WebmasterLayout.cshtml";    
+}
+
+<table id="pg" class="easyui-propertygrid"  data-options="
+    url: '/api/APISysConfig',
+    method:'get',
+showGroup:true,
+scrollbarSize:0
+">
+</table>
