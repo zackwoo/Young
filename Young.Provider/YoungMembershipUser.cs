@@ -36,6 +36,7 @@ namespace Young.Provider
                     return false;
                 }
                 user.IsLock = true;
+                user.LastLockoutTime = DateTime.Now;
                 db.SaveChanges();
             }
             return true;

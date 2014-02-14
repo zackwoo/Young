@@ -91,7 +91,7 @@ namespace Young.Web.Controllers
 
        
         // PUT api/apimembership
-        public ResultModel PutLockUsers(string providerUserKeys)
+        public ResultModel PutLockOrUnLockUsers(string category,string providerUserKeys)
         {
             if (string.IsNullOrEmpty(providerUserKeys))
             {
@@ -106,7 +106,14 @@ namespace Young.Web.Controllers
             {
                 object id = key;
                 var user = Membership.GetUser(id, false) as YoungMembershipUser;
-                user.LockUser();
+                if (category == "lock")
+                {
+                    user.LockUser();
+                }
+                else
+                {
+                    user.UnlockUser();
+                }
             }
             return new ResultModel
                 {

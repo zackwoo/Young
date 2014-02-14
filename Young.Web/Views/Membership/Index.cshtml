@@ -8,122 +8,117 @@
         function newUser() {
             $('#dlg').dialog({
                 buttons: [{
-                        text: '保存',
-                        iconCls: 'icon-save',
-                        handler: function() {
-                            if ($('#fm').form('validate')) {
-                                var param = getFormDataModel('fm');
-                                $.post("/api/apimembership", param, function(data) {
-                                    if (data.IsSuccess) {
-                                        $('#dg').datagrid('insertRow', {
-                                            index: 0,
-                                            row: {
-                                                DisplayName: param.DisplayName,
-                                                UserName: param.UserName,
-                                                Email: param.Email,
-                                                IsApproved: true,
-                                                IsLockedOut: false,
-                                                LastLockoutDate: new Date(),
-                                                CreationDate: new Date(),
-                                                LastLoginDate: new Date(),
-                                                LastActivityDate: new Date(),
-                                                LastPasswordChangedDate: new Date()
-                                            }
-                                        });
-                                        $('#dlg').dialog('close');
-                                    } else {
-                                        $.messager.alert('新建失败', '新建用户失败，' + data.Message + '。', 'warning');
-                                    }
-                                });
-                            } else {
-                                $.messager.alert('信息', '有字段验证失败，请重新填写。', 'info');
-                            }
+                    text: '保存',
+                    iconCls: 'icon-save',
+                    handler: function () {
+                        if ($('#fm').form('validate')) {
+                            var param = getFormDataModel('fm');
+                            $.post("/api/apimembership", param, function (data) {
+                                if (data.IsSuccess) {
+                                    $('#dg').datagrid('insertRow', {
+                                        index: 0,
+                                        row: {
+                                            DisplayName: param.DisplayName,
+                                            UserName: param.UserName,
+                                            Email: param.Email,
+                                            IsApproved: true,
+                                            IsLockedOut: false,
+                                            LastLockoutDate: new Date(),
+                                            CreationDate: new Date(),
+                                            LastLoginDate: new Date(),
+                                            LastActivityDate: new Date(),
+                                            LastPasswordChangedDate: new Date()
+                                        }
+                                    });
+                                    $('#dlg').dialog('close');
+                                } else {
+                                    $.messager.alert('新建失败', '新建用户失败，' + data.Message + '。', 'warning');
+                                }
+                            });
+                        } else {
+                            $.messager.alert('信息', '有字段验证失败，请重新填写。', 'info');
                         }
-                    }, {
-                        text: '取消',
-                        iconCls: 'icon-cancel',
-                        handler: function() { $('#dlg').dialog('close'); }
-                    }]
+                    }
+                }, {
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: function () { $('#dlg').dialog('close'); }
+                }]
             }).dialog('open').dialog('setTitle', '新建用户信息');
             $('#fm').form('clear');
         }
 
-        function lockUser() {
+        function lockUserCore(isLocked) {
+            var msg = isLocked ? "锁定" : "解锁";
             var rows = $('#dg').datagrid('getSelections');
             if (rows.length == 0) {
-                $.messager.alert('信息', '请先选中要锁定的用户。', 'info');
+                $.messager.alert('信息', '请先选中用户。', 'info');
                 return;
-            } else {
-                var keys = [];
-                $.each(rows, function (i, item) {
-                    keys.push(item.ProviderUserKey);
-                });
-                $.ajax('/api/apimembership?providerUserKeys=' + keys.join(),
-                    {
-                        traditional: true,
-                        type: 'put',
-                        success: function (data, textStatus, jqXHR) {
-                            if (data.IsSuccess) {
-                                $.messager.alert('信息', '用户锁定成功。', 'info');
-                                $.each(rows, function (i, item) {
-                                    item.IsLockedOut = true;//TODO:客户端设置无效
-                                });
-                            } else {
-                                $.messager.alert('锁定失败', '锁定用户失败，' + data.Message + '。', 'warning');
-                            }
-                        }
-                    });
             }
-        }
-        function unlockUser() {
-            var rows = $('#dg').datagrid('getSelections');
-            if (rows.length == 0) {
-                $.messager.alert('信息', '请先选中要解锁的用户。', 'info');
-                return;
-            } else {
-                var keys = [];
-                $.each(rows, function (i, item) {
+            var keys = [];
+            $.each(rows, function (i, item) {
+                if (item.IsLockedOut != isLocked) {
                     keys.push(item.ProviderUserKey);
-                });
-                $.ajax('/api/apimembership?providerUserKeys=' + keys.join(),
-                    {
-                        traditional: true,
-                        type: 'put',
-                        success: function (data, textStatus, jqXHR) {
-                            if (data.IsSuccess) {
-                                $.messager.alert('信息', '用户锁定成功。', 'info');
-                                $.each(rows, function (i, item) {
-                                    item.IsLockedOut = true;//TODO:客户端设置无效
-                                });
-                            } else {
-                                $.messager.alert('锁定失败', '锁定用户失败，' + data.Message + '。', 'warning');
-                            }
-                        }
-                    });
+                }
+            });
+            if (keys.length) {
+                var url = isLocked ? '/api/apimembership?category=lock&providerUserKeys=' : '/api/apimembership?category=unlock&providerUserKeys=';
+                $.ajax(url + keys.join(),
+                                    {
+                                        traditional: true,
+                                        type: 'put',
+                                        success: function (data, textStatus, jqXHR) {
+                                            if (data.IsSuccess) {
+                                                $.messager.alert('信息', '用户' + msg + '成功。', 'info');
+                                                $.each(rows, function (i, item) {
+                                                    var index = $('#dg').datagrid('getRowIndex', item);
+                                                    item.IsLockedOut = isLocked;
+                                                    if (isLocked) {
+                                                        item.LastLockoutDate = new Date();
+                                                    }
+                                                    $('#dg').datagrid('refreshRow', index);
+                                                });
+                                            } else {
+                                                $.messager.alert(msg + '失败', msg + '用户失败，' + data.Message + '。', 'warning');
+                                            }
+                                        }
+                                    });
+            } else {
+                $.messager.alert('信息', '用户已经被' + msg + '。', 'info');
             }
+
         }
 
-        var getFormDataModel = function(formId) {
-            var model = {};
-            $('#' + formId + " input").each(function(i, item) {
+        function lockUser() {
+            lockUserCore(true);
+        }
+        function unlockUser() {
+            lockUserCore(false);
+        }
+
+        var getFormDataModel = function (formId) {
+            var model = {
+                IsApproved: true//默认审核通过
+            };
+            $('#' + formId + " input").each(function (i, item) {
                 model[item.name] = $(item).val();
             });
             return model;
         };
 
-        var DateFormat = function(value, row, index) {
+        var DateFormat = function (value, row, index) {
             return (new Date(value)).toLocaleDateString();
         };
-        var LocaleDateTimeFormat = function(value, row, index) {
+        var LocaleDateTimeFormat = function (value, row, index) {
             return (new Date(value)).toLocaleString();
         };
-        var LockFormat = function(value, row, index) {
+        var LockFormat = function (value, row, index) {
             if (value) {
                 return '<img src="/Images/lock.png" />';
             }
             return '';
         };
-        var ApprovedFormat = function(value, row, index) {
+        var ApprovedFormat = function (value, row, index) {
             if (value) {
                 return '';
             }
@@ -134,14 +129,12 @@
 }
 @section style{
     <style type="text/css">
-        #fm
-        {
+        #fm {
             margin: 0;
             padding: 10px 30px;
         }
 
-        .ftitle
-        {
+        .ftitle {
             font-size: 14px;
             font-weight: bold;
             padding: 5px 0;
@@ -149,13 +142,11 @@
             border-bottom: 1px solid #ccc;
         }
 
-        .fitem
-        {
+        .fitem {
             margin-bottom: 5px;
         }
 
-            .fitem label
-            {
+            .fitem label {
                 display: inline-block;
                 width: 80px;
                 text-align: right;
@@ -164,7 +155,7 @@
 }
 
 <table id="dg" class="easyui-datagrid" style="width: auto; height: auto"
-       data-options="
+    data-options="
     url:'/api/apimembership',
     method:'get'"
     toolbar="#toolbar" pagination="true"

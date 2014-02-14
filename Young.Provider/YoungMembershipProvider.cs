@@ -18,7 +18,7 @@ namespace Young.Provider
         private MembershipUser ConvertUser(UserEntity user)
         {
             return new YoungMembershipUser(this.name, user.UserName, user.ID, user.Email, user.PasswordQuestion,
-                                           "comment", !user.IsLock, user.IsLock, user.RegisterTime, user.LastLoginTime,
+                                           "comment",user.IsApproved, user.IsLock, user.RegisterTime, user.LastLoginTime,
                                            user.LastActivityTime, user.LastPasswordChangedTime, user.LastLockoutTime,
                                            user.DisplayName);
         }
