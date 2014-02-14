@@ -129,10 +129,10 @@
     <Compile Include="Controllers\APISysConfigController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MembershipAPIController.cs" />
+    <Compile Include="Controllers\APIMembershipController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
     <Compile Include="Controllers\SysConfigController.cs" />
-    <Compile Include="Controllers\TermAPIController.cs" />
+    <Compile Include="Controllers\APITermController.cs" />
     <Compile Include="Controllers\TermController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\WebmasterController.cs" />
@@ -140,7 +140,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
-    <Compile Include="Models\EasyUIView\PropertyGridModel.cs" />
+    <Compile Include="Models\EasyUIView\DataGridModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\SysConfigModel.cs" />
     <Compile Include="Models\UserModel.cs" />

@@ -58,3 +58,5 @@ C:\Users\mingzhen_wu\Source\Repos\Young\Young.DAL\bin\Debug\zh-Hans\EntityFramew
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.DAL\obj\Debug\Young.DAL.csprojResolveAssemblyReference.cache
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.DAL\obj\Debug\Young.DAL.dll
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.DAL\obj\Debug\Young.DAL.pdb
+C:\Users\mingzhen_wu\Source\Repos\Young\Young.DAL\obj\Debug\Young.DAL.Migrations._20140214.resources
+C:\Users\mingzhen_wu\Source\Repos\Young\Young.DAL\obj\Debug\Young.DAL.csproj.GenerateResource.Cache

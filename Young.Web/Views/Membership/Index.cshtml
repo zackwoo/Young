@@ -12,7 +12,7 @@
                     iconCls: 'icon-save',
                     handler: function () {
                         if ($('#fm').form('validate')) {
-                            $.post("/api/membershipapi", getFormDataModel('fm'), function (data) {
+                            $.post("/api/apimembership", getFormDataModel('fm'), function (data) {
                                 alert(data);
                             });
                         } else {

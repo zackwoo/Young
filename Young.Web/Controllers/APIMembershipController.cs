@@ -9,21 +9,21 @@ using Young.Web.Models;
 
 namespace Young.Web.Controllers
 {
-    public class MembershipAPIController : ApiController
+    public class APIMembershipController : ApiController
     {
-        // GET api/membershipapi
+        // GET api/apimembership
         public IEnumerable<string> GetAllUsers()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/membershipapi/5
+        // GET api/apimembership/5
         public string Get(int id)
         {
             return "value";
         }
       
-        // POST api/membershipapi
+        // POST api/apimembership
         public ResultModel PostCreateUser(UserModel user)
         {
             string question = string.Empty;
@@ -78,12 +78,12 @@ namespace Young.Web.Controllers
             return result;
         }
 
-        // PUT api/membershipapi/5
+        // PUT api/apimembership/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/membershipapi/5
+        // DELETE api/apimembership/5
         public void Delete(int id)
         {
         }

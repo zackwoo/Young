@@ -19,10 +19,10 @@ namespace Young.Web.Controllers
         /// 获取系统配置信息
         /// </summary>
         /// <returns></returns>
-        public PropertyGridModel GetSysConfigPropertyGrid()
+        public DataGridModel<PropertyGridRowModel> GetSysConfigPropertyGrid()
         {
             var model = new SysConfigModel();
-            PropertyGridModel pgModel = new PropertyGridModel();
+            var pgModel = new DataGridModel<PropertyGridRowModel>();
             foreach (var propertyInfo in model.GetType().GetProperties())
             {
                 var objs = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), false);

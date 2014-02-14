@@ -20,7 +20,7 @@ termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$ro
                 else if (item.id == "cx-m-delete") {
                     $.messager.confirm('删除', '你确定要删除术语"' + node.text + '"吗？', function (r) {
                         if (r) {
-                            $http({ method: 'delete', url: '/api/termapi/' + node.id }).
+                            $http({ method: 'delete', url: '/api/apiterm/' + node.id }).
                                 success(function (data, status, headers, config) {
                                     if (data == "false") {
                                         $.messager.alert("消息", "删除术语失败，请联系管理员。", "info");
@@ -37,7 +37,7 @@ termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$ro
             }
         });
         $("#tree_term").tree({
-            url: "/api/termapi",
+            url: "/api/apiterm",
             method: 'get',
             onLoadSuccess: function (node, data) {
                 $("#tree_loading").hide();
@@ -94,7 +94,7 @@ termControllers.controller('TermInitCtrl', ['$scope', '$http', '$location', '$ro
 
 termControllers.controller('TermDetailCtrl', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
     var termId = $routeParams.id;
-    $http({ method: 'GET', url: '/api/termapi/' + termId }).
+    $http({ method: 'GET', url: '/api/apiterm/' + termId }).
         success(function (data, status, headers, config) {
             $scope.Model = data;
         });
@@ -109,7 +109,7 @@ termControllers.controller('TermEditCtrl', ['$scope', '$http', '$routeParams', '
     $scope.save = function () {
         $http({
             method: "put",
-            url: "/api/termapi",
+            url: "/api/apiterm",
             data: $scope.Model
         }).success(function (data, status, headers, config) {
             $("#tree_term").tree("reload");
@@ -122,7 +122,7 @@ termControllers.controller('TermEditCtrl', ['$scope', '$http', '$routeParams', '
         $scope.Model.text = text;
         $scope.Model.Description = description;
     };
-    $http({ method: 'GET', url: '/api/termapi/' + termId }).
+    $http({ method: 'GET', url: '/api/apiterm/' + termId }).
          success(function (data, status, headers, config) {
              $scope.Model = data;
              text = data.text;
@@ -137,7 +137,7 @@ termControllers.controller('TermNewCtrl', ['$scope', '$http', '$routeParams', '$
     $scope.save = function () {
         $http({
             method: "post",
-            url: "/api/termapi",
+            url: "/api/apiterm",
             data: $scope.Model
         }).success(function (data, status, headers, config) {
             $("#tree_term").tree("reload");

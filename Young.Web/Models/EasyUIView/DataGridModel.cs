@@ -5,18 +5,18 @@ using System.Web;
 
 namespace Young.Web.Models.EasyUIView
 {
-    public class PropertyGridModel
+    public class DataGridModel<TRow>
     {
-        public PropertyGridModel()
+        public DataGridModel()
         {
-            rows = new List<PropertyGridRowModel>();
+            rows = new List<TRow>();
         }
         /// <summary>
         /// 总数
         /// </summary>
         public int total { get; set; }
 
-        public List<PropertyGridRowModel> rows { get;private set; }
+        public List<TRow> rows { get; private set; }
     }
 
     public class PropertyGridRowModel

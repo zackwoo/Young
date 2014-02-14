@@ -11,9 +11,9 @@ using Young.Model;
 
 namespace Young.Web.Controllers
 {
-    public class TermAPIController : ApiController
+    public class APITermController : ApiController
     {
-        // GET api/termapi
+        // GET api/apiterm
         public ICollection<JsonTmp> Get()
         {
             using (DataBaseContext db = new DataBaseContext())
@@ -63,7 +63,7 @@ namespace Young.Web.Controllers
 
         }
 
-        // GET api/termapi/5
+        // GET api/apiterm/5
         public JsonTmp Get(int id)
         {
             using (DataBaseContext db = new DataBaseContext())
@@ -80,7 +80,7 @@ namespace Young.Web.Controllers
             }
         }
 
-        // POST api/termapi
+        // POST api/apiterm
         public JsonTmp Post(JsonTmp item)
         {
             var parentID = item.id;// 父类ID
@@ -100,7 +100,7 @@ namespace Young.Web.Controllers
             return item;
         }
 
-        // PUT api/termapi/5
+        // PUT api/apiterm/5
         public void Put(JsonTmp item)
         {
             //update item
@@ -113,7 +113,7 @@ namespace Young.Web.Controllers
             }
         }
 
-        // DELETE api/termapi/5
+        // DELETE api/apiterm/5
         public bool Delete(int id)
         {
             try
