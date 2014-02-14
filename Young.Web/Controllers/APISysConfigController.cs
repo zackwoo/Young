@@ -23,73 +23,21 @@ namespace Young.Web.Controllers
         {
             var model = new SysConfigModel();
             PropertyGridModel pgModel = new PropertyGridModel();
-            var propList = new[]
+            foreach (var propertyInfo in model.GetType().GetProperties())
+            {
+                var objs = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), false);
+                if (objs.Any())
                 {
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipApplicationName),
-                            value = model.MembershipApplicationName
-                        },
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipEnablePasswordReset),
-                            value = model.MembershipEnablePasswordReset.ToString()
-                        },
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipEnablePasswordRetrieval),
-                            value = model.MembershipEnablePasswordRetrieval.ToString()
-                        },
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipMaxInvalidPasswordAttempts),
-                            value = model.MembershipMaxInvalidPasswordAttempts.ToString()
-                        },
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipMinRequiredNonAlphanumericCharacters),
-                            value = model.MembershipMinRequiredNonAlphanumericCharacters.ToString()
-                        },
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipMinRequiredPasswordLength),
-                            value = model.MembershipMinRequiredPasswordLength.ToString()
-                        },
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipPasswordAttemptWindow),
-                            value = model.MembershipPasswordAttemptWindow.ToString()
-                        },
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipPasswordStrengthRegularExpression),
-                            value = model.MembershipPasswordStrengthRegularExpression
-                        },
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipRequiresQuestionAndAnswer),
-                            value = model.MembershipRequiresQuestionAndAnswer.ToString()
-                        },
-                    new PropertyGridRowModel
-                        {
-                            group = "Membership",
-                            name = GetModelDisplay(f => f.MembershipUserIsOnlineTimeWindow),
-                            value = model.MembershipUserIsOnlineTimeWindow.ToString()
-                        }
-                };
-
-
-
-            pgModel.rows.AddRange(propList);
+                    var prop = new PropertyGridRowModel
+                    {
+                        group = ((DisplayAttribute)objs[0]).GroupName,
+                        name = ((DisplayAttribute)objs[0]).Name,
+                        value = propertyInfo.GetValue(model)
+                    };
+                    pgModel.rows.Add(prop);
+                }
+               
+            }
             pgModel.total = pgModel.rows.Count;
             return pgModel;
         }
