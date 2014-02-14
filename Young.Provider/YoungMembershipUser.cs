@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Security;
+using Young.DAL;
 
 namespace Young.Provider
 {
@@ -23,5 +24,21 @@ namespace Young.Provider
         /// 显示名称
         /// </summary>
         public string DisplayName { get; set; }
+
+        public bool LockUser()
+        {
+            using (var db = new DataBaseContext())
+            {
+                var key = Convert.ToInt32(this.ProviderUserKey);
+                var user = db.Users.SingleOrDefault(f => f.ID == key);
+                if (user==null)
+                {
+                    return false;
+                }
+                user.IsLock = true;
+                db.SaveChanges();
+            }
+            return true;
+        }
     }
 }

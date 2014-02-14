@@ -141,6 +141,8 @@
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
     <Compile Include="Models\EasyUIView\DataGridModel.cs" />
+    <Compile Include="Models\EasyUIView\PropertyGridRowModel.cs" />
+    <Compile Include="Models\EasyUIView\UserGridRowModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\SysConfigModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -230,6 +232,8 @@
     <Content Include="Content\themes\icons\group.png" />
     <Content Include="Content\themes\icons\help.png" />
     <Content Include="Content\themes\icons\information.png" />
+    <Content Include="Content\themes\icons\lock.png" />
+    <Content Include="Content\themes\icons\lock_go.png" />
     <Content Include="Content\themes\icons\mini_add.png" />
     <Content Include="Content\themes\icons\mini_edit.png" />
     <Content Include="Content\themes\icons\mini_refresh.png" />
@@ -248,11 +252,16 @@
     <Content Include="Content\themes\icons\tag_blue_edit.png" />
     <Content Include="Content\themes\icons\tip.png" />
     <Content Include="Content\themes\icons\undo.png" />
+    <Content Include="Content\themes\icons\user_add.png" />
+    <Content Include="Content\themes\icons\user_delete.png" />
+    <Content Include="Content\themes\icons\user_edit.png" />
     <Content Include="Content\themes\icons\wrench.png" />
     <Content Include="Content\young.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\cross.png" />
     <Content Include="Images\loading.gif" />
+    <Content Include="Images\lock.png" />
     <Content Include="Images\page_add.png" />
     <Content Include="Images\page_delete.png" />
     <Content Include="Images\page_edit.png" />

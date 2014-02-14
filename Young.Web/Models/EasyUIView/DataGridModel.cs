@@ -19,11 +19,5 @@ namespace Young.Web.Models.EasyUIView
         public List<TRow> rows { get; private set; }
     }
 
-    public class PropertyGridRowModel
-    {
-        public string name { get; set; }
-        public object value { get; set; }
-        public string group { get; set; }
-        public object editor { get; set; }
-    }
+   
 }

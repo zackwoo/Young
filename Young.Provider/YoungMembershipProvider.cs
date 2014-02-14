@@ -151,7 +151,7 @@ namespace Young.Provider
         internal string EncodePassword(string pass)
         {
             //加密盐
-            string salt = "21EC2020-3AEA-1069-A2DD-08002B30309D";
+            string salt = "i8855ssddfamsalt";
             if (passwordFormat ==  MembershipPasswordFormat.Clear) // MembershipPasswordFormat.Clear
                 return pass;
             byte[] bIn = Encoding.Unicode.GetBytes(pass);
@@ -376,7 +376,7 @@ namespace Young.Provider
         {
             using (var db = new DataBaseContext())
             {
-                totalRecords = db.Users.Where(f => f.Email.Contains(emailToMatch)).Count();
+                totalRecords = db.Users.Count(f => f.Email.Contains(emailToMatch));
                 var list = db.Users.Where(f => f.Email.Contains(emailToMatch)).Skip(pageIndex * pageSize).Take(pageSize);
                 MembershipUserCollection result = new MembershipUserCollection();
                 foreach (var item in list)
@@ -391,7 +391,7 @@ namespace Young.Provider
         {
             using (var db = new DataBaseContext())
             {
-                totalRecords = db.Users.Where(f => f.UserName.Contains(usernameToMatch)).Count();
+                totalRecords = db.Users.Count(f => f.UserName.Contains(usernameToMatch));
                 var list = db.Users.Where(f => f.UserName.Contains(usernameToMatch)).Skip(pageIndex * pageSize).Take(pageSize);
                 MembershipUserCollection result = new MembershipUserCollection();
                 foreach (var item in list)
@@ -407,7 +407,7 @@ namespace Young.Provider
             using (var db = new DataBaseContext())
             {
                 totalRecords = db.Users.Count();
-                var list = db.Users.Skip(pageIndex * pageSize).Take(pageSize);
+                var list = db.Users.OrderByDescending(f=>f.ID).Skip(pageIndex * pageSize).Take(pageSize);
                 MembershipUserCollection result = new MembershipUserCollection();
                 foreach (var item in list)
                 {

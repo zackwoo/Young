@@ -14,15 +14,28 @@ namespace Young.Web.Models
         {
             get { return Membership.ApplicationName; }
         }
-        [Display(Name = "是否允许重置密码", GroupName = "Membership")]
+        [Display(Name = "启用重置密码", GroupName = "Membership")]
         public bool MembershipEnablePasswordReset
         {
             get { return Membership.EnablePasswordReset; }
         }
-        [Display(Name = "是否允许取回密码", GroupName = "Membership")]
+        [Display(Name = "启用取回密码", GroupName = "Membership")]
         public bool MembershipEnablePasswordRetrieval
         {
             get { return Membership.EnablePasswordRetrieval; }
+        }
+        [Display(Name = "启用密码问题", GroupName = "Membership")]
+        public bool MembershipRequiresQuestionAndAnswer
+        {
+            get { return Membership.RequiresQuestionAndAnswer; }
+        }
+        [Display(Name = "启用唯一Email", GroupName = "Membership")]
+        public bool RequiresUniqueEmail
+        {
+            get
+            {
+                return Membership.Provider.RequiresUniqueEmail;
+            }
         }
         [Display(Name = "允许的无效密码尝试次数", GroupName = "Membership")]
         public int MembershipMaxInvalidPasswordAttempts
@@ -49,15 +62,11 @@ namespace Young.Web.Models
         {
             get { return Membership.PasswordStrengthRegularExpression; }
         }
-        [Display(Name = "是否启用密码问题", GroupName = "Membership")]
-        public bool MembershipRequiresQuestionAndAnswer
-        {
-            get { return Membership.RequiresQuestionAndAnswer; }
-        }
         [Display(Name = "默认联机有效时间", GroupName = "Membership")]
         public int MembershipUserIsOnlineTimeWindow
         {
             get { return Membership.UserIsOnlineTimeWindow; }
         }
+       
     }
 }

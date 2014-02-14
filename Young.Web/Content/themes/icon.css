@@ -100,8 +100,21 @@
 .icon-cog{
 	background:url('icons/cog.png') no-repeat center center;
 }
-
-
+.icon-lock{
+	background:url('icons/lock.png') no-repeat center center;
+}
+.icon-lock-go{
+	background:url('icons/lock_go.png') no-repeat center center;
+}
+.icon-user-add{
+	background:url('icons/user_add.png') no-repeat center center;
+}
+.icon-user-delete{
+	background:url('icons/user_delete.png') no-repeat center center;
+}
+.icon-user-edit{
+	background:url('icons/user_edit.png') no-repeat center center;
+}
 
 
 .icon-mini-add{

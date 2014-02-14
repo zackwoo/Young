@@ -8,32 +8,127 @@
         function newUser() {
             $('#dlg').dialog({
                 buttons: [{
-                    text: '保存',
-                    iconCls: 'icon-save',
-                    handler: function () {
-                        if ($('#fm').form('validate')) {
-                            $.post("/api/apimembership", getFormDataModel('fm'), function (data) {
-                                alert(data);
-                            });
-                        } else {
-                            $.messager.alert('信息', '有字段验证失败，请重新填写。', 'info');
+                        text: '保存',
+                        iconCls: 'icon-save',
+                        handler: function() {
+                            if ($('#fm').form('validate')) {
+                                var param = getFormDataModel('fm');
+                                $.post("/api/apimembership", param, function(data) {
+                                    if (data.IsSuccess) {
+                                        $('#dg').datagrid('insertRow', {
+                                            index: 0,
+                                            row: {
+                                                DisplayName: param.DisplayName,
+                                                UserName: param.UserName,
+                                                Email: param.Email,
+                                                IsApproved: true,
+                                                IsLockedOut: false,
+                                                LastLockoutDate: new Date(),
+                                                CreationDate: new Date(),
+                                                LastLoginDate: new Date(),
+                                                LastActivityDate: new Date(),
+                                                LastPasswordChangedDate: new Date()
+                                            }
+                                        });
+                                        $('#dlg').dialog('close');
+                                    } else {
+                                        $.messager.alert('新建失败', '新建用户失败，' + data.Message + '。', 'warning');
+                                    }
+                                });
+                            } else {
+                                $.messager.alert('信息', '有字段验证失败，请重新填写。', 'info');
+                            }
                         }
-                    }
-                }, {
-                    text: '取消',
-                    iconCls: 'icon-cancel',
-                    handler: function () { $('#dlg').dialog('close'); }
-                }]
+                    }, {
+                        text: '取消',
+                        iconCls: 'icon-cancel',
+                        handler: function() { $('#dlg').dialog('close'); }
+                    }]
             }).dialog('open').dialog('setTitle', '新建用户信息');
             $('#fm').form('clear');
         }
 
-        var getFormDataModel = function (formId) {
+        function lockUser() {
+            var rows = $('#dg').datagrid('getSelections');
+            if (rows.length == 0) {
+                $.messager.alert('信息', '请先选中要锁定的用户。', 'info');
+                return;
+            } else {
+                var keys = [];
+                $.each(rows, function (i, item) {
+                    keys.push(item.ProviderUserKey);
+                });
+                $.ajax('/api/apimembership?providerUserKeys=' + keys.join(),
+                    {
+                        traditional: true,
+                        type: 'put',
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.IsSuccess) {
+                                $.messager.alert('信息', '用户锁定成功。', 'info');
+                                $.each(rows, function (i, item) {
+                                    item.IsLockedOut = true;//TODO:客户端设置无效
+                                });
+                            } else {
+                                $.messager.alert('锁定失败', '锁定用户失败，' + data.Message + '。', 'warning');
+                            }
+                        }
+                    });
+            }
+        }
+        function unlockUser() {
+            var rows = $('#dg').datagrid('getSelections');
+            if (rows.length == 0) {
+                $.messager.alert('信息', '请先选中要解锁的用户。', 'info');
+                return;
+            } else {
+                var keys = [];
+                $.each(rows, function (i, item) {
+                    keys.push(item.ProviderUserKey);
+                });
+                $.ajax('/api/apimembership?providerUserKeys=' + keys.join(),
+                    {
+                        traditional: true,
+                        type: 'put',
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.IsSuccess) {
+                                $.messager.alert('信息', '用户锁定成功。', 'info');
+                                $.each(rows, function (i, item) {
+                                    item.IsLockedOut = true;//TODO:客户端设置无效
+                                });
+                            } else {
+                                $.messager.alert('锁定失败', '锁定用户失败，' + data.Message + '。', 'warning');
+                            }
+                        }
+                    });
+            }
+        }
+
+        var getFormDataModel = function(formId) {
             var model = {};
-            $('#' + formId + " input").each(function (i, item) {
+            $('#' + formId + " input").each(function(i, item) {
                 model[item.name] = $(item).val();
             });
             return model;
+        };
+
+        var DateFormat = function(value, row, index) {
+            return (new Date(value)).toLocaleDateString();
+        };
+        var LocaleDateTimeFormat = function(value, row, index) {
+            return (new Date(value)).toLocaleString();
+        };
+        var LockFormat = function(value, row, index) {
+            if (value) {
+                return '<img src="/Images/lock.png" />';
+            }
+            return '';
+        };
+        var ApprovedFormat = function(value, row, index) {
+            if (value) {
+                return '';
+            }
+            return '<img src="/Images/cross.png" />';
+
         };
     </script>
 }
@@ -69,28 +164,32 @@
 }
 
 <table id="dg" class="easyui-datagrid" style="width: auto; height: auto"
-    url="get_users.php"
+       data-options="
+    url:'/api/apimembership',
+    method:'get'"
     toolbar="#toolbar" pagination="true"
-    rownumbers="true" fitcolumns="true" singleselect="true">
+    rownumbers="true" fitcolumns="true">
     <thead>
         <tr>
-            <th>用户登录账号</th>
-            <th>用户名称</th>
-            <th>Email</th>
-            <th>是否审核通过</th>
-            <th>锁定状态</th>
-            <th>最近一次登录时间</th>
-            <th>最近一次操作时间</th>
-            <th>最近一次锁定时间</th>
-            <th>最近一次修改密码时间</th>
-            <th>注册时间</th>
+            <th data-options="field:'UserName',width:100">用户登录账号</th>
+            <th data-options="field:'DisplayName',width:80">用户名称</th>
+            <th data-options="field:'Email',width:200">Email</th>
+            <th data-options="field:'IsApproved',formatter:ApprovedFormat,align:'center'">审核状态</th>
+            <th data-options="field:'IsLockedOut',formatter:LockFormat,align:'center'">锁定状态</th>
+            <th data-options="field:'LastLoginDate',formatter:LocaleDateTimeFormat">最近一次登录时间</th>
+            <th data-options="field:'LastActivityDate',formatter:LocaleDateTimeFormat">最近一次操作时间</th>
+            <th data-options="field:'LastLockoutDate',formatter:LocaleDateTimeFormat">最近一次锁定时间</th>
+            <th data-options="field:'LastPasswordChangedDate',formatter:LocaleDateTimeFormat">最近一次修改密码时间</th>
+            <th data-options="field:'CreationDate',formatter:DateFormat">注册时间</th>
         </tr>
     </thead>
 </table>
 <div id="toolbar" style="padding: 10px 0;">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="newUser()">新建用户</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="editUser()">编辑用户</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="destroyUser()">删除用户</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-add" plain="true" onclick="newUser()">新建用户</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-edit" plain="true" onclick="editUser()">编辑用户</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-delete" plain="true" onclick="destroyUser()">删除用户</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true" onclick="lockUser()">锁定用户</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock-go" plain="true" onclick="unlockUser()">解锁用户</a>
 </div>
 
 

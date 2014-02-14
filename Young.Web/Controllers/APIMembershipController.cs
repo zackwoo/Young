@@ -5,16 +5,27 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Security;
+using Young.DAL;
+using Young.Provider;
 using Young.Web.Models;
+using Young.Web.Models.EasyUIView;
 
 namespace Young.Web.Controllers
 {
     public class APIMembershipController : ApiController
     {
         // GET api/apimembership
-        public IEnumerable<string> GetAllUsers()
+        public DataGridModel<MembershipUser> GetAllUsers(int page, int rows)
         {
-            return new string[] { "value1", "value2" };
+            var result = new DataGridModel<MembershipUser>();
+            int total;
+            var users = Membership.GetAllUsers(page - 1, rows, out total);
+            foreach (MembershipUser membershipUser in users)
+            {
+                result.rows.Add(membershipUser);
+            }
+            result.total = total;
+            return result;
         }
 
         // GET api/apimembership/5
@@ -26,8 +37,8 @@ namespace Young.Web.Controllers
         // POST api/apimembership
         public ResultModel PostCreateUser(UserModel user)
         {
-            string question = string.Empty;
-            string answer = string.Empty;
+            string question = "密码问题";
+            string answer = "密码答案";
             if (Membership.RequiresQuestionAndAnswer)
             {
                 question = user.PasswordQuestion;
@@ -45,7 +56,7 @@ namespace Young.Web.Controllers
                     result.Message = "已有重复主键";
                     break;
                 case MembershipCreateStatus.DuplicateUserName:
-                    result.Message = "已有重复用户登录名";
+                    result.Message = "已有重复用户登录账号";
                     break;
                 case MembershipCreateStatus.InvalidAnswer:
                     result.Message = "无效问题答案";
@@ -63,7 +74,7 @@ namespace Young.Web.Controllers
                     result.Message = "无效问题";
                     break;
                 case MembershipCreateStatus.InvalidUserName:
-                    result.Message = "无效用户登录名";
+                    result.Message = "无效用户登录账号";
                     break;
                 case MembershipCreateStatus.ProviderError:
                     result.Message = "提供程序错误";
@@ -78,9 +89,29 @@ namespace Young.Web.Controllers
             return result;
         }
 
-        // PUT api/apimembership/5
-        public void Put(int id, [FromBody]string value)
+       
+        // PUT api/apimembership
+        public ResultModel PutLockUsers(string providerUserKeys)
         {
+            if (string.IsNullOrEmpty(providerUserKeys))
+            {
+                return new ResultModel
+                    {
+                        Message = "请选定用户",
+                        IsSuccess = false
+                    };
+            }
+            var keys = providerUserKeys.Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var key in keys)
+            {
+                object id = key;
+                var user = Membership.GetUser(id, false) as YoungMembershipUser;
+                user.LockUser();
+            }
+            return new ResultModel
+                {
+                    IsSuccess = true
+                };
         }
 
         // DELETE api/apimembership/5
