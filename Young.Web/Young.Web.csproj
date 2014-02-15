@@ -218,6 +218,7 @@
     <Content Include="Content\themes\icons\application_view_list.png" />
     <Content Include="Content\themes\icons\application_view_tile.png" />
     <Content Include="Content\themes\icons\arrow_join.png" />
+    <Content Include="Content\themes\icons\arrow_rotate_anticlockwise.png" />
     <Content Include="Content\themes\icons\back.png" />
     <Content Include="Content\themes\icons\blank.gif" />
     <Content Include="Content\themes\icons\book.png" />
@@ -232,6 +233,7 @@
     <Content Include="Content\themes\icons\group.png" />
     <Content Include="Content\themes\icons\help.png" />
     <Content Include="Content\themes\icons\information.png" />
+    <Content Include="Content\themes\icons\key_go.png" />
     <Content Include="Content\themes\icons\lock.png" />
     <Content Include="Content\themes\icons\lock_go.png" />
     <Content Include="Content\themes\icons\mini_add.png" />

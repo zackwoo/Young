@@ -5,6 +5,26 @@
 
 @section scripts{
     <script>
+        /*
+        Private Helper
+        */
+        function _SeletedRowsCount() {
+            var rows = $('#dg').datagrid('getSelections');
+            return rows.length;
+        }
+        var getFormDataModel = function (formId) {
+            var model = {
+                IsApproved: true//默认审核通过
+            };
+            $('#' + formId + " input").each(function (i, item) {
+                model[item.name] = $(item).val();
+            });
+            return model;
+        };
+        /*****************************************************************************/
+        function destroyUser() {
+            $.messager.alert('失败', '该功能暂不开放。', 'error');
+        }
         function newUser() {
             $('#dlg').dialog({
                 buttons: [{
@@ -13,7 +33,7 @@
                     handler: function () {
                         if ($('#fm').form('validate')) {
                             var param = getFormDataModel('fm');
-                            $.post("/api/apimembership", param, function (data) {
+                            $.post("/api/apimembership?category=new", param, function (data) {
                                 if (data.IsSuccess) {
                                     $('#dg').datagrid('insertRow', {
                                         index: 0,
@@ -44,8 +64,44 @@
                     iconCls: 'icon-cancel',
                     handler: function () { $('#dlg').dialog('close'); }
                 }]
-            }).dialog('open').dialog('setTitle', '新建用户信息');
+            }).dialog('open');
             $('#fm').form('clear');
+        }
+
+        function editUser() {
+            if (_SeletedRowsCount()==0) {
+                $.messager.alert('信息', '请先选中用户。', 'info'); return;
+            } else if (_SeletedRowsCount() > 1) {
+                $.messager.alert('信息', '暂时不支持多用户同时编辑。', 'info'); return;
+            }
+            var row = $('#dg').datagrid('getSelected');
+            console.log(row);
+            $('#fmEditUser').form('load', row);
+            $('#dlgEditUser').dialog({
+                buttons: [{
+                    text: '保存',
+                    iconCls: 'icon-save',
+                    handler: function () {
+                        if ($('#fmEditUser').form('validate')) {
+                            var param = getFormDataModel('fmEditUser');
+                            $.post("/api/apimembership?category=edit", param, function (data) {
+                                if (data.IsSuccess) {
+                                    $('#dlgEditUser').dialog('close');
+                                } else {
+                                    $.messager.alert('编辑失败', '编辑用户失败，' + data.Message + '。', 'warning');
+                                }
+                            });
+                        } else {
+                            $.messager.alert('信息', '有字段验证失败，请重新填写。', 'info');
+                        }
+                    }
+                }, {
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: function () { $('#dlgEditUser').dialog('close'); }
+                }]
+            }).dialog('open');
+            
         }
 
         function lockUserCore(isLocked) {
@@ -95,16 +151,6 @@
         function unlockUser() {
             lockUserCore(false);
         }
-
-        var getFormDataModel = function (formId) {
-            var model = {
-                IsApproved: true//默认审核通过
-            };
-            $('#' + formId + " input").each(function (i, item) {
-                model[item.name] = $(item).val();
-            });
-            return model;
-        };
 
         var DateFormat = function (value, row, index) {
             return (new Date(value)).toLocaleDateString();
@@ -181,12 +227,14 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-delete" plain="true" onclick="destroyUser()">删除用户</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true" onclick="lockUser()">锁定用户</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock-go" plain="true" onclick="unlockUser()">解锁用户</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-key-go" plain="true" onclick="destroyUser()">取回密码</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-arrow-rotate-anticlockwise" plain="true" onclick="destroyUser()">重置密码</a>
 </div>
 
 
 
 <div id="dlg" class="easyui-dialog" style="width: 400px; height: 280px; padding: 10px 20px"
-    closed="true" modal="true">
+    closed="true" modal="true" title="新建用户信息">
     <div class="ftitle">用户信息</div>
     <form id="fm" method="post" novalidate>
         <div class="fitem">
@@ -200,6 +248,26 @@
         <div class="fitem">
             <label>密码:</label>
             <input name="Password" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>Email:</label>
+            <input name="Email" class="easyui-validatebox" validtype="email">
+        </div>
+    </form>
+</div>
+
+
+<div id="dlgEditUser" class="easyui-dialog" style="width: 400px; height: 280px; padding: 10px 20px"
+    closed="true" modal="true" title="编辑用户信息">
+    <div class="ftitle">用户信息</div>
+    <form id="fmEditUser" method="post" novalidate>
+        <div class="fitem">
+            <label>登录账号:</label>
+            <input name="UserName" class="easyui-validatebox" required="true" readonly="true" disabled="disabled">
+        </div>
+        <div class="fitem">
+            <label>用户名称:</label>
+            <input name="DisplayName" class="easyui-validatebox" required="true">
         </div>
         <div class="fitem">
             <label>Email:</label>

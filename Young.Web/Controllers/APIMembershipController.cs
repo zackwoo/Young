@@ -35,7 +35,42 @@ namespace Young.Web.Controllers
         }
       
         // POST api/apimembership
-        public ResultModel PostCreateUser(UserModel user)
+        public ResultModel PostUser(string category,UserModel user)
+        {
+            if (category == "new")
+            {
+                return CreateUser(user);
+            }
+            if (category == "edit")
+            {
+                return EditUser(user);
+            }
+            return null;
+        }
+
+        private ResultModel EditUser(UserModel user)
+        {
+            var member = Membership.GetUser(user.UserName, false) as YoungMembershipUser;
+            if (member==null)
+            {
+                return new ResultModel
+                {
+                    IsSuccess = false,
+                    Message = string.Format("未找到用户{0}", user.UserName)
+                };
+            }
+            member.DisplayName = user.DisplayName;
+            if (!Membership.Provider.RequiresUniqueEmail)
+            {//非唯一Email时可修改Email地址
+                member.Email = user.Email;
+            }
+            Membership.UpdateUser(member);
+            return new ResultModel
+            {
+                IsSuccess = true
+            };
+        }
+        private ResultModel CreateUser(UserModel user)
         {
             string question = "密码问题";
             string answer = "密码答案";
@@ -46,7 +81,7 @@ namespace Young.Web.Controllers
             }
             MembershipCreateStatus status;
             Membership.CreateUser(user.UserName, user.Password, user.Email, question, answer, user.IsApproved, out status);
-            var result = new ResultModel{ IsSuccess = status== MembershipCreateStatus.Success};
+            var result = new ResultModel { IsSuccess = status == MembershipCreateStatus.Success };
             switch (status)
             {
                 case MembershipCreateStatus.DuplicateEmail:
