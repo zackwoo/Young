@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.Model", "Young.Model\Young.Model.csproj", "{009C6DD9-4A7E-4757-BD5E-9BB09429B040}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.Console", "Young.Console\Young.Console.csproj", "{27D93AFF-96D9-4E12-A96A-4404BDF3F541}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.DAL", "Young.DAL\Young.DAL.csproj", "{91E72547-1B0F-48D3-9032-B99732BE9AC8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.Web", "Young.Web\Young.Web.csproj", "{24F0A1BC-776B-4AD6-B541-DBC16A37C87E}"
@@ -23,10 +21,6 @@ Global
 		{009C6DD9-4A7E-4757-BD5E-9BB09429B040}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{009C6DD9-4A7E-4757-BD5E-9BB09429B040}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{009C6DD9-4A7E-4757-BD5E-9BB09429B040}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27D93AFF-96D9-4E12-A96A-4404BDF3F541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27D93AFF-96D9-4E12-A96A-4404BDF3F541}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27D93AFF-96D9-4E12-A96A-4404BDF3F541}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27D93AFF-96D9-4E12-A96A-4404BDF3F541}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91E72547-1B0F-48D3-9032-B99732BE9AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91E72547-1B0F-48D3-9032-B99732BE9AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91E72547-1B0F-48D3-9032-B99732BE9AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -62,3 +62,5 @@ C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\bin\Debug\zh-Hans\EntityFr
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\obj\Debug\Young.Console.csprojResolveAssemblyReference.cache
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\obj\Debug\Young.Console.exe
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Console\obj\Debug\Young.Console.pdb
+C:\Users\mingzhen\Documents\work\Young\Young.Console\bin\Debug\Young.Provider.dll
+C:\Users\mingzhen\Documents\work\Young\Young.Console\bin\Debug\Young.Provider.pdb

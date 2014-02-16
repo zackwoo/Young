@@ -40,7 +40,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +65,10 @@
     <ProjectReference Include="..\Young.Model\Young.Model.csproj">
       <Project>{009c6dd9-4a7e-4757-bd5e-9bb09429b040}</Project>
       <Name>Young.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Young.Provider\Young.Provider.csproj">
+      <Project>{e7a4f12f-3521-41a8-b97a-352af5b9f2f8}</Project>
+      <Name>Young.Provider</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

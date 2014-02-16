@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Young.Web.Models.SysConfigModel
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
 }
@@ -69,13 +70,12 @@
         }
 
         function editUser() {
-            if (_SeletedRowsCount()==0) {
+            if (_SeletedRowsCount() == 0) {
                 $.messager.alert('信息', '请先选中用户。', 'info'); return;
             } else if (_SeletedRowsCount() > 1) {
                 $.messager.alert('信息', '暂时不支持多用户同时编辑。', 'info'); return;
             }
             var row = $('#dg').datagrid('getSelected');
-            console.log(row);
             $('#fmEditUser').form('load', row);
             $('#dlgEditUser').dialog({
                 buttons: [{
@@ -101,7 +101,25 @@
                     handler: function () { $('#dlgEditUser').dialog('close'); }
                 }]
             }).dialog('open');
-            
+
+        }
+        function resetPassword() {
+            if (_SeletedRowsCount() == 0) {
+                $.messager.alert('信息', '请先选中用户。', 'info'); return;
+            } else if (_SeletedRowsCount() > 1) {
+                $.messager.alert('信息', '暂时不支持多用户同时编辑。', 'info'); return;
+            }
+            var row = $('#dg').datagrid('getSelected');
+            $.post("/api/apimembership?category=resetpwd", row, function (data) {
+                if (data.IsSuccess) {
+                    $.messager.alert('信息', '用户新密码：' + data.Message, 'info');
+                    var index = $('#dg').datagrid('getRowIndex', row);
+                    row.LastPasswordChangedDate = new Date();
+                    $('#dg').datagrid('refreshRow', index);
+                } else {
+                    $.messager.alert('重置失败', '重置密码失败，' + data.Message + '。', 'warning');
+                }
+            });
         }
 
         function lockUserCore(isLocked) {
@@ -227,8 +245,8 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-delete" plain="true" onclick="destroyUser()">删除用户</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true" onclick="lockUser()">锁定用户</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock-go" plain="true" onclick="unlockUser()">解锁用户</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-key-go" plain="true" onclick="destroyUser()">取回密码</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-arrow-rotate-anticlockwise" plain="true" onclick="destroyUser()">重置密码</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-key-go" plain="true" onclick="destroyUser()"  data-options="disabled:!@Model.MembershipEnablePasswordRetrieval.ToString().ToLower()">取回密码</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-arrow-rotate-anticlockwise" plain="true" onclick="resetPassword()" data-options="disabled:!@Model.MembershipEnablePasswordReset.ToString().ToLower()">重置密码</a>
 </div>
 
 
@@ -257,8 +275,7 @@
 </div>
 
 
-<div id="dlgEditUser" class="easyui-dialog" style="width: 400px; height: 280px; padding: 10px 20px"
-    closed="true" modal="true" title="编辑用户信息">
+<div id="dlgEditUser" class="easyui-dialog" style="width: 400px; height: 280px; padding: 10px 20px" closed="true" modal="true" title="编辑用户信息">
     <div class="ftitle">用户信息</div>
     <form id="fmEditUser" method="post" novalidate>
         <div class="fitem">

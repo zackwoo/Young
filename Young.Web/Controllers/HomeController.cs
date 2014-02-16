@@ -18,12 +18,13 @@ namespace Young.Web.Controllers
         [HttpPost]
         public ActionResult Login(string name, string password)
         {
-            if (name == "zack" && password == "123456")
+            if (Membership.ValidateUser(name, password))
             {
-                FormsAuthentication.SetAuthCookie("zack", true);
-
+                FormsAuthentication.SetAuthCookie(name, true);
+                return RedirectToAction("index", "Webmaster");
             }
-            return RedirectToAction("index", "Webmaster");
+            else
+                return RedirectToAction("Login", "home");
         }
         [HttpGet]
         public ActionResult Login()

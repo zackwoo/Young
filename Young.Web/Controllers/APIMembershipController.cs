@@ -45,6 +45,22 @@ namespace Young.Web.Controllers
             {
                 return EditUser(user);
             }
+            if (category == "resetpwd")
+            {
+                ResultModel result = new ResultModel();
+                try
+                {
+                    var newPassword = Membership.Provider.ResetPassword(user.UserName, user.PasswordAnswer);
+                    result.IsSuccess = true;
+                    result.Message = newPassword;
+                }
+                catch (MembershipPasswordException)
+                {
+                    result.IsSuccess = false;
+                    result.Message = "无该用户";                    
+                }
+                return result;
+            }
             return null;
         }
 
