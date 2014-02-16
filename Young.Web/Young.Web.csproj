@@ -131,6 +131,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\APIMembershipController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SysConfigController.cs" />
     <Compile Include="Controllers\APITermController.cs" />
     <Compile Include="Controllers\TermController.cs" />
@@ -331,6 +332,7 @@
     <Content Include="Views\Term\Index.cshtml" />
     <Content Include="Views\Membership\Index.cshtml" />
     <Content Include="Views\SysConfig\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

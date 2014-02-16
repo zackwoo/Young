@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
+}
+
+<table id="dg" class="easyui-datagrid" style="width: auto; height: auto"
+    data-options="
+    url:'/api/apirole',
+    method:'get'"
+    toolbar="#toolbar" pagination="true"
+    rownumbers="true" fitcolumns="true">
+    <thead>
+        <tr>
+            <th data-options="field:'UserName',width:100">角色名称</th>
+            <th data-options="field:'DisplayName',width:80">用户名称</th>
+            <th data-options="field:'Email',width:200">Email</th>
+        </tr>
+    </thead>
+</table>
+<div id="toolbar" style="padding: 10px 0;">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-add" plain="true" onclick="newUser()">新建用户</a>
+</div>
+
+

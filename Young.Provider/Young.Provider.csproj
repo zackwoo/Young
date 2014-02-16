@@ -54,6 +54,7 @@
     <Compile Include="YoungMembershipProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="YoungMembershipUser.cs" />
+    <Compile Include="YoungRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Young.DAL\Young.DAL.csproj">
