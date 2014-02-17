@@ -22,21 +22,20 @@ namespace Young.DAL
 
         public DbSet<TermEntity> Terms { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<RoleEntity> Roles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-         
-            //modelBuilder.Entity<BasePropertyEntity>().HasKey(x => x.ID);
-            //modelBuilder.Entity<BasePropertyEntity>().Property(x => x.ID)
-            //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity); 
-
-            //modelBuilder.Entity<BooleanPropertyEntity>().ToTable("BooleanPropertyEntity");
-            //modelBuilder.Entity<DatePropertyEntity>().ToTable("DatePropertyEntity");
-            //modelBuilder.Entity<DoublePropertyEntity>().ToTable("DoublePropertyEntity");
-            //modelBuilder.Entity<TermPropertyEntity>().ToTable("TermPropertyEntity");
-            //modelBuilder.Entity<StringPropertyEntity>().ToTable("StringPropertyEntity");
-            //modelBuilder.Entity<IntPropertyEntity>().ToTable("IntPropertyEntity"); 
+            modelBuilder.Entity<UserEntity>()
+                        .HasMany(e => e.Roles)
+                        .WithMany(e => e.Users)
+                        .Map(m =>
+                            {
+                                m.ToTable("Users_Roles");
+                                m.MapLeftKey("UserID");
+                                m.MapRightKey("RoleID");
+                            });
         }
 
     }

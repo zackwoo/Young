@@ -42,5 +42,7 @@ namespace Young.Model
         /// 用户的密码提示答案
         /// </summary>
         public string PasswordAnswer { get; set; }
+
+        public virtual List<RoleEntity>Roles { get; set; }
     }
 }

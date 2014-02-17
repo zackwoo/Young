@@ -67,6 +67,8 @@ namespace Young.Web.Models
         {
             get { return Membership.UserIsOnlineTimeWindow; }
         }
+        [Display(Name = "应用程序名", GroupName = "Roles")]
+        public string RoleApplicationName { get { return Roles.ApplicationName; } }
        
     }
 }

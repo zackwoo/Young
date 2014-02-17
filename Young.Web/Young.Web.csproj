@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\APIRoleController.cs" />
     <Compile Include="Controllers\APISysConfigController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Models\EasyUIView\PropertyGridRowModel.cs" />
     <Compile Include="Models\EasyUIView\UserGridRowModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
+    <Compile Include="Models\RoleCollectionModel.cs" />
     <Compile Include="Models\SysConfigModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -225,8 +227,10 @@
     <Content Include="Content\themes\icons\book.png" />
     <Content Include="Content\themes\icons\book_open.png" />
     <Content Include="Content\themes\icons\cancel.png" />
+    <Content Include="Content\themes\icons\chart_organisation.png" />
     <Content Include="Content\themes\icons\cog.png" />
     <Content Include="Content\themes\icons\cut.png" />
+    <Content Include="Content\themes\icons\delete.png" />
     <Content Include="Content\themes\icons\edit_add.png" />
     <Content Include="Content\themes\icons\edit_remove.png" />
     <Content Include="Content\themes\icons\filesave.png" />
@@ -341,6 +345,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Young.BLL\Young.BLL.csproj">
+      <Project>{c8786477-84f5-4851-aadd-de3a5754093a}</Project>
+      <Name>Young.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Young.DAL\Young.DAL.csproj">
       <Project>{91e72547-1b0f-48d3-9032-b99732be9ac8}</Project>
       <Name>Young.DAL</Name>
@@ -352,10 +360,6 @@
     <ProjectReference Include="..\Young.Provider\Young.Provider.csproj">
       <Project>{e7a4f12f-3521-41a8-b97a-352af5b9f2f8}</Project>
       <Name>Young.Provider</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Young.Tools\Young.Tools.csproj">
-      <Project>{90e60111-d85f-4575-8f4e-0bc9f7a3fed0}</Project>
-      <Name>Young.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

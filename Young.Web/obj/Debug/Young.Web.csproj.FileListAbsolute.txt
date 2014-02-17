@@ -181,11 +181,9 @@ C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\WebGrease.dll
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.DAL.dll
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.Model.dll
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.Provider.dll
-C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.Tools.dll
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.DAL.pdb
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.Model.pdb
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.Provider.pdb
-C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.Tools.pdb
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\EntityFramework.xml
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\EntityFramework.SqlServer.xml
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Newtonsoft.Json.xml
@@ -214,3 +212,5 @@ C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\zh-Hans\System.Web.WebPage
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\obj\Debug\Young.Web.csprojResolveAssemblyReference.cache
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\obj\Debug\Young.Web.dll
 C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\obj\Debug\Young.Web.pdb
+C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.BLL.dll
+C:\Users\mingzhen_wu\Source\Repos\Young\Young.Web\bin\Young.BLL.pdb

@@ -121,7 +121,12 @@
 .icon-arrow-rotate-anticlockwise{
 	background:url('icons/arrow_rotate_anticlockwise.png') no-repeat center center;
 }
-
+.icon-chart-organisation{
+	background:url('icons/chart_organisation.png') no-repeat center center;
+}
+.icon-delete{
+	background:url('icons/delete.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

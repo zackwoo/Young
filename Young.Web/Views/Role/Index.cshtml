@@ -1,29 +1,59 @@
-﻿@{
+﻿@model Young.Web.Models.RoleCollectionModel
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
 }
 
+@section scripts{
+    <script>
+        function deleteRole(roleName, isSystem) {
+            if (roleName && isSystem == true) {
+                return;//fix easyui disabled bug
+            }
+            var row = $('#dg').datagrid('getSelected');
+            if (!row && !roleName) {
+                $.messager.alert('信息', '请先选中用户。', 'info');
+            } else if (roleName) {
+                //row delete
+                $.messager.alert('信息', 'row delete。', 'info');
+            } else if (row.IsSystem === "True") {
+                $.messager.alert('信息', '系统角色不允许删除。', 'info');
+            } else {
+                $.messager.alert('信息', 'delete。', 'info');
+            }
+        }
+
+        ;
+    </script>
+}
+
 <table id="dg" class="easyui-datagrid" style="width: auto; height: auto"
-    data-options="
-    url:'/api/apirole',
-    method:'get'"
-    toolbar="#toolbar" pagination="true"
+    singleselect="true"
+    toolbar="#toolbar" pagination="false"
     rownumbers="true" fitcolumns="true">
     <thead>
         <tr>
-            <th data-options="field:'UserName',width:50">角色名称</th>
-            <th data-options="field:'DisplayName',width:50">用户管理</th>
+            <th data-options="field:'UserName',width:60">角色名称</th>
+            <th data-options="field:'IsSystem',width:10,align:'center'">系统角色</th>
+            <th data-options="field:'DisplayName',width:30,align:'center'">操作</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>管理员</td>
-            <td><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-add" plain="true" onclick="newUser()">新建用户</a></td>
-        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RoleName</td>
+                <td>@item.IsSystem</td>
+                <td><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-chart-organisation" plain="true" onclick="newUser()">管理用户</a>
+                    <a data-options="disabled:@item.IsSystem.ToString().ToLower()" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="deleteRole('@item.RoleName',@item.IsSystem.ToString().ToLower())">删除角色</a></td>
+            </tr>
+        }
+        
     </tbody>
 </table>
 <div id="toolbar" style="padding: 10px 0;">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-add" plain="true" onclick="newUser()">新建用户</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="newUser()">新建角色</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="deleteRole()">删除角色</a>
 </div>
 
 

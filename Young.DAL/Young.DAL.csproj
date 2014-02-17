@@ -53,10 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBaseContext.cs" />
-    <Compile Include="Migrations\201402140520258_20140214.cs" />
-    <Compile Include="Migrations\201402140520258_20140214.Designer.cs">
-      <DependentUpon>201402140520258_20140214.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,11 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="更新命令.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201402140520258_20140214.resx">
-      <DependentUpon>201402140520258_20140214.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
