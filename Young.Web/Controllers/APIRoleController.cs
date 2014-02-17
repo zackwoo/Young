@@ -27,5 +27,21 @@ namespace Young.Web.Controllers
             }
             return result;
         }
+
+        public ResultModel PostCreaetRole(string roleName)
+        {
+            ResultModel result = new ResultModel();
+            try
+            {
+                Roles.CreateRole(roleName);
+                result.IsSuccess = true;
+            }
+            catch
+            {
+                result.IsSuccess = false;
+                result.Message = "请联系管理员";
+            }
+            return result;
+        }
     }
 }

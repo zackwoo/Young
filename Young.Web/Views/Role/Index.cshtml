@@ -13,17 +13,46 @@
             var row = $('#dg').datagrid('getSelected');
             if (!row && !roleName) {
                 $.messager.alert('信息', '请先选中用户。', 'info');
-            } else if (roleName) {
-                //row delete
-                $.messager.alert('信息', 'row delete。', 'info');
-            } else if (row.IsSystem === "True") {
+            } else if (row!=null && row.IsSystem === "True") {
                 $.messager.alert('信息', '系统角色不允许删除。', 'info');
             } else {
-                $.messager.alert('信息', 'delete。', 'info');
+                var name = roleName || row.RoleName;
+                console.log(name);
+                $.ajax('/api/apirole?roleName=' + name, {
+                    type: 'delete',
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.IsSuccess) {
+                            var selectRow = $('#dg').datagrid('getSelected');
+                            var deleteIndex = $('#dg').datagrid('getRowIndex', selectRow);
+                            $('#dg').datagrid('deleteRow', deleteIndex);
+                        } else {
+                            $.messager.alert('删除失败', data.Message, 'warning');
+                        }
+                    }
+                });
             }
         }
 
-        ;
+        function newRole() {
+            $.messager.prompt('新建角色', '请输入角色名称:', function (r) {
+                if (r) {
+                    $.post('/api/apirole?roleName=' + r, function (data) {
+                       
+                        if (data.IsSuccess) {
+                            $('#dg').datagrid('appendRow', 
+                                 {
+                                     RoleName: r,
+                                     IsSystem: 'False',
+                                     Operation: '<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-plain"onclick="newUser()"><span class="l-btn-left"><span class="l-btn-text icon-chart-organisation l-btn-icon-left">管理用户</span></span></a><a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-plain"onclick="deleteRole(\''+r+'\',false)"><span class="l-btn-left"><span class="l-btn-text icon-delete l-btn-icon-left">删除角色</span></span></a>'
+                                 });
+                        } else {
+                            $.messager.alert('失败', data.Message, 'warning');
+                        }
+                    });
+                }
+            });
+        }
+        
     </script>
 }
 
@@ -33,9 +62,9 @@
     rownumbers="true" fitcolumns="true">
     <thead>
         <tr>
-            <th data-options="field:'UserName',width:60">角色名称</th>
+            <th data-options="field:'RoleName',width:60">角色名称</th>
             <th data-options="field:'IsSystem',width:10,align:'center'">系统角色</th>
-            <th data-options="field:'DisplayName',width:30,align:'center'">操作</th>
+            <th data-options="field:'Operation',width:30,align:'center'">操作</th>
         </tr>
     </thead>
     <tbody>
@@ -52,7 +81,7 @@
     </tbody>
 </table>
 <div id="toolbar" style="padding: 10px 0;">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="newUser()">新建角色</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="newRole()">新建角色</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="deleteRole()">删除角色</a>
 </div>
 
