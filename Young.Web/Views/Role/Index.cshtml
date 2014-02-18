@@ -13,7 +13,7 @@
             var row = $('#dg').datagrid('getSelected');
             if (!row && !roleName) {
                 $.messager.alert('信息', '请先选中用户。', 'info');
-            } else if (row!=null && row.IsSystem === "True") {
+            } else if (row != null && row.IsSystem === "True") {
                 $.messager.alert('信息', '系统角色不允许删除。', 'info');
             } else {
                 var name = roleName || row.RoleName;
@@ -37,13 +37,13 @@
             $.messager.prompt('新建角色', '请输入角色名称:', function (r) {
                 if (r) {
                     $.post('/api/apirole?roleName=' + r, function (data) {
-                       
+
                         if (data.IsSuccess) {
-                            $('#dg').datagrid('appendRow', 
+                            $('#dg').datagrid('appendRow',
                                  {
                                      RoleName: r,
                                      IsSystem: 'False',
-                                     Operation: '<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-plain"onclick="newUser()"><span class="l-btn-left"><span class="l-btn-text icon-chart-organisation l-btn-icon-left">管理用户</span></span></a><a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-plain"onclick="deleteRole(\''+r+'\',false)"><span class="l-btn-left"><span class="l-btn-text icon-delete l-btn-icon-left">删除角色</span></span></a>'
+                                     Operation: '<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-plain"onclick="mangerUser(\'' + r + '\')"><span class="l-btn-left"><span class="l-btn-text icon-chart-organisation l-btn-icon-left">管理用户</span></span></a><a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-plain"onclick="deleteRole(\'' + r + '\',false)"><span class="l-btn-left"><span class="l-btn-text icon-delete l-btn-icon-left">删除角色</span></span></a>'
                                  });
                         } else {
                             $.messager.alert('失败', data.Message, 'warning');
@@ -52,7 +52,26 @@
                 }
             });
         }
-        
+
+        function mangerUser(roleName) {
+            $('#search-loading').show()
+            $('#win-searchUser')
+                .data("roleName",roleName)
+                .window('open');
+        }
+
+        var searchWinOpenHandle = function () {
+            var roleName = $('#win-searchUser').data("roleName");
+            $.get('/api/apirole?roleName=' + roleName, function (data) {
+                
+                $.each(data,function (index,item) {
+                    $('#searchUser-list').append('<div class="manger-left-user">' + item + '</div>');
+                });
+                $('#search-loading').hide()
+            })
+        }
+
+
     </script>
 }
 
@@ -73,11 +92,11 @@
             <tr>
                 <td>@item.RoleName</td>
                 <td>@item.IsSystem</td>
-                <td><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-chart-organisation" plain="true" onclick="newUser()">管理用户</a>
+                <td><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-chart-organisation" plain="true" onclick="mangerUser('@item.RoleName')">管理用户</a>
                     <a data-options="disabled:@item.IsSystem.ToString().ToLower()" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="deleteRole('@item.RoleName',@item.IsSystem.ToString().ToLower())">删除角色</a></td>
             </tr>
         }
-        
+
     </tbody>
 </table>
 <div id="toolbar" style="padding: 10px 0;">
@@ -86,3 +105,51 @@
 </div>
 
 
+<div id="win-searchUser" class="easyui-window" data-options="title: '管理用户',
+                closed:true,
+                width: 600,
+                height: 400,
+                collapsible: false,
+                minimizable: false,
+                maximizable: false,
+                onOpen:searchWinOpenHandle,
+                modal: true">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'east',split:true,title:'已包含用户'" style="width: 120px">
+            <div id="searchUser-list"></div>
+            <img src="~/Images/loading.gif" id="search-loading" />
+        </div>
+        <div data-options="region:'center'" >
+            <table id="grid-searchUser" class="easyui-datagrid" data-options="toolbar: '#grid-searchUser-toolbar',
+                url:'/api/apimembership',
+                method:'get',
+                pagination:true,
+                columns: [[
+                { checkbox: true },
+                { field: 'UserName', title: '登陆账号', width: 100 },
+                { field: 'DisplayName', title: '用户', width: 100 },
+                { field: 'Email', title: '邮件地址', width: 100, align: 'right' }
+                ]]">
+            </table>
+        </div>
+        <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:alert('ok')">确定</a>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="javascript:$('#win-searchUser').window('close')">取消</a>
+        </div>
+    </div>
+
+</div>
+<div id="grid-searchUser-toolbar" style="padding: 10px">
+    登陆账号:
+    <input type="text" />
+    <a href="#" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+</div>
+
+
+@section style{
+    <style>
+        .manger-left-user {
+            background:url('/images/user.png') no-repeat 3px 3px; padding-left:20px; line-height:20px;
+        }
+    </style>
+}
