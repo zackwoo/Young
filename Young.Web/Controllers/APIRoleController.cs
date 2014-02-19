@@ -44,6 +44,49 @@ namespace Young.Web.Controllers
             return result;
         }
 
+        public ResultModel PutUsers(string category,string roleName,string userNameArry)
+        {
+            var result = new ResultModel
+                {
+                    IsSuccess = true
+                };
+            var usernames = userNameArry.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            if (category == "add")
+            {
+                //添加用户
+                try
+                {
+                    Roles.AddUsersToRole(usernames, roleName);
+                }
+                catch (Exception ex)
+                {
+                    result.IsSuccess = false;
+                    result.Message = ex.Message;
+                }
+                return result;
+            }
+            else if (category == "remove")
+            {
+                //移除用户
+                try
+                {
+                    Roles.RemoveUsersFromRole(usernames, roleName);
+                }
+                catch (Exception ex)
+                {
+                    result.IsSuccess = false;
+                    result.Message = ex.Message;
+                }
+                return result;
+            }
+            else
+            {
+                result.IsSuccess = false;
+                result.Message = "指令错误";
+                return result;
+            }
+        }
+
         public string[] GetUserNameByRoleName(string roleName)
         {
             return Roles.GetUsersInRole(roleName);

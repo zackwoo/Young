@@ -170,6 +170,8 @@
     <Content Include="Content\images\treeview-gray.gif" />
     <Content Include="Content\images\treeview-red-line.gif" />
     <Content Include="Content\images\treeview-red.gif" />
+    <Content Include="Content\themes\icons\chart_organisation_add.png" />
+    <Content Include="Content\themes\icons\chart_organisation_delete.png" />
     <Content Include="Images\user.png" />
     <Content Include="Content\Reset.css" />
     <Content Include="Content\themes\default\accordion.css" />
@@ -382,7 +384,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7184</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2303/</IISUrl>
+          <IISUrl>http://localhost:2304/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

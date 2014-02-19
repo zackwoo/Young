@@ -124,6 +124,12 @@
 .icon-chart-organisation{
 	background:url('icons/chart_organisation.png') no-repeat center center;
 }
+.icon-chart-organisation-add{
+	background:url('icons/chart_organisation_add.png') no-repeat center center;
+}
+.icon-chart-organisation-delete{
+	background:url('icons/chart_organisation_delete.png') no-repeat center center;
+}
 .icon-delete{
 	background:url('icons/delete.png') no-repeat center center;
 }
