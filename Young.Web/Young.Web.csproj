@@ -170,6 +170,7 @@
     <Content Include="Content\images\treeview-gray.gif" />
     <Content Include="Content\images\treeview-red-line.gif" />
     <Content Include="Content\images\treeview-red.gif" />
+    <Content Include="Images\user.png" />
     <Content Include="Content\Reset.css" />
     <Content Include="Content\themes\default\accordion.css" />
     <Content Include="Content\themes\default\calendar.css" />

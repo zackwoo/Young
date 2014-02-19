@@ -43,5 +43,10 @@ namespace Young.Web.Controllers
             }
             return result;
         }
+
+        public string[] GetUserNameByRoleName(string roleName)
+        {
+            return Roles.GetUsersInRole(roleName);
+        }
     }
 }
