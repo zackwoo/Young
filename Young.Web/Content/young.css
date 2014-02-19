@@ -148,7 +148,7 @@ input, textarea
     color: #444;
 }
 
-    .edit-form tr
+    .edit-form tbody>tr
     {
         height: 60px;
     }

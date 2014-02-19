@@ -33,10 +33,13 @@ namespace Young.Model
 
     public enum CustomColumnType
     {
-        Number,
-        Boolean,
-        String,
-        Date,
-        Term
+        Number=0,
+        Boolean=1,
+        TextLine=2,//单行
+        Date=3,
+        Users=4,
+        CurrentUser=5,
+        Term=6,
+        TextArea=7//多行
     }
 }

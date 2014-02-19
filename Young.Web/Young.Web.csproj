@@ -143,6 +143,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
+    <Compile Include="Models\CustomColumnModel.cs" />
     <Compile Include="Models\CustomListModel.cs" />
     <Compile Include="Models\EasyUIView\DataGridModel.cs" />
     <Compile Include="Models\EasyUIView\PropertyGridRowModel.cs" />
