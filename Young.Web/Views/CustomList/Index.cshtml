@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
+}
+
+
+<table id="dg" class="easyui-datagrid" style="width: auto; height: auto"
+    data-options="
+    url:'/api/apimembership',
+    method:'get'"
+    toolbar="#toolbar" pagination="true"
+    rownumbers="true" fitcolumns="true">
+    <thead>
+        <tr>
+            <th data-options="field:'UserName',width:100">列表名称</th>
+            <th data-options="field:'DisplayName',width:280">用途</th>
+            <th data-options="field:'Email',width:200">创建日期</th>
+        </tr>
+    </thead>
+</table>
+<div id="toolbar" style="padding: 10px 0;">
+    <a href="Create" class="easyui-linkbutton" iconcls="icon-table-add" plain="true"   >新建列表</a>
+    <a href="Edit" class="easyui-linkbutton" iconcls="icon-table-edit" plain="true"  >编辑列表</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-table-delete" plain="true">删除列表</a>
+</div>

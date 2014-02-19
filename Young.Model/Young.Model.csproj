@@ -54,6 +54,9 @@
   <ItemGroup>
     <Compile Include="Base\BaseGeneralEntity.cs" />
     <Compile Include="Base\EntityBase.cs" />
+    <Compile Include="CustomColumnEntity.cs" />
+    <Compile Include="CustomListDataEntity.cs" />
+    <Compile Include="CustomListEntity.cs" />
     <Compile Include="RoleEntity.cs" />
     <Compile Include="TermEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

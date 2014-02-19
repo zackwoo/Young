@@ -129,6 +129,7 @@
     <Compile Include="Controllers\APIRoleController.cs" />
     <Compile Include="Controllers\APISysConfigController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\CustomListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\APIMembershipController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
@@ -142,6 +143,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
+    <Compile Include="Models\CustomListModel.cs" />
     <Compile Include="Models\EasyUIView\DataGridModel.cs" />
     <Compile Include="Models\EasyUIView\PropertyGridRowModel.cs" />
     <Compile Include="Models\EasyUIView\UserGridRowModel.cs" />
@@ -172,6 +174,10 @@
     <Content Include="Content\images\treeview-red.gif" />
     <Content Include="Content\themes\icons\chart_organisation_add.png" />
     <Content Include="Content\themes\icons\chart_organisation_delete.png" />
+    <Content Include="Content\themes\icons\table_add.png" />
+    <Content Include="Content\themes\icons\table_delete.png" />
+    <Content Include="Content\themes\icons\table_edit.png" />
+    <Content Include="Content\themes\icons\table_multiple.png" />
     <Content Include="Images\user.png" />
     <Content Include="Content\Reset.css" />
     <Content Include="Content\themes\default\accordion.css" />
@@ -341,6 +347,9 @@
     <Content Include="Views\Membership\Index.cshtml" />
     <Content Include="Views\SysConfig\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\CustomList\Index.cshtml" />
+    <Content Include="Views\CustomList\Create.cshtml" />
+    <Content Include="Views\CustomList\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

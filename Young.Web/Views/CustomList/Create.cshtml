@@ -1,0 +1,15 @@
+﻿@model Young.Web.Models.CustomListModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
+}
+<form action="/" method="post">
+    <h1>列表</h1>
+    <div>
+        @Html.LabelFor(f=>f.Name): @Html.EditorFor(f=>f.Name)
+    </div>
+    <div>
+        @Html.LabelFor(f=>f.Description): @Html.TextAreaFor(f=>f.Description)
+    </div>
+    <h1>栏</h1>
+</form>

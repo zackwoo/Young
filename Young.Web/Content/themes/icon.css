@@ -73,6 +73,18 @@
 .icon-table{
 	background:url('icons/table.png') no-repeat center center;
 }
+.icon-table-multiple{
+	background:url('icons/table_multiple.png') no-repeat center center;
+}
+.icon-table-add{
+	background:url('icons/table_add.png') no-repeat center center;
+}
+.icon-table-delete{
+	background:url('icons/table_delete.png') no-repeat center center;
+}
+.icon-table-edit{
+	background:url('icons/table_edit.png') no-repeat center center;
+}
 .icon-arrow-join{
 	background:url('icons/arrow_join.png') no-repeat center center;
 }
