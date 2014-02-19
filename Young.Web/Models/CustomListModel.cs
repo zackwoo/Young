@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Young.Web.Models
 {
-    public class CustomListModel : ICollection<CustomColumnModel>
+    public class CustomListModel : IList<CustomColumnModel>
     {
         public CustomListModel()
         {
@@ -18,7 +18,7 @@ namespace Young.Web.Models
         [Display(Name = "用途描述")]
         public string Description { get; set; }
 
-        private ICollection<CustomColumnModel> CustomColumnCollection {  get; set; }
+        private IList<CustomColumnModel> CustomColumnCollection { get; set; }
 
         public void Add(CustomColumnModel item)
         {
@@ -63,6 +63,33 @@ namespace Young.Web.Models
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return CustomColumnCollection.GetEnumerator();
+        }
+
+        public int IndexOf(CustomColumnModel item)
+        {
+            return CustomColumnCollection.IndexOf(item);
+        }
+
+        public void Insert(int index, CustomColumnModel item)
+        {
+            CustomColumnCollection.Insert(index, item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            CustomColumnCollection.RemoveAt(index);
+        }
+
+        public CustomColumnModel this[int index]
+        {
+            get
+            {
+                return CustomColumnCollection[index];
+            }
+            set
+            {
+                CustomColumnCollection[index] = value;
+            }
         }
     }
 }
