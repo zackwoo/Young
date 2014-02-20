@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Young.Model.Base;
+using Young.Model.DataAttribute;
 
 namespace Young.Model
 {
@@ -34,23 +35,25 @@ namespace Young.Model
 
     public enum CustomColumnType
     {
-        [Display(Name = "数字型",Order=1)]
+        [EnumDescription(Name = "数字型", Order = 1,Value=0)]
         Number=0,
-        [Display(Name = "布尔型", Order = 2)]
+        [EnumDescription(Name = "布尔型", Order = 2, Value = 1)]
         Boolean=1,
-        [Display(Name = "单行文本框", Order = 3)]
+        [EnumDescription(Name = "单行文本框", Order = 3, Value = 2)]
         TextLine=2,
-        [Display(Name = "日期类型", Order = 5)]
+        [EnumDescription(Name = "日期类型", Order = 5, Value = 3)]
         Date = 3,
-        [Display(Name = "时间类型", Order = 6)]
+        [EnumDescription(Name = "时间类型", Order = 6, Value = 4)]
         DateTime = 4,
-        [Display(Name = "用户选择", Order = 9)]
-        Users=4,
-        [Display(Name = "当前登录用户", Order = 8)]
-        CurrentUser=5,
-        [Display(Name = "术语型", Order = 7)]
-        Term=6,
-        [Display(Name = "多行文本框", Order = 4)]
-        TextArea=7
+        [EnumDescription(Name = "用户选择", Order = 9, Value = 5)]
+        Users=5,
+        [EnumDescription(Name = "当前登录用户", Order = 8, Value = 6)]
+        CurrentUser=6,
+        [EnumDescription(Name = "术语型", Order = 7, Value = 7)]
+        Term=7,
+        [EnumDescription(Name = "多行文本框", Order = 4, Value = 8)]
+        TextArea=8
     }
+
+    
 }

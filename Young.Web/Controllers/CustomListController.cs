@@ -20,18 +20,22 @@ namespace Young.Web.Controllers
 
         public ActionResult Create()
         {
-            var model = new CustomListModel();
-            
-            model.Add(new CustomColumnModel
-            {
-                DisplayName = "标题",
-                Type =CustomColumnType.TextLine
-            });
-            model.Add(new CustomColumnModel
-            {
-                DisplayName = "描述",
-                Type =CustomColumnType.TextArea
-            });
+            var model = new CustomListModel
+                {
+                    new CustomColumnModel
+                        {
+                            DisplayName = "标题",
+                            Type = CustomColumnType.TextLine,
+                            Description = "显示标题栏"
+                        },
+                    new CustomColumnModel
+                        {
+                            DisplayName = "描述",
+                            Type = CustomColumnType.TextArea,
+                            Description = "列表描述栏"
+                        }
+                };
+
             return View(model);
         }
 

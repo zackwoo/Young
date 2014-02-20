@@ -57,6 +57,7 @@
     <Compile Include="CustomColumnEntity.cs" />
     <Compile Include="CustomListDataEntity.cs" />
     <Compile Include="CustomListEntity.cs" />
+    <Compile Include="DataAttribute\EnumDescriptionAttribute.cs" />
     <Compile Include="RoleEntity.cs" />
     <Compile Include="TermEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

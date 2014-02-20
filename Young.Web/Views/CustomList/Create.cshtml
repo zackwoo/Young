@@ -21,14 +21,14 @@
         <h1>栏目</h1>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" onclick="createColumn()">添加</a>
         <hr />
-        <table class="edit-form" style="width: 100%;">
+        <table class="edit-form" style="width: 100%;"id="custom-column">
             <thead>
                 <tr>
-                    <th>列名</th>
-                    <th>类型</th>
+                    <th style="width:100px">列名</th>
+                    <th style="width:100px">类型</th>
                     <th>描述</th>
                     <th>条件</th>
-                    <th>操作</th>
+                    <th class="txt-center" style="width:150px">操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +39,7 @@
                         <td>@Html.DisplayFor(f => f[i].Type)</td>
                         <td>@Html.DisplayFor(f => f[i].Description)</td>
                         <td>@Html.DisplayFor(f => f[i].Condition)</td>
-                        <td>
+                        <td class="txt-center">
                             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true">编辑</a>
                             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="deleteColumn(this)">删除</a>
                         </td>
@@ -49,7 +49,7 @@
         </table>
         <div class="txt-center" style="margin-top: 10px">
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok">提交</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+            <a href="~/customlist/index" class="easyui-linkbutton" iconcls="icon-back">返回</a>
         </div>
     </form>
 </div>
@@ -62,37 +62,32 @@
                 minimizable: false,
                 maximizable: false,
                 modal: true">
-     <table class="edit-form" style="width: 100%;">
+    <table class="edit-form" style="width: 100%;" >
         <tr>
             <td>名称</td>
             <td>
-                <input type="text" /></td>
+                <input type="text" id="displayName" name="displayName" /></td>
         </tr>
         <tr>
             <td>类型</td>
             <td>
-                <select id="cc" class="easyui-combobox" name="dept" data-options="editable:false">
-                    <option value="aa">aitem1</option>
-                    <option>bitem2</option>
-                    <option>bitem3</option>
-                    <option>ditem4</option>
-                    <option>eitem5</option>
-                </select></td>
+                @Html.DropDownList("type", Young.Web.Util.GetSelectListItemByEnum(typeof(Young.Model.CustomColumnType)))
+            </td>
         </tr>
         <tr>
             <td>描述</td>
             <td>
-                <textarea></textarea>
-                </td>
+                <textarea id="description" name="description"></textarea>
+            </td>
         </tr>
         <tr>
             <td>条件</td>
             <td>
-                <input type="text" /></td>
+                <input type="text" id="condition" name="condition" /></td>
         </tr>
     </table>
     <div class="txt-center" style="margin-top: 10px">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" onclick="addColumn()">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#win-column').window('close');">取消</a>
     </div>
 </div>
@@ -102,12 +97,38 @@
             $('#win-column').window('open');
         }
 
+        function addColumn() {
+            //添加栏目
+            var data = {
+                displayName: $('#displayName').val(),
+                condition: $('#condition').val(),
+                description: $('#description').val(),
+                type: $('#type').combobox('getValue'),
+                typeName: $('#type').combobox('getText')
+            };
+            addRowToColumn(data);
+
+            $('#win-column').window('close');
+        }
+
+        function addRowToColumn(row) {
+            var jrow = $('<tr><td>' + row.displayName + '</td><td>' + row.typeName + '</td><td>' + row.description + '</td><td>' + row.condition + '</td><td class="txt-center"><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true">编辑</a><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="deleteColumn(this)">删除</a></td></tr>');
+            $.parser.parse(jrow);
+            $("#custom-column tbody").append(jrow);
+        }
+
         function deleteColumn(source) {
-            $.messager.confirm('删除确认', '你确定要删除该栏目吗?', function (r) {
+            $.messager.confirm('删除确认', '你确定要删除该栏目吗?', function(r) {
                 if (r) {
                     $(source).closest("tr").remove();
                 }
-            });            
+            });
         }
+
+        $(function() {
+            $('select[name="type"]').combobox({
+                editable: false
+            });
+        });
     </script>
 }
