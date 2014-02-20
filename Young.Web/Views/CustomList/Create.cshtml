@@ -21,34 +21,22 @@
         <h1>栏目</h1>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" onclick="createColumn()">添加</a>
         <hr />
-        <table class="edit-form" style="width: 100%;"id="custom-column">
+        <table class="edit-form" style="width: 100%;" id="custom-column">
             <thead>
                 <tr>
-                    <th style="width:100px">列名</th>
-                    <th style="width:100px">类型</th>
+                    <th style="width: 100px">列名</th>
+                    <th style="width: 100px">类型</th>
                     <th>描述</th>
                     <th>条件</th>
-                    <th class="txt-center" style="width:150px">操作</th>
+                    <th class="txt-center" style="width: 150px">操作</th>
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < Model.Count; i++)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(f => f[i].DisplayName)</td>
-                        <td>@Html.DisplayFor(f => f[i].Type)</td>
-                        <td>@Html.DisplayFor(f => f[i].Description)</td>
-                        <td>@Html.DisplayFor(f => f[i].Condition)</td>
-                        <td class="txt-center">
-                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true">编辑</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="deleteColumn(this)">删除</a>
-                        </td>
-                    </tr>
-                }
+               
             </tbody>
         </table>
         <div class="txt-center" style="margin-top: 10px">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok">提交</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" onclick="createCustomList()">提交</a>
             <a href="~/customlist/index" class="easyui-linkbutton" iconcls="icon-back">返回</a>
         </div>
     </form>
@@ -62,28 +50,28 @@
                 minimizable: false,
                 maximizable: false,
                 modal: true">
-    <table class="edit-form" style="width: 100%;" >
+    <table class="edit-form" style="width: 100%;">
         <tr>
             <td>名称</td>
             <td>
-                <input type="text" id="displayName" name="displayName" /></td>
+                <input type="text" id="columnDisplayName" name="columnDisplayName" /></td>
         </tr>
         <tr>
             <td>类型</td>
             <td>
-                @Html.DropDownList("type", Young.Web.Util.GetSelectListItemByEnum(typeof(Young.Model.CustomColumnType)))
+                @Html.DropDownList("columnType", Young.Web.Util.GetSelectListItemByEnum(typeof(Young.Model.CustomColumnType)))
             </td>
         </tr>
         <tr>
             <td>描述</td>
             <td>
-                <textarea id="description" name="description"></textarea>
+                <textarea id="columnDescription" name="columnDescription"></textarea>
             </td>
         </tr>
         <tr>
             <td>条件</td>
             <td>
-                <input type="text" id="condition" name="condition" /></td>
+                <input type="text" id="columnCondition" name="columnCondition" /></td>
         </tr>
     </table>
     <div class="txt-center" style="margin-top: 10px">
@@ -100,11 +88,11 @@
         function addColumn() {
             //添加栏目
             var data = {
-                displayName: $('#displayName').val(),
-                condition: $('#condition').val(),
-                description: $('#description').val(),
-                type: $('#type').combobox('getValue'),
-                typeName: $('#type').combobox('getText')
+                DisplayName: $('#columnDisplayName').val(),
+                Condition: $('#columnCondition').val(),
+                Description: $('#columnDescription').val(),
+                Type: $('#columnType').combobox('getValue'),
+                TypeName: $('#columnType').combobox('getText')
             };
             addRowToColumn(data);
 
@@ -112,7 +100,8 @@
         }
 
         function addRowToColumn(row) {
-            var jrow = $('<tr><td>' + row.displayName + '</td><td>' + row.typeName + '</td><td>' + row.description + '</td><td>' + row.condition + '</td><td class="txt-center"><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true">编辑</a><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="deleteColumn(this)">删除</a></td></tr>');
+            var jrow = $('<tr><td>' + row.DisplayName + '</td><td>' + row.TypeName + '</td><td>' + row.Description + '</td><td>' + row.Condition + '</td><td class="txt-center"><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true"  onclick="editColumn(this)">编辑</a><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="deleteColumn(this)">删除</a></td></tr>');
+            jrow.data("item", row);//注入ITEM
             $.parser.parse(jrow);
             $("#custom-column tbody").append(jrow);
         }
@@ -125,9 +114,44 @@
             });
         }
 
+        function editColumn(source) {
+            $.messager.alert('信息', '该功能暂未开放', 'info');
+        }
+
+        function createCustomList() {
+            var commandData = {
+                CommandType: 'Create',
+                DisplayName: $('#Name').val(),
+                Description: $('#Description').val(),
+                CustomColumnModels:[]
+            };
+            $('#custom-column tbody>tr').each(function(i,item) {
+                var data = $(item).data('item');
+                commandData.CustomColumnModels.push(data);
+            });
+            $.post("/api/apicustomlist", commandData, function() {
+                window.location = "/customlist/index";
+            });
+        }
+
         $(function() {
             $('select[name="type"]').combobox({
                 editable: false
+            });
+            //添加默认栏目
+            addRowToColumn({
+                DisplayName: '标题',
+                Condition: '',
+                Description: '显示标题栏',
+                Type: 2,
+                TypeName: '单行文本框'
+            });
+            addRowToColumn({
+                DisplayName: '描述',
+                Condition: '',
+                Description: '列表描述栏',
+                Type: 8,
+                TypeName: '多行文本框'
             });
         });
     </script>

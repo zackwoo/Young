@@ -47,10 +47,7 @@
                         </ul>
                     </div>
                     <div title="自定义列表" data-options="iconCls:'icon-table-multiple'" style="overflow: auto;">
-                        <ul class="left-nav">
-                            <li>
-                                <a class="icon-table" href="~/SysConfig/index">系统设置</a>
-                            </li>
+                        <ul class="left-nav" id="custom-list">
                         </ul>
                     </div>
                 </div>
@@ -60,10 +57,22 @@
             </div>
         </div>
     </div>
-    <div id="foot">©2014 Young </div>
-
+ 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/easyui")
+    
+    <script>
+        $(function() {
+            //加载自定义列表
+            $.get("/api/APICustomList", function (data) {
+                $('#custom-list').empty();
+                $.each(data, function(i, item) {
+                    $('#custom-list').append('<li><a class="icon-table" href="#">' + item.Name + '</a></li>');
+                });
+            });
+        });
+
+    </script>
 
     @RenderSection("scripts", required: false)
 </body>

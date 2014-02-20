@@ -8,6 +8,8 @@ namespace Young.Web.Models
 {
     public class CustomColumnModel
     {
+        public int ID { get; set; }
+
         public string DisplayName { get; set; }
 
         public CustomColumnType Type { get; set; }

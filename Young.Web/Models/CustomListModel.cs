@@ -18,6 +18,8 @@ namespace Young.Web.Models
         [Display(Name = "用途描述")]
         public string Description { get; set; }
 
+        public int ID { get; set; }
+
         private IList<CustomColumnModel> CustomColumnCollection { get; set; }
 
         public void Add(CustomColumnModel item)

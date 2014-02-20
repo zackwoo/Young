@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\APICustomListController.cs" />
     <Compile Include="Controllers\APIRoleController.cs" />
     <Compile Include="Controllers\APISysConfigController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
@@ -144,6 +145,8 @@
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
     <Compile Include="Models\CustomColumnModel.cs" />
+    <Compile Include="Models\Command\CustomListCommandModel.cs" />
+    <Compile Include="Models\CustomListItemModel.cs" />
     <Compile Include="Models\CustomListModel.cs" />
     <Compile Include="Models\EasyUIView\DataGridModel.cs" />
     <Compile Include="Models\EasyUIView\PropertyGridRowModel.cs" />
