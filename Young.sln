@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.Provider", "Young.Pro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.BLL", "Young.BLL\Young.BLL.csproj", "{C8786477-84F5-4851-AADD-DE3A5754093A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Young.Workflow", "Young.Workflow\Young.Workflow.csproj", "{0C308B7B-7A23-4866-AD13-F8E6863F4E6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{C8786477-84F5-4851-AADD-DE3A5754093A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8786477-84F5-4851-AADD-DE3A5754093A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8786477-84F5-4851-AADD-DE3A5754093A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C308B7B-7A23-4866-AD13-F8E6863F4E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C308B7B-7A23-4866-AD13-F8E6863F4E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C308B7B-7A23-4866-AD13-F8E6863F4E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C308B7B-7A23-4866-AD13-F8E6863F4E6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
