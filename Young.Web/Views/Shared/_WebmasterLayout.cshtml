@@ -46,7 +46,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div title="自定义列表" data-options="iconCls:'icon-table-multiple'" style="overflow: auto;">
+                    <div title="自定义列表" data-options="iconCls:'icon-table-multiple',collapsed:false" style="overflow: auto;">
                         <ul class="left-nav" id="custom-list">
                         </ul>
                     </div>
@@ -57,17 +57,17 @@
             </div>
         </div>
     </div>
- 
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/easyui")
-    
+
     <script>
-        $(function() {
+        $(function () {
             //加载自定义列表
             $.get("/api/APICustomList", function (data) {
                 $('#custom-list').empty();
-                $.each(data, function(i, item) {
-                    $('#custom-list').append('<li><a class="icon-table" href="#">' + item.Name + '</a></li>');
+                $.each(data, function (i, item) {
+                    $('#custom-list').append('<li><a class="icon-table" href="/customlist/list/' + item.ID + '">' + item.Name + '</a></li>');
                 });
             });
         });

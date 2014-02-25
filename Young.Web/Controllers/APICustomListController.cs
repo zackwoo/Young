@@ -45,12 +45,6 @@ namespace Young.Web.Controllers
             }
         }
 
-        // GET api/apicustomlist/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/apicustomlist
         public void Post(CustomListCommandModel command)
         {
@@ -80,16 +74,6 @@ namespace Young.Web.Controllers
                     db.SaveChanges();
                 }
             }
-        }
-
-        // PUT api/apicustomlist/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/apicustomlist/5
-        public void Delete(int id)
-        {
         }
     }
 }

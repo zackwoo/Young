@@ -17,5 +17,7 @@ namespace Young.Web.Models
         public string Condition { get; set; }
 
         public string Description { get; set; }
+
+        public string InnerName { get; set; }
     }
 }

@@ -1,0 +1,46 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
+}
+
+@section scripts{
+    <script>
+        var _columns = [];
+//自定义列
+        $(function() {
+            $.get('/api/apicustomlistdata/@ViewBag.ID', function(data) {
+                $.each(data, function(i, item) {
+                    _columns.push({
+                        field: item.InnerName,
+                        title: item.DisplayName,
+                        type: item.Type,
+                        id: item.ID,
+                        condition: item.Condition,
+                        description: item.Description
+                    });
+                });
+                $('#dg').datagrid({
+                    title: '自定义列表：@ViewBag.Name',
+                    toolbar: '#toolbar',
+                    pagination: true,
+                    rownumbers: true,
+                    fitcolumns: true,
+                    url: 'datagrid_data.json',
+                    columns: [_columns]
+                });
+            });
+        });
+
+        function newRecord() {
+            $.post('/api/apicustomlistdata', { a: '111', b: '222' });
+        }
+    </script>
+}
+<table id="dg" style="width: auto; height: auto"></table>
+<div id="toolbar" style="padding: 10px 0;">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-add" plain="true" onclick="newRecord()">添加记录</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-edit" plain="true" onclick="editRecord()">编辑记录</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-delete" plain="true" onclick="deleteRecord()">删除记录</a>
+</div>

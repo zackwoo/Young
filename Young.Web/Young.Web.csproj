@@ -127,6 +127,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\APICustomListController.cs" />
+    <Compile Include="Controllers\APICustomListDataController.cs" />
     <Compile Include="Controllers\APIRoleController.cs" />
     <Compile Include="Controllers\APISysConfigController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
@@ -355,6 +356,7 @@
     <Content Include="Views\CustomList\Index.cshtml" />
     <Content Include="Views\CustomList\Create.cshtml" />
     <Content Include="Views\CustomList\Edit.cshtml" />
+    <Content Include="Views\CustomList\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
