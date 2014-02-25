@@ -293,6 +293,8 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Content\themes\default\images\Thumbs.db" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\Young\Young.CustomListDialog.js" />
     <Content Include="问题.txt" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\angular.min.js" />
@@ -357,6 +359,7 @@
     <Content Include="Views\CustomList\Create.cshtml" />
     <Content Include="Views\CustomList\Edit.cshtml" />
     <Content Include="Views\CustomList\List.cshtml" />
+    <Content Include="Scripts\Young\Young.Prototype.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

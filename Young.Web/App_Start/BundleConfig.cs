@@ -9,6 +9,9 @@ namespace Young.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                "~/Scripts/Young/Young.Prototype.js",
+                "~/Scripts/Young/Young.CustomListDialog.js",
+                "~/Scripts/json2.js",
                         "~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
                         "~/Scripts/Plugin/jquery.easyui.{version}.js",
