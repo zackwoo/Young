@@ -80,6 +80,14 @@ namespace Young.Web.Controllers
             {//非唯一Email时可修改Email地址
                 member.Email = user.Email;
             }
+            if (!string.IsNullOrEmpty(user.DepartID))
+            {
+                member.DepartmentID = Convert.ToInt32(user.DepartID);
+            }
+            if (!string.IsNullOrEmpty(user.PostionID))
+            {
+                member.PostionID = Convert.ToInt32(user.PostionID);
+            }
             Membership.UpdateUser(member);
             return new ResultModel
             {
@@ -136,6 +144,26 @@ namespace Young.Web.Controllers
                 case MembershipCreateStatus.UserRejected:
                     result.Message = "因为提供程序定义的某个原因而未创建用户";
                     break;
+            }
+            if (result.IsSuccess)
+            {
+                using (var db = new DataBaseContext())
+                {
+                    var userInfo = db.Users.Single(f => f.UserName == user.UserName);
+                    if (!string.IsNullOrEmpty(user.DepartID))
+                    {
+                        var did = Convert.ToInt32(user.DepartID);
+                        var depart = db.Terms.Single(f => f.ID == did);
+                        userInfo.Department = depart;
+                    }
+                    if (!string.IsNullOrEmpty(user.PostionID))
+                    {
+                        var pid = Convert.ToInt32(user.PostionID);
+                        var postion = db.Terms.Single(f => f.ID == pid);
+                        userInfo.Position = postion;
+                    }
+                    db.SaveChanges();
+                }
             }
             return result;
         }

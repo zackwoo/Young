@@ -17,10 +17,13 @@ namespace Young.Provider
     {
         private MembershipUser ConvertUser(UserEntity user)
         {
+            int? departID = user.Department == null ? (int?)null : user.Department.ID;
+            int? postionID = user.Position == null ? (int?)null : user.Position.ID;
             return new YoungMembershipUser(this.name, user.UserName, user.ID, user.Email, user.PasswordQuestion,
-                                           "comment",user.IsApproved, user.IsLock, user.RegisterTime, user.LastLoginTime,
+                                           "comment", user.IsApproved, user.IsLock, user.RegisterTime,
+                                           user.LastLoginTime,
                                            user.LastActivityTime, user.LastPasswordChangedTime, user.LastLockoutTime,
-                                           user.DisplayName);
+                                           user.DisplayName, departID, postionID);
         }
 
         #region 内部参数
@@ -551,6 +554,16 @@ namespace Young.Provider
                 user.LastLoginTime = youngUser.LastLoginDate;
                 user.LastPasswordChangedTime = youngUser.LastPasswordChangedDate;
                 user.DisplayName = youngUser.DisplayName;
+                if (youngUser.DepartmentID.HasValue)
+                {
+                    var depart = db.Terms.Single(f => f.ID == youngUser.DepartmentID.Value);
+                    user.Department = depart;
+                }
+                if (youngUser.PostionID.HasValue)
+                {
+                    var postion = db.Terms.Single(f => f.ID == youngUser.PostionID.Value);
+                    user.Position = postion;
+                }
                 db.SaveChanges();
             }
         }

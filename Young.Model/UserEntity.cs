@@ -44,5 +44,14 @@ namespace Young.Model
         public string PasswordAnswer { get; set; }
 
         public virtual List<RoleEntity>Roles { get; set; }
+        /// <summary>
+        /// 员工所属部门
+        /// </summary>
+        public virtual TermEntity Department { get; set; }
+
+        /// <summary>
+        /// 员工所属职位
+        /// </summary>
+        public virtual TermEntity Position { get; set; }
     }
 }

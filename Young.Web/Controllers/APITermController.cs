@@ -72,11 +72,24 @@ namespace Young.Web.Controllers
 
                 if (single == null) return null;
                 return new JsonTmp
-                    {
-                        id = single.ID,
-                        text = single.Name,
-                        Description = single.Description
-                    };
+                {
+                    id = single.ID,
+                    text = single.Name,
+                    Description = single.Description
+                };
+            }
+        }
+
+        public List<JsonTmp> GetTreeCombox(string termName)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                var single = db.Terms.SingleOrDefault(f => f.Name == termName);
+
+                if (single == null) return null;
+                List<JsonTmp> tmp = new List<JsonTmp>();
+                tmp.Add(Convert(single));
+                return tmp;
             }
         }
 

@@ -39,5 +39,13 @@ namespace Young.Web.Models
         /// 用户的密码提示问题答案
         /// </summary>
         public string PasswordAnswer { get; set; }
+        /// <summary>
+        /// 用户所在部门可能ID为空
+        /// </summary>
+        public string DepartID { get; set; }
+        /// <summary>
+        /// 用户所在职位可能ID为空
+        /// </summary>
+        public string PostionID { get; set; }
     }
 }

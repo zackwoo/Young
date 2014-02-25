@@ -26,11 +26,11 @@ namespace Young.DAL.Migrations
                     Description = "管理术语集合根节点",
                     IsSystem = true
                 };
-            using (DataBaseContext db = new DataBaseContext())
+            using (var db = new DataBaseContext())
             {
                 db.Terms.AddOrUpdate(f => f.Name, root);
                 db.SaveChanges();
-                TermEntity sysNode = new TermEntity
+                var sysNode = new TermEntity
                     {
                         Name = "系统术语集合",
                         ParentId = root.ID,
@@ -38,7 +38,7 @@ namespace Young.DAL.Migrations
                         Description = "管理系统术语根节点"
                     };
                 db.Terms.AddOrUpdate(f => f.Name, sysNode);
-                TermEntity custNode = new TermEntity
+                var custNode = new TermEntity
                     {
                         Name = "自定义术语集合",
                         ParentId = root.ID,
@@ -46,9 +46,25 @@ namespace Young.DAL.Migrations
                         Description = "自定义术语根节点"
                     };
                 db.Terms.AddOrUpdate(f => f.Name, custNode);
-
+                
                 db.SaveChanges();
-
+                var departmentNode = new TermEntity
+                {
+                    Name = "部门",
+                    ParentId = sysNode.ID,
+                    IsSystem = true,
+                    Description = "员工所在部门"
+                };
+                var positionNode = new TermEntity
+                {
+                    Name = "职位",
+                    ParentId = sysNode.ID,
+                    IsSystem = true,
+                    Description = "员工所属职位"
+                };
+                db.Terms.AddOrUpdate(f => f.Name, departmentNode);
+                db.Terms.AddOrUpdate(f => f.Name, positionNode);
+                db.SaveChanges();
             }
 
             #endregion

@@ -34,6 +34,10 @@
                     handler: function () {
                         if ($('#fm').form('validate')) {
                             var param = getFormDataModel('fm');
+                            //获取部门，职位
+                            param.DepartID = $('#user-depart').combotree('getValue');
+                            param.PostionID = $('#user-postion').combotree('getValue');
+                            
                             $.post("/api/apimembership?category=new", param, function (data) {
                                 if (data.IsSuccess) {
                                     $('#dg').datagrid('insertRow', {
@@ -77,6 +81,11 @@
             }
             var row = $('#dg').datagrid('getSelected');
             $('#fmEditUser').form('load', row);
+            //设置部门与职位值
+            $('#editUser-depart').combotree("setValue", row.DepartmentID);
+            $('#editUser-postion').combotree("setValue", row.PostionID);
+          
+
             $('#dlgEditUser').dialog({
                 buttons: [{
                     text: '保存',
@@ -84,6 +93,10 @@
                     handler: function () {
                         if ($('#fmEditUser').form('validate')) {
                             var param = getFormDataModel('fmEditUser');
+                            //获取部门，职位
+                            param.DepartID = $('#editUser-depart').combotree('getValue');
+                            param.PostionID = $('#editUser-postion').combotree('getValue');
+                            
                             $.post("/api/apimembership?category=edit", param, function (data) {
                                 if (data.IsSuccess) {
                                     $('#dlgEditUser').dialog('close');
@@ -251,7 +264,7 @@
 
 
 
-<div id="dlg" class="easyui-dialog" style="width: 400px; height: 280px; padding: 10px 20px"
+<div id="dlg" class="easyui-dialog" style="width: 400px; height: 320px; padding: 10px 20px"
     closed="true" modal="true" title="新建用户信息">
     <div class="ftitle">用户信息</div>
     <form id="fm" method="post" novalidate>
@@ -270,6 +283,14 @@
         <div class="fitem">
             <label>Email:</label>
             <input name="Email" class="easyui-validatebox" validtype="email">
+        </div>
+          <div class="fitem">
+            <label>部门:</label>
+            <select id="user-depart" class="easyui-combotree" style="width:149px;" data-options="url:'/api/apiterm?termName=部门',method:'get'"></select>  
+        </div>
+        <div class="fitem">
+            <label>职位:</label>
+            <select id="user-postion" class="easyui-combotree" style="width:149px;" data-options="url:'/api/apiterm?termName=职位',method:'get'"></select>  
         </div>
     </form>
 </div>
@@ -290,6 +311,15 @@
             <label>Email:</label>
             <input name="Email" class="easyui-validatebox" validtype="email">
         </div>
+        <div class="fitem">
+            <label>部门:</label>
+            <select id="editUser-depart" class="easyui-combotree" style="width:149px;" data-options="url:'/api/apiterm?termName=部门',method:'get'"></select>  
+        </div>
+        <div class="fitem">
+            <label>职位:</label>
+            <select id="editUser-postion" class="easyui-combotree" style="width:149px;" data-options="url:'/api/apiterm?termName=职位',method:'get'"></select>  
+        </div>
+        
     </form>
 </div>
 
