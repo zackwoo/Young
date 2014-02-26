@@ -5,8 +5,10 @@ using System.Web;
 
 namespace Young.Web.Models.EasyUIView
 {
-    public class UserGridRowModel
+    public class CustomDataGridRowModel
     {
-        
+        public int ID { get; set; }
+
+        public string JsonData { get; set; }
     }
 }

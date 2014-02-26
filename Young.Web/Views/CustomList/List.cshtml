@@ -8,7 +8,7 @@
 @section scripts{
     <script>
         var _columns = [];
-//自定义列
+        //自定义列
         $(function() {
             $.get('/api/apicustomlistdata/@ViewBag.ID', function(data) {
                 $.each(data, function(i, item) {
@@ -23,26 +23,54 @@
                 });
                 $('#dg').datagrid({
                     title: '自定义列表：@ViewBag.Name',
+                    singleSelect:true,
                     toolbar: '#toolbar',
                     pagination: true,
                     rownumbers: true,
                     fitcolumns: true,
-                    url: 'datagrid_data.json',
-                    columns: [_columns]
+                    queryParams:{clistId:@ViewBag.ID},
+                    columns: [_columns],
+                    loader:function(param,success,error) {
+                        $.get('/api/apicustomlistdata', param, function(cdata) {
+                            var myRows = [];
+                            $.each(cdata.rows, function(i, item) {
+                                var obj = JSON.parse(item.JsonData);
+                                obj.ID = item.ID;
+                                myRows.push(obj);
+                            });
+                            success({
+                                total:cdata.total,
+                                rows:myRows
+                            });
+                        });
+                    }
                 });
             });
         });
 
         function newRecord() {
-            //var jsonString = JSON.stringify()
-            //$.post('/api/apicustomlistdata', { a: '111', b: '222' });
-            Young.CreateRecordDataDialog(_columns,'添加记录');
+            Young.CreateRecordDataDialog(_columns, '@ViewBag.Name','#dg');
+        }
+        
+        function deleteRecord() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row==null) {
+                $.messager.alert('信息', '请先选中记录。', 'info'); return;
+            }
+            $.post('/api/apicustomlistdata', {
+                CustomListName: '@ViewBag.Name',
+                CommandType: 'Delete',
+                JsonData: '',
+                ID: row.ID
+            }, function() {
+                $('#dg').datagrid('reload');
+            });
         }
     </script>
 }
 <table id="dg" style="width: auto; height: auto"></table>
 <div id="toolbar" style="padding: 10px 0;">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-add" plain="true" onclick="newRecord()">添加记录</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-edit" plain="true" onclick="editRecord()">编辑记录</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user-delete" plain="true" onclick="deleteRecord()">删除记录</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-page-add" plain="true" onclick="newRecord()">添加记录</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-page-edit" plain="true" onclick="editRecord()">编辑记录</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-page-delete" plain="true" onclick="deleteRecord()">删除记录</a>
 </div>

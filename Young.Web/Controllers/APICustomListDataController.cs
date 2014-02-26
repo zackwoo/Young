@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using Young.DAL;
 using Young.Web.Models;
+using Young.Web.Models.Command;
+using Young.Web.Models.EasyUIView;
 
 namespace Young.Web.Controllers
 {
@@ -45,7 +47,35 @@ namespace Young.Web.Controllers
             return GetCustomColumnByID(id);
         }
 
-        
+        /// <summary>
+        /// 供Easy ui Table使用
+        /// </summary>
+        /// <param name="clistId">自定义列表ID</param>
+        /// <param name="page"></param>
+        /// <param name="rows"></param>
+        /// <returns></returns>
+        public DataGridModel<CustomDataGridRowModel> GetTableData(int clistId, int page = 0, int rows = 0)
+        {
+            var result = new DataGridModel<CustomDataGridRowModel>();
+            using (var db = new DataBaseContext())
+            {
+                var clist = db.CustomList.Single(f => f.ID == clistId);
+                result.total = clist.DataEntities.Count();
+                var foo =
+                    clist.DataEntities.OrderBy(f => f.ID)
+                         .Skip((page - 1)*rows)
+                         .Take(rows)
+                         .Select(f => new CustomDataGridRowModel
+                             {
+                                 ID = f.ID,
+                                 JsonData = f.Data
+                             });
+                result.rows.AddRange(foo.ToArray());
+            }
+            return result;
+        }
+
+
         //根据自定义列表名称获取自定义列表ID,如果没有该自定义列表返回0
         private int GetIDByName(string name)
         {
@@ -63,19 +93,57 @@ namespace Young.Web.Controllers
         
 
         // POST api/apicustomlistdata
-        public void Post(object data)
+        public void Post(CustomDataCommandModel data)
         {
-            var i = data;
+            switch (data.CommandType)
+            {
+                case CommandType.Create:
+                    AddRecord(data.CustomListName, data.JsonData);
+                    break;
+                case CommandType.Edit:
+                    UpdateRecord(data.CustomListName,data.ID, data.JsonData);
+                    break;
+                case CommandType.Delete:
+                    DeleteRecord(data.CustomListName, data.ID);
+                    break;
+            }
         }
 
-        // PUT api/apicustomlistdata/5
-        public void Put(int id, [FromBody]string value)
+        private void DeleteRecord(string customListName, int id)
         {
+            using (var db = new DataBaseContext())
+            {
+                var clist = db.CustomList.Single(f => f.Name == customListName);
+                var dataEntity = clist.DataEntities.Single(f => f.ID == id);
+                clist.DataEntities.Remove(dataEntity);
+                db.SaveChanges();
+            }
         }
 
-        // DELETE api/apicustomlistdata/5
-        public void Delete(int id)
+        private void UpdateRecord(string customListName, int id, string data)
         {
+            using (var db = new DataBaseContext())
+            {
+                var clist = db.CustomList.Single(f => f.Name == customListName);
+                var cdata = clist.DataEntities.Single(f => f.ID == id);
+                cdata.Data = data;
+                db.SaveChanges();
+            }
         }
+
+        private void AddRecord(string customListName,string data)
+        {
+            using (var db = new DataBaseContext())
+            {
+                var clist = db.CustomList.Single(f => f.Name == customListName);
+                clist.DataEntities.Add(new Model.CustomListDataEntity
+                    {
+                        Data = data
+                    });
+
+                db.SaveChanges();
+            }
+        }
+
     }
 }

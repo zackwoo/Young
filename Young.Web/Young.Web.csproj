@@ -145,13 +145,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
+    <Compile Include="Models\Command\CustomDataCommandModel.cs" />
+    <Compile Include="Models\Command\Enums.cs" />
     <Compile Include="Models\CustomColumnModel.cs" />
     <Compile Include="Models\Command\CustomListCommandModel.cs" />
     <Compile Include="Models\CustomListItemModel.cs" />
     <Compile Include="Models\CustomListModel.cs" />
     <Compile Include="Models\EasyUIView\DataGridModel.cs" />
     <Compile Include="Models\EasyUIView\PropertyGridRowModel.cs" />
-    <Compile Include="Models\EasyUIView\UserGridRowModel.cs" />
+    <Compile Include="Models\EasyUIView\CustomDataGridRowModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\RoleCollectionModel.cs" />
     <Compile Include="Models\SysConfigModel.cs" />
@@ -180,6 +182,9 @@
     <Content Include="Content\images\treeview-red.gif" />
     <Content Include="Content\themes\icons\chart_organisation_add.png" />
     <Content Include="Content\themes\icons\chart_organisation_delete.png" />
+    <Content Include="Content\themes\icons\page_add.png" />
+    <Content Include="Content\themes\icons\page_delete.png" />
+    <Content Include="Content\themes\icons\page_edit.png" />
     <Content Include="Content\themes\icons\table_add.png" />
     <Content Include="Content\themes\icons\table_delete.png" />
     <Content Include="Content\themes\icons\table_edit.png" />

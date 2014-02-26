@@ -145,6 +145,15 @@
 .icon-delete{
 	background:url('icons/delete.png') no-repeat center center;
 }
+.icon-page-add{
+	background:url('icons/page_add.png') no-repeat center center;
+}
+.icon-page-delete{
+	background:url('icons/page_delete.png') no-repeat center center;
+}
+.icon-page-edit{
+	background:url('icons/page_edit.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

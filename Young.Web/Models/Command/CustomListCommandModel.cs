@@ -17,11 +17,4 @@ namespace Young.Web.Models.Command
 
         public List<CustomColumnModel> CustomColumnModels { get; set; }
     }
-
-    public enum CommandType
-    {
-        Create,
-        Edit,
-        Delete
-    }
 }
