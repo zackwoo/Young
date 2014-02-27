@@ -8,7 +8,7 @@ namespace Young.Workflow.Model
 {
     public class WorkflowModel
     {
-        /// <summary>
+        /// <summary>  
         /// 工作流ID
         /// 不能采用int自增方式
         /// </summary>
