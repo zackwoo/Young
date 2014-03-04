@@ -61,7 +61,7 @@ if (typeof Young !== 'object') {
         return htmlTemplate;
     };
     //获取控件值
-    var GetControlValue = function(id,type) {
+    var GetControlValue = function (id, type) {
         if (custom_column_type[type] == "Number") {
             return $(id).numberbox('getValue');
         } else if (custom_column_type[type] == "Boolean") {
@@ -84,7 +84,7 @@ if (typeof Young !== 'object') {
         return "";
     };
 
-    Young.CreateRecordDataDialog = function (columns, clistName,datagridID, saveFun) {
+    Young.CreateRecordDataDialog = function (columns, clistName, datagridID, saveFun) {
         var dlg = $('<div style="padding: 10px 20px"></div>');
         $.each(columns, function (i, item) {
             var control = CreateControlByCustomColumn(item);
@@ -104,7 +104,7 @@ if (typeof Young !== 'object') {
                 handler: function () {
                     var data = {};//输入数据对象，作为saveFun的入参
                     $.each(columns, function (i, item) {
-                        data[item.field] =GetControlValue('#' + item.field,item.type);//赋值
+                        data[item.field] = GetControlValue('#' + item.field, item.type);//赋值
                     });
                     if (typeof saveFun === 'function') {
                         saveFun(data);//扩展自定义处理函数
@@ -112,14 +112,14 @@ if (typeof Young !== 'object') {
                         //默认处理函数
                         var dataStr = JSON.stringify(data);
                         $.post('/api/apicustomlistdata', {
-                                CustomListName: clistName,
-                                CommandType: 'Create',
-                                JsonData: dataStr,
-                                ID: 0
-                            }, function() {
-                                //TODO：提交数据成功后回调函数
-                                $(datagridID).datagrid('reload');
-                            });
+                            CustomListName: clistName,
+                            CommandType: 'Create',
+                            JsonData: dataStr,
+                            ID: 0
+                        }, function () {
+                            //TODO：提交数据成功后回调函数
+                            $(datagridID).datagrid('reload');
+                        });
                     }
                     dlg.dialog('close');
                 }
