@@ -121,6 +121,7 @@ if (typeof Young !== 'object') {
                             $(datagridID).datagrid('reload');
                         });
                     }
+                    $(datagridID).datagrid('loading');//假装loading读取数据
                     dlg.dialog('close');
                 }
             }, {
