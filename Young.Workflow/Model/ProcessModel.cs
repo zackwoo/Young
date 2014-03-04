@@ -9,5 +9,6 @@ namespace Young.Workflow.Model
     public class ProcessModel
     {
         public string ID { get; set; }
+        public string Name { get; set; }
     }
 }

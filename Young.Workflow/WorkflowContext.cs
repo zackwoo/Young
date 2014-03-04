@@ -10,9 +10,22 @@ namespace Young.Workflow
     /// <summary>
     /// 工作流
     /// </summary>
-    public class Workflow
+    public class WorkflowContext
     {
-        public WorkflowModel GetWorkflowModelByID(string id)
+        public WorkflowModel WorkflowModel { get; private set; }
+        public string UserName { get; private set; }
+        /// <summary>
+        /// 构造
+        /// </summary>
+        /// <param name="wfId">工作流ID</param>
+        /// <param name="userName">登陆用户</param>
+        public WorkflowContext(string wfId, string userName)
+        {
+            //TODO SET WorkflowModel
+            WorkflowModel = GetWorkflowModelByID(wfId);
+            UserName = userName;
+        }
+        private WorkflowModel GetWorkflowModelByID(string id)
         {
             throw new NotImplementedException();
         }
@@ -22,9 +35,12 @@ namespace Young.Workflow
         /// <param name="wfId">工作流ID</param>
         /// <param name="userName">用户登录名</param>
         /// <returns></returns>
-        private bool CanViewList(string wfId, string userName)
+        public bool CanViewList
         {
-            throw new NotImplementedException();
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
         /// <summary>
         /// 用户是否有发起流程的权限
@@ -32,28 +48,21 @@ namespace Young.Workflow
         /// <param name="wfId"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public bool CanStartWork(string wfId, string userName)
+        public bool CanStartWork
         {
-            throw new NotImplementedException();
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
-        /// <summary>
-        /// 根据工作流ID返回所有记录
-        /// </summary>
-        /// <param name="wfId">工作流ID</param>
-        /// <param name="page">页码</param>
-        /// <param name="rows">页size</param>
-        /// <returns></returns>
-        public List<object> GetListData(string wfId,int page=0 ,int rows=0)
-        {
-            throw new NotImplementedException();
-        }
+
         /// <summary>
         /// 获取用户对于该工作流有权处理的流程
         /// </summary>
         /// <param name="wfId"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public List<ProcessModel> GetProcessByUser(string wfId, string userName)
+        public List<ProcessModel> GetAllProcess()
         {
             throw new NotImplementedException();
         }
@@ -65,7 +74,7 @@ namespace Young.Workflow
         /// <param name="page">页码</param>
         /// <param name="rows">页size</param>
         /// <returns></returns>
-        public List<object> GetProcessData(string wfId, string psId, int page = 0, int rows = 0)
+        public List<object> GetProcessData(string psId, int page = 0, int rows = 0)
         {
             throw new NotImplementedException();
         }
