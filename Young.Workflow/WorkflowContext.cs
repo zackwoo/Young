@@ -55,7 +55,6 @@ namespace Young.Workflow
                 throw new NotImplementedException();
             }
         }
-
         /// <summary>
         /// 获取用户对于该工作流有权处理的流程
         /// </summary>
