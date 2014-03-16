@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Young.CustomTable.Attributes;
 using Young.CustomTable.ColumnType;
 
 namespace Young.CustomTable
@@ -15,6 +17,7 @@ namespace Young.CustomTable
         /// <summary>
         /// 内部编号
         /// </summary>
+        [Key]
         public string Code { get;protected set; }
         /// <summary>
         /// 名称
@@ -25,6 +28,6 @@ namespace Young.CustomTable
         /// </summary>
         public string Description { get; set; }
 
-        public IEnumerable<ColumnTypeBase> Columns { get; set; }
+        public virtual ICollection<ColumnTypeBase> Columns { get; set; }
     }
 }
