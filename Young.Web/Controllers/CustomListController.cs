@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Young.CustomTable;
 using Young.DAL;
 using Young.Model;
 using Young.Web.Models;
@@ -24,6 +25,19 @@ namespace Young.Web.Controllers
             var model = new CustomListModel();
 
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult Create(CustomListModel model)
+        {
+
+            CustomTableTools.AddCustomTable(new YoungTable
+            {
+                Code = Guid.NewGuid().ToString("N"),
+                Description = model.Description,
+                Name = model.Name,
+                CreateTime = DateTime.Now
+            });
+            return RedirectToAction("index");
         }
 
         public ActionResult Edit()

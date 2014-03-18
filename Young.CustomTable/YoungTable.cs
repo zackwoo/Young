@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Young.CustomTable.Attributes;
 using Young.CustomTable.ColumnType;
 
 namespace Young.CustomTable
@@ -18,7 +17,7 @@ namespace Young.CustomTable
         /// 内部编号
         /// </summary>
         [Key]
-        public string Code { get;protected set; }
+        public string Code { get; set; }
         /// <summary>
         /// 名称
         /// </summary>
@@ -27,6 +26,12 @@ namespace Young.CustomTable
         /// 描述
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// 创建日期
+        /// </summary>
+        public DateTime CreateTime { get; set; }
+
 
         public virtual ICollection<ColumnTypeBase> Columns { get; set; }
     }

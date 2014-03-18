@@ -377,6 +377,10 @@
       <Project>{c8786477-84f5-4851-aadd-de3a5754093a}</Project>
       <Name>Young.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Young.CustomTable\Young.CustomTable.csproj">
+      <Project>{3e01c759-52a1-4554-8fa5-d859bdba0414}</Project>
+      <Name>Young.CustomTable</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Young.DAL\Young.DAL.csproj">
       <Project>{91e72547-1b0f-48d3-9032-b99732be9ac8}</Project>
       <Name>Young.DAL</Name>

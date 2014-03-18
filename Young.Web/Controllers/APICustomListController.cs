@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Young.CustomTable;
 using Young.DAL;
 using Young.Model;
 using Young.Web.Models;
@@ -14,35 +15,19 @@ namespace Young.Web.Controllers
     public class APICustomListController : ApiController
     {
         // GET api/apicustomlist
-        public IEnumerable<CustomListItemModel> Get(int page =0,int rows=0)
+        public IEnumerable<CustomListItemModel> Get(int page = 1, int rows = 10)
         {
-            using (var db = new DataBaseContext())
-            {
-                IEnumerable<CustomListItemModel> foo;
-                if (page == 0 && rows == 0)
-                {
-                    foo = from bar in db.CustomList.ToList()
-                          select new CustomListItemModel
-                              {
-                                  Name = bar.Name,
-                                  Description = bar.Description,
-                                  ID = bar.ID,
-                                  CreatData = bar.CreatData
-                              };
-                }
-                else
-                {
-                    foo = from bar in db.CustomList.OrderBy(f=>f.ID).Skip((page-1)*rows).Take(rows)
-                          select new CustomListItemModel
-                              {
-                                  Name = bar.Name,
-                                  Description = bar.Description,
-                                  ID = bar.ID,
-                                  CreatData = bar.CreatData
-                              };
-                }
-                return foo.ToList();
-            }
+            var list = CustomTableTools.GetTableByPaging(page - 1, rows);
+
+            var foo = from bar in list
+                      select new CustomListItemModel
+                      {
+                          Name = bar.Name,
+                          Description = bar.Description,
+                          Code = bar.Code,
+                          CreateDate = bar.CreateTime
+                      };
+            return foo.ToList();
         }
 
         // POST api/apicustomlist

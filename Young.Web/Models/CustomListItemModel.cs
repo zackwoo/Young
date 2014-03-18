@@ -13,9 +13,9 @@ namespace Young.Web.Models
 
         [Display(Name = "用途描述")]
         public string Description { get; set; }
-
-        public int ID { get; set; }
+        [Display(Name = "编号")]
+        public string Code { get; set; }
         [Display(Name = "创建日期")]
-        public DateTime CreatData { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace Young.CustomTable
             using (var db = new CustomTableDatabaseContext())
             {
                 db.YoungTables.Add(table);
+                db.SaveChanges();
             }
         }
 
@@ -40,6 +41,15 @@ namespace Young.CustomTable
             using (var db = new CustomTableDatabaseContext())
             {
                 return db.YoungTables.SingleOrDefault(f => f.Code == code);
+            }
+        }
+
+        public static IEnumerable<YoungTable> GetTableByPaging(int pageIndex, int pageSize)
+        {
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var list = db.YoungTables.OrderByDescending(f => f.CreateTime).Skip(pageIndex * pageSize).Take(pageSize);
+                return list.ToList();
             }
         }
 
