@@ -40,9 +40,15 @@ namespace Young.Web.Controllers
             return RedirectToAction("index");
         }
 
-        public ActionResult AddColumn(string code)
+        public ActionResult Column(string code)
         {
-            return View();
+            var table = CustomTableTools.GetTableByCode(code);
+
+            return View(new ColumnModel
+            {
+                 TableCode = code,
+                  TableName = table.Name
+            });
         }
 
         public ActionResult List(int id)

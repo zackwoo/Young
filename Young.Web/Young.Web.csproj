@@ -145,6 +145,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
+    <Compile Include="Models\ColumnModel.cs" />
     <Compile Include="Models\Command\CustomDataCommandModel.cs" />
     <Compile Include="Models\Command\Enums.cs" />
     <Compile Include="Models\CustomColumnModel.cs" />
@@ -180,6 +181,7 @@
     <Content Include="Content\images\treeview-gray.gif" />
     <Content Include="Content\images\treeview-red-line.gif" />
     <Content Include="Content\images\treeview-red.gif" />
+    <Content Include="Content\themes\icons\bullet_blue.png" />
     <Content Include="Content\themes\icons\chart_organisation_add.png" />
     <Content Include="Content\themes\icons\chart_organisation_delete.png" />
     <Content Include="Content\themes\icons\page_add.png" />
@@ -364,7 +366,7 @@
     <Content Include="Views\CustomList\Create.cshtml" />
     <Content Include="Views\CustomList\List.cshtml" />
     <Content Include="Scripts\Young\Young.Prototype.js" />
-    <Content Include="Views\CustomList\AddColumn.cshtml" />
+    <Content Include="Views\CustomList\Column.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

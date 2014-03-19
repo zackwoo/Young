@@ -1,0 +1,41 @@
+﻿@model Young.Web.Models.ColumnModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
+}
+
+<div id="work-panel">
+    <div class="module">
+        <div class="icon-table title">自定义列表：@Model.TableName
+        <a href="#" class="icon-table-add" >添加栏目</a>    
+        </div>
+        
+        <table>
+            <caption>现有栏目</caption>
+            <thead>
+                <tr>
+                    <th>栏目编号</th>
+                    <th>栏目名称</th>
+                    <th>栏目类型</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>自定义列表</td>
+                    <td>自定义列表</td>
+                    <td>自定义列表</td>
+                    <td>自定义列表</td>
+                </tr>
+                <tr>
+                    <td>自定义列表</td>
+                    <td>自定义列表</td>
+                    <td>自定义列表</td>
+                    <td>自定义列表</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
