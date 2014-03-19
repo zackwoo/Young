@@ -40,7 +40,7 @@ namespace Young.Web.Controllers
             return RedirectToAction("index");
         }
 
-        public ActionResult Edit()
+        public ActionResult AddColumn(string code)
         {
             return View();
         }

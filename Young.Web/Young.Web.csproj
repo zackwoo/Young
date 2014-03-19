@@ -362,9 +362,9 @@
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\CustomList\Index.cshtml" />
     <Content Include="Views\CustomList\Create.cshtml" />
-    <Content Include="Views\CustomList\Edit.cshtml" />
     <Content Include="Views\CustomList\List.cshtml" />
     <Content Include="Scripts\Young\Young.Prototype.js" />
+    <Content Include="Views\CustomList\AddColumn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

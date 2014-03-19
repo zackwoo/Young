@@ -5,8 +5,9 @@
 
 
 <table id="dg" class="easyui-datagrid" style="width: auto; height: auto"
-    data-options="
+       data-options="
     url:'/api/APICustomList',
+    singleSelect:true,
     method:'get'"
     toolbar="#toolbar" pagination="true"
     rownumbers="true" fitcolumns="true">
@@ -20,7 +21,27 @@
     </thead>
 </table>
 <div id="toolbar" style="padding: 10px 0;">
-    <a href="~/customlist/Create" class="easyui-linkbutton" iconcls="icon-table-add" plain="true"   >新建列表</a>
-    <a href="~/customlist/Edit" class="easyui-linkbutton" iconcls="icon-table-edit" plain="true"  >编辑列表</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-table-delete" plain="true">删除列表</a>
+    <a href="~/customlist/Create" class="easyui-linkbutton" iconcls="icon-table-add" plain="true">新建列表</a>
+    <a href="javascript:void(0)" class="easyui-menubutton" iconcls="icon-table-edit" data-options="menu:'#columnMenu'" plain="true">编辑列</a>
 </div>
+<div id="columnMenu" style="width: 150px;"  data-options="onClick:menuHandler" >
+    <div data-options="name:'add', iconCls:'icon-add'">添加栏</div>
+    <div data-options="name:'remove',iconCls:'icon-remove'">删除栏</div>
+</div>
+<script type="text/javascript">
+    function menuHandler(item) {
+        var selectedRow = $('#dg').datagrid('getSelected');
+        if (selectedRow==null) {
+            $.messager.alert('Info', '请先选中要编辑的列表。');
+            return;
+        }
+        if (item.name == "add") {
+            //添加栏
+            location.href = "/customlist/AddColumn?code=" + selectedRow.Code;
+        }
+        if (item.name == "remove") {
+            //移除栏
+            $.messager.alert('Warning', '功能未完成。');
+        }
+	}
+</script>

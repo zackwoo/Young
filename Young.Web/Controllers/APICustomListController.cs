@@ -15,7 +15,7 @@ namespace Young.Web.Controllers
     public class APICustomListController : ApiController
     {
         // GET api/apicustomlist
-        public IEnumerable<CustomListItemModel> Get(int page = 1, int rows = 10)
+        public IEnumerable<CustomListItemModel> Get(int page = 1, int rows = int.MaxValue)
         {
             var list = CustomTableTools.GetTableByPaging(page - 1, rows);
 
