@@ -7,7 +7,7 @@ using Young.CustomTable.ColumnType;
 
 namespace Young.CustomTable.View
 {
-    public abstract class ViewFactoryBase
+    public abstract class ViewFactory
     {
 
         public abstract string CreateNumberTypeUI(ColumnTypeBase columnType);

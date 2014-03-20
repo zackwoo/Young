@@ -51,6 +51,11 @@ namespace Young.Web.Controllers
             });
         }
 
+        public ActionResult AddColumn(string code)
+        {
+            return View();
+        }
+
         public ActionResult List(int id)
         {
             using (var db = new DataBaseContext())

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Young.CustomTable.ColumnType;
 
-namespace Young.CustomTable
+namespace Young.CustomTable.ColumnType
 {
     public static class ColumnTypeFactory
     {

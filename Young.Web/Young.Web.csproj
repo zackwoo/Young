@@ -367,6 +367,8 @@
     <Content Include="Views\CustomList\List.cshtml" />
     <Content Include="Scripts\Young\Young.Prototype.js" />
     <Content Include="Views\CustomList\Column.cshtml" />
+    <Content Include="Views\CustomList\AddColumn.cshtml" />
+    <Content Include="Views\CustomList\BaseColumnEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

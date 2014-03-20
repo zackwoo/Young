@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Young.CustomTable.View
 {
-    public class EasyUIFactory : ViewFactoryBase
+    public class EasyUIFactory : ViewFactory
     {
         public override string CreateNumberTypeUI(ColumnType.ColumnTypeBase columnType)
         {

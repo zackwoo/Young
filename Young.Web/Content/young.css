@@ -45,6 +45,10 @@ a { text-decoration: none; }
 .txt-center { text-align: center; }
 
 .txt-top { vertical-align: top; }
+.w50 { width: 50px; }
+.w100 { width: 100px; }
+.w150 { width: 150px; }
+.w200 { width: 200px; }
 
 /* 编辑表单样式 */
 .edit-form { color: #444; }
@@ -74,3 +78,8 @@ a { text-decoration: none; }
             #work-panel .module table td, #work-panel .module table th { border: 1px solid #CCC; height: 28px; }
             #work-panel .module table thead th { text-align: center; }
             #work-panel .module table caption { text-align: left; margin-bottom: 5px; font-size: 1.2em; font-weight: 900; color: #0964f3; width: 200px; background: url('themes/icons/bullet_blue.png') no-repeat left center; padding-left: 20px; }
+        #work-panel .module .editor-label { float:left; color:#787878; height:24px; line-height:24px; margin-right:10px }
+        #work-panel .module .editor-field{  height:24px; line-height:24px; }
+        #work-panel .module .join200 { float: left; width:200px; }
+        #work-panel .module .button { text-align: center; margin-top:20px; }
+            #work-panel .module .button a { margin-right: 20px; }

@@ -1,0 +1,60 @@
+﻿@model Young.Web.Models.ColumnModel
+
+<div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.Code)
+</div>
+<div class="editor-field join200">
+    @Html.EditorFor(model => model.Code)
+    @Html.ValidationMessageFor(model => model.Code)
+</div>
+
+<div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.Name)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Name)
+    @Html.ValidationMessageFor(model => model.Name)
+</div>
+
+<div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.IsRequired)
+</div>
+<div class="editor-field join200">
+    @Html.EditorFor(model => model.IsRequired)
+    @Html.ValidationMessageFor(model => model.IsRequired)
+</div>
+
+<div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.IsNeedCustomValidation)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.IsNeedCustomValidation)
+    @Html.ValidationMessageFor(model => model.IsNeedCustomValidation)
+</div>
+
+<div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.CustomValidationRegularExpression)
+</div>
+<div class="editor-field join200">
+    @Html.EditorFor(model => model.CustomValidationRegularExpression)
+    @Html.ValidationMessageFor(model => model.CustomValidationRegularExpression)
+</div>
+
+<div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.CustomValidationErrorMessage)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.CustomValidationErrorMessage)
+    @Html.ValidationMessageFor(model => model.CustomValidationErrorMessage)
+</div>
+
+<div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.DatabaseType)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.DatabaseType)
+    @Html.ValidationMessageFor(model => model.DatabaseType)
+</div>
+
+
+
