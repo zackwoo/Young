@@ -7,9 +7,9 @@ namespace Young.Web.Models.Column
 {
     public class NumberColumnModel : ColumnModel
     {
-        public override int ColumnType
+        public override ColumnType ColumnType
         {
-            get { return (int)Column.ColumnType.Number; }
+            get { return Column.ColumnType.Number; }
         }
     }
 }

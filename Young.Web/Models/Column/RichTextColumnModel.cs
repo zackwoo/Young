@@ -7,9 +7,9 @@ namespace Young.Web.Models.Column
 {
     public class RichTextColumnModel:ColumnModel
     {
-        public override int ColumnType
+        public override ColumnType ColumnType
         {
-            get { return (int) Column.ColumnType.RichText; }
+            get { return  Column.ColumnType.RichText; }
         }
     }
 }

@@ -52,52 +52,6 @@ namespace Young.Web.Controllers
             });
         }
 
-        public ActionResult AddColumn(string tcode, ColumnType type)
-        {
-            var table = CustomTableTools.GetTableByCode(tcode);
-            switch (type)
-            {
-                case ColumnType.Date:
-                    return RedirectToAction("AddDateColumn", new DateColumnModel
-                        {
-                            TableCode = tcode,
-                            TableName = table.Name
-                        });
-                case ColumnType.Number:
-                    return RedirectToAction("AddNumberColumn", new NumberColumnModel
-                        {
-                            TableCode = tcode,
-                            TableName = table.Name
-                        });
-                case ColumnType.RichText:
-                    return RedirectToAction("AddRichTextColumn", new RichTextColumnModel
-                        {
-                            TableCode = tcode,
-                            TableName = table.Name
-                        });
-                default:
-                    return View(new LineTextColumnModel
-                        {
-                            TableCode = tcode,
-                            TableName = table.Name,
-                            Length = 255
-                        });
-            }
-        }
-
-        public ActionResult AddNumberColumn(NumberColumnModel model)
-        {
-            return View(model);
-        }
-        public ActionResult AddRichTextColumn(RichTextColumnModel model)
-        {
-            return View(model);
-        }
-        public ActionResult AddDateColumn(DateColumnModel model)
-        {
-            return View(model);
-        }
-
         public ActionResult List(int id)
         {
             using (var db = new DataBaseContext())
@@ -108,5 +62,67 @@ namespace Young.Web.Controllers
             }
             return View();
         }
+
+        #region 不同类型列 action
+        public ActionResult AddColumn(string tcode, ColumnType type)
+        {
+            var table = CustomTableTools.GetTableByCode(tcode);
+            ColumnModel model = new ColumnModel { TableName = table.Name, TableCode = tcode };
+            ColumnModelBuilder builder = new ColumnModelBuilder();
+            switch (type)
+            {
+                case ColumnType.Date:
+                    return RedirectToAction("DateColumn", builder.BuildDateColumn(model));
+                case ColumnType.Number:
+                    return RedirectToAction("NumberColumn", builder.BuildNumberColumn(model));
+                case ColumnType.RichText:
+                    return RedirectToAction("RichTextColumn", builder.BuildRichTextColumn(model));
+                default:
+                    return RedirectToAction("LineTextColumn", builder.BuildLineTextColumn(model));
+            }
+        }
+        public ActionResult LineTextColumn(LineTextColumnModel model)
+        {
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("LineTextColumn")]
+        public ActionResult PostLineTextColumn(LineTextColumnModel model)
+        {
+            return View(model);
+        }
+
+        public ActionResult NumberColumn(NumberColumnModel model)
+        {
+            return View(model);
+        }
+        [HttpPost]
+        [ActionName("NumberColumn")]
+        public ActionResult PostNumberColumn(NumberColumnModel model)
+        {
+            return View(model);
+        }
+        public ActionResult RichTextColumn(RichTextColumnModel model)
+        {
+            return View(model);
+        }
+        [HttpPost]
+        [ActionName("RichTextColumn")]
+        public ActionResult PostRichTextColumn(RichTextColumnModel model)
+        {
+            return View(model);
+        }
+        public ActionResult DateColumn(DateColumnModel model)
+        {
+            return View(model);
+        }
+        [HttpPost]
+        [ActionName("DateColumn")]
+        public ActionResult PostDateColumn(DateColumnModel model)
+        {
+            return View(model);
+        }
+        #endregion
     }
 }

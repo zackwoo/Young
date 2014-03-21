@@ -1,5 +1,7 @@
 ﻿@model Young.Web.Models.Column.ColumnModel
 
+@Html.HiddenFor(model=>model.TableCode)
+@Html.HiddenFor(model=>model.TableName)
 <div class="editor-label w150 txt-right">数据类型</div>
 <div class="editor-field join200">@Html.DropDownListFor(f =>f.ColumnType, Model.ColumnTypeList, new { onchange="changeType()" })</div>
 <script type="text/javascript">

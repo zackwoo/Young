@@ -146,6 +146,7 @@
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
     <Compile Include="Models\Column\ColumnModel.cs" />
+    <Compile Include="Models\Column\ColumnModelBuilder.cs" />
     <Compile Include="Models\Column\DateColumnModel.cs" />
     <Compile Include="Models\Column\LineTextColumnModel.cs" />
     <Compile Include="Models\Column\NumberColumnModel.cs" />
@@ -371,11 +372,11 @@
     <Content Include="Views\CustomList\List.cshtml" />
     <Content Include="Scripts\Young\Young.Prototype.js" />
     <Content Include="Views\CustomList\Column.cshtml" />
-    <Content Include="Views\CustomList\AddColumn.cshtml" />
+    <Content Include="Views\CustomList\LineTextColumn.cshtml" />
     <Content Include="Views\CustomList\BaseColumnEditor.cshtml" />
-    <Content Include="Views\CustomList\AddNumberColumn.cshtml" />
-    <Content Include="Views\CustomList\AddRichTextColumn.cshtml" />
-    <Content Include="Views\CustomList\AddDateColumn.cshtml" />
+    <Content Include="Views\CustomList\NumberColumn.cshtml" />
+    <Content Include="Views\CustomList\RichTextColumn.cshtml" />
+    <Content Include="Views\CustomList\DateColumn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

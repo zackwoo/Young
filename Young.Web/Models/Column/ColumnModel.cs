@@ -15,7 +15,7 @@ namespace Young.Web.Models.Column
         /// <summary>
         /// 内部编号
         /// </summary>
-        [Display(Name="栏编号")]
+        [Display(Name = "栏编号")]
         public string Code { get; set; }
         /// <summary>
         /// 名称
@@ -56,14 +56,16 @@ namespace Young.Web.Models.Column
         /// <summary>
         /// 类型
         /// </summary>
-        public virtual int ColumnType { get; protected set; }
+        public virtual ColumnType ColumnType { get; protected set; }
 
-        public IEnumerable<SelectListItem> ColumnTypeList {
+        public IEnumerable<SelectListItem> ColumnTypeList
+        {
             get
             {
                 return EnumHelper.GetEnumKV<ColumnType>().Select(keyValues => new SelectListItem
                     {
-                        Text = keyValues.Value, Value = ((int) keyValues.Key).ToString()
+                        Text = keyValues.Value,
+                        Value = keyValues.Key.ToString()
                     }).ToList();
             }
         }
@@ -75,7 +77,7 @@ namespace Young.Web.Models.Column
                 return EnumHelper.GetEnumKV<SqlDbType>().Select(keyValues => new SelectListItem
                 {
                     Text = keyValues.Value,
-                    Value = ((int)keyValues.Key).ToString()
+                    Value = keyValues.Key.ToString()
                 }).ToList();
             }
         }
@@ -83,9 +85,13 @@ namespace Young.Web.Models.Column
 
     public enum ColumnType
     {
-        [Display(Name = "单行文本类型")] LineText,
-        [Display(Name = "富文本类型")] RichText,
-        [Display(Name = "数字类型")] Number,
-        [Display(Name = "日期类型")] Date
+        [Display(Name = "单行文本类型")]
+        LineText,
+        [Display(Name = "富文本类型")]
+        RichText,
+        [Display(Name = "数字类型")]
+        Number,
+        [Display(Name = "日期类型")]
+        Date
     }
 }

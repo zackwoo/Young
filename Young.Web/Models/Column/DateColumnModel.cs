@@ -7,9 +7,9 @@ namespace Young.Web.Models.Column
 {
     public class DateColumnModel:ColumnModel
     {
-        public override int ColumnType
+        public override ColumnType ColumnType
         {
-            get { return (int)Column.ColumnType.Date; }
+            get { return Column.ColumnType.Date; }
             
         }
     }

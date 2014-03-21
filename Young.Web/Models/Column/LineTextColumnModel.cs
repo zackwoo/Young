@@ -8,9 +8,9 @@ namespace Young.Web.Models.Column
 {
     public class LineTextColumnModel : ColumnModel
     {
-        public override int ColumnType
+        public override ColumnType ColumnType
         {
-            get { return (int)Column.ColumnType.LineText; }
+            get { return Column.ColumnType.LineText; }
         }
         
         [Display(Name="数据长度")]
