@@ -79,7 +79,8 @@ namespace Young.Web.Controllers
                     return View(new LineTextColumnModel
                         {
                             TableCode = tcode,
-                            TableName = table.Name
+                            TableName = table.Name,
+                            Length = 255
                         });
             }
         }
