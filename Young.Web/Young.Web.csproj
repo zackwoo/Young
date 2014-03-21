@@ -145,7 +145,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticationModel.cs" />
-    <Compile Include="Models\ColumnModel.cs" />
+    <Compile Include="Models\Column\ColumnModel.cs" />
+    <Compile Include="Models\Column\DateColumnModel.cs" />
+    <Compile Include="Models\Column\LineTextColumnModel.cs" />
+    <Compile Include="Models\Column\NumberColumnModel.cs" />
+    <Compile Include="Models\Column\RichTextColumnModel.cs" />
     <Compile Include="Models\Command\CustomDataCommandModel.cs" />
     <Compile Include="Models\Command\Enums.cs" />
     <Compile Include="Models\CustomColumnModel.cs" />
@@ -369,6 +373,9 @@
     <Content Include="Views\CustomList\Column.cshtml" />
     <Content Include="Views\CustomList\AddColumn.cshtml" />
     <Content Include="Views\CustomList\BaseColumnEditor.cshtml" />
+    <Content Include="Views\CustomList\AddNumberColumn.cshtml" />
+    <Content Include="Views\CustomList\AddRichTextColumn.cshtml" />
+    <Content Include="Views\CustomList\AddDateColumn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -396,6 +403,10 @@
     <ProjectReference Include="..\Young.Provider\Young.Provider.csproj">
       <Project>{e7a4f12f-3521-41a8-b97a-352af5b9f2f8}</Project>
       <Name>Young.Provider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Young.Util\Young.Util.csproj">
+      <Project>{11b4efdd-5f2b-4dfb-8d9c-8416c8284fd9}</Project>
+      <Name>Young.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

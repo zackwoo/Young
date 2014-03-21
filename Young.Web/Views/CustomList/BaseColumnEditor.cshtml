@@ -1,4 +1,26 @@
-﻿@model Young.Web.Models.ColumnModel
+﻿@model Young.Web.Models.Column.ColumnModel
+
+<div class="editor-label w150 txt-right">数据类型</div>
+<div class="editor-field join200">@Html.DropDownListFor(f =>f.ColumnType, Model.ColumnTypeList, new { onchange="changeType()" })</div>
+<script type="text/javascript">
+    function changeType() {
+        var val = $('#ColumnType').val();
+        $.messager.confirm('确认', '改变类型后将丢失未保存的变改，你确定要更换吗?', function (r) {
+            if (r) {
+                // exit action;
+                location.href = "addColumn?tcode=@(Model.TableCode)&type=" + val;
+            }
+        });
+    }
+</script>
+<div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.DatabaseType)
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model=>model.DatabaseType,Model.DatabaseTypeList)
+    @Html.ValidationMessageFor(model => model.DatabaseType)
+</div>
+
 
 <div class="editor-label w150 txt-right">
     @Html.LabelFor(model => model.Code)
@@ -48,13 +70,6 @@
     @Html.ValidationMessageFor(model => model.CustomValidationErrorMessage)
 </div>
 
-<div class="editor-label w150 txt-right">
-    @Html.LabelFor(model => model.DatabaseType)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.DatabaseType)
-    @Html.ValidationMessageFor(model => model.DatabaseType)
-</div>
 
 
 

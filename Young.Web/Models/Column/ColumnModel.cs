@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
-using System.Web;
+using System.Web.Mvc;
+using Young.Util;
 
-namespace Young.Web.Models
+namespace Young.Web.Models.Column
 {
     public class ColumnModel
     {
@@ -50,6 +51,41 @@ namespace Young.Web.Models
         /// 指定对应数据库数据类型
         /// </summary>
         [Display(Name = "指定数据库字段类型")]
-        public System.Data.SqlDbType DatabaseType { get; set; }
+        public SqlDbType DatabaseType { get; set; }
+
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public virtual int ColumnType { get; protected set; }
+
+        public IEnumerable<SelectListItem> ColumnTypeList {
+            get
+            {
+                return EnumHelper.GetEnumKV<ColumnType>().Select(keyValues => new SelectListItem
+                    {
+                        Text = keyValues.Value, Value = ((int) keyValues.Key).ToString()
+                    }).ToList();
+            }
+        }
+
+        public IEnumerable<SelectListItem> DatabaseTypeList
+        {
+            get
+            {
+                return EnumHelper.GetEnumKV<SqlDbType>().Select(keyValues => new SelectListItem
+                {
+                    Text = keyValues.Value,
+                    Value = ((int)keyValues.Key).ToString()
+                }).ToList();
+            }
+        }
+    }
+
+    public enum ColumnType
+    {
+        [Display(Name = "单行文本类型")] LineText,
+        [Display(Name = "富文本类型")] RichText,
+        [Display(Name = "数字类型")] Number,
+        [Display(Name = "日期类型")] Date
     }
 }

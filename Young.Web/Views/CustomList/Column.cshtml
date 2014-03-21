@@ -1,4 +1,4 @@
-﻿@model Young.Web.Models.ColumnModel
+﻿@model Young.Web.Models.Column.ColumnModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
@@ -7,7 +7,7 @@
 <div id="work-panel">
     <div class="module">
         <div class="icon-table title">自定义列表：@Model.TableName
-        <a href="addColumn" class="icon-table-add" >添加栏目</a>    
+        <a href="addColumn?tcode=@Model.TableCode&type=0" class="icon-table-add" >添加栏目</a>    
         </div>
         
         <table>
