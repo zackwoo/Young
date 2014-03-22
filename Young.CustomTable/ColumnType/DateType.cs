@@ -11,9 +11,14 @@ namespace Young.CustomTable.ColumnType
     /// </summary>
     public class DateType:ColumnTypeBase
     {
+        private System.Data.SqlDbType _databaseType = System.Data.SqlDbType.DateTime2;
         public override System.Data.SqlDbType DatabaseType
         {
-            get { return System.Data.SqlDbType.DateTime; }
+            get { return _databaseType; }
+            set
+            {
+                _databaseType = value;
+            }
         }
     }
 }

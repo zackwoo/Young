@@ -1,9 +1,9 @@
 ﻿@model Young.Web.Models.Column.ColumnModel
 
-@Html.HiddenFor(model=>model.TableCode)
-@Html.HiddenFor(model=>model.TableName)
+@Html.HiddenFor(model => model.TableCode)
+@Html.HiddenFor(model => model.TableName)
 <div class="editor-label w150 txt-right">数据类型</div>
-<div class="editor-field join200">@Html.DropDownListFor(f =>f.ColumnType, Model.ColumnTypeList, new { onchange="changeType()" })</div>
+<div class="editor-field join200">@Html.DropDownListFor(f => f.ColumnType, Model.ColumnTypeList, new { onchange = "changeType()" })</div>
 <script type="text/javascript">
     function changeType() {
         var val = $('#ColumnType').val();
@@ -19,7 +19,7 @@
     @Html.LabelFor(model => model.DatabaseType)
 </div>
 <div class="editor-field">
-    @Html.DropDownListFor(model=>model.DatabaseType,Model.DatabaseTypeList)
+    @Html.DropDownListFor(model => model.DatabaseType, Model.DatabaseTypeList)
     @Html.ValidationMessageFor(model => model.DatabaseType)
 </div>
 
@@ -41,9 +41,27 @@
 </div>
 
 <div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.Description)
+</div>
+<div class="editor-field" style="float:left;">
+    @Html.TextAreaFor(model => model.Description, new { style=" height: 150px; width:560px;"})
+</div>
+<script type="text/javascript">
+    $(function () {
+        var um = UM.getEditor('Description', {
+            toolbar: [
+            'source | bold italic underline strikethrough |  forecolor backcolor | removeformat |',
+            'insertorderedlist insertunorderedlist  | fontfamily fontsize',
+            '| justifyleft justifycenter justifyright justifyjustify'
+            ]
+        });
+    });
+</script>
+<div style=" clear:both;"></div>
+<div class="editor-label w150 txt-right">
     @Html.LabelFor(model => model.IsRequired)
 </div>
-<div class="editor-field join200">
+<div class="editor-field">
     @Html.EditorFor(model => model.IsRequired)
     @Html.ValidationMessageFor(model => model.IsRequired)
 </div>

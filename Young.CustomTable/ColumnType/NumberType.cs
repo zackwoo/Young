@@ -11,9 +11,14 @@ namespace Young.CustomTable.ColumnType
     /// </summary>
     public class NumberType : ColumnTypeBase
     {
+        private System.Data.SqlDbType _databaseType = System.Data.SqlDbType.Float;
         public override System.Data.SqlDbType DatabaseType
         {
-            get { return System.Data.SqlDbType.Float; }
+            get { return _databaseType; }
+            set
+            {
+                _databaseType = value;
+            }
         }
     }
 }

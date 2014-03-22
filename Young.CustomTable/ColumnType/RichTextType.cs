@@ -11,10 +11,14 @@ namespace Young.CustomTable.ColumnType
     /// </summary>
     public class RichTextType : ColumnTypeBase
     {
-
+        private System.Data.SqlDbType _databaseType = System.Data.SqlDbType.Text;
         public override System.Data.SqlDbType DatabaseType
         {
-            get { return System.Data.SqlDbType.Text ; }
+            get { return _databaseType; }
+            set
+            {
+                _databaseType = value;
+            }
         }
     }
 }

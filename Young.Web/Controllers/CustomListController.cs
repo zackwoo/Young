@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Young.CustomTable;
+using Young.CustomTable.ColumnType;
 using Young.DAL;
 using Young.Model;
 using Young.Web.Models;
@@ -81,46 +82,76 @@ namespace Young.Web.Controllers
                     return RedirectToAction("LineTextColumn", builder.BuildLineTextColumn(model));
             }
         }
-        public ActionResult LineTextColumn(LineTextColumnModel model)
+        //基本信息赋值
+        private static void SetColumnBaseInfo(ColumnModel model, ColumnTypeBase column)
         {
-            return View(model);
+            column.Code = model.Code;
+            column.CustomValidationErrorMessage = model.CustomValidationErrorMessage;
+            column.CustomValidationRegularExpression = model.CustomValidationRegularExpression;
+            column.DatabaseType = model.DatabaseType;
+            column.Description = model.Description;
+            column.IsNeedCustomValidation = model.IsNeedCustomValidation;
+            column.IsRequired = model.IsRequired;
+            column.Name = model.Name;
         }
-
         [HttpPost]
         [ActionName("LineTextColumn")]
+        [ValidateInput(false)]
         public ActionResult PostLineTextColumn(LineTextColumnModel model)
         {
-            return View(model);
+            var column = ColumnTypeFactory.CreateLineTextType();
+            SetColumnBaseInfo(model, column);
+            column.DatabaseColumnLength = model.Length;
+            CustomTableTools.AddColumn(model.TableName, column);
+            return RedirectToAction("column", new { code = model.TableCode });
         }
 
-        public ActionResult NumberColumn(NumberColumnModel model)
-        {
-            return View(model);
-        }
         [HttpPost]
         [ActionName("NumberColumn")]
+        [ValidateInput(false)]
         public ActionResult PostNumberColumn(NumberColumnModel model)
         {
-            return View(model);
+            var column = ColumnTypeFactory.CreateNumberType();
+            SetColumnBaseInfo(model, column);
+            CustomTableTools.AddColumn(model.TableName, column);
+            return RedirectToAction("column", new { code = model.TableCode });
+        }
+        [HttpPost]
+        [ActionName("RichTextColumn")]
+        [ValidateInput(false)]
+        public ActionResult PostRichTextColumn(RichTextColumnModel model)
+        {
+            var column = ColumnTypeFactory.CreateRichTextType();
+            SetColumnBaseInfo(model, column);
+            CustomTableTools.AddColumn(model.TableName, column);
+            return RedirectToAction("column", new { code = model.TableCode });
+        }
+        [HttpPost]
+        [ActionName("DateColumn")]
+        [ValidateInput(false)]
+        public ActionResult PostDateColumn(DateColumnModel model)
+        {
+            var column = ColumnTypeFactory.CreateDateType();
+            SetColumnBaseInfo(model, column);
+            CustomTableTools.AddColumn(model.TableName, column);
+            return RedirectToAction("column", new { code = model.TableCode });
         }
         public ActionResult RichTextColumn(RichTextColumnModel model)
         {
             return View(model);
         }
-        [HttpPost]
-        [ActionName("RichTextColumn")]
-        public ActionResult PostRichTextColumn(RichTextColumnModel model)
-        {
-            return View(model);
-        }
+
         public ActionResult DateColumn(DateColumnModel model)
         {
             return View(model);
         }
-        [HttpPost]
-        [ActionName("DateColumn")]
-        public ActionResult PostDateColumn(DateColumnModel model)
+        public ActionResult NumberColumn(NumberColumnModel model)
         {
+            return View(model);
+        }
+        public ActionResult LineTextColumn(LineTextColumnModel model)
+        {
+            var column = ColumnTypeFactory.CreateLineTextType();
             return View(model);
         }
         #endregion

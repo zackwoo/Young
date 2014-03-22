@@ -16,7 +16,7 @@ namespace Young.CustomTable.ColumnType
         /// 内部编号
         /// </summary>
         [Key]
-        public string Code { get; protected set; }
+        public string Code { get; set; }
         /// <summary>
         /// 名称
         /// </summary>
@@ -44,6 +44,6 @@ namespace Young.CustomTable.ColumnType
         /// <summary>
         /// 指定对应数据库数据类型
         /// </summary>
-        public abstract System.Data.SqlDbType DatabaseType { get;}
+        public abstract System.Data.SqlDbType DatabaseType { get; set; }
     }
 }
