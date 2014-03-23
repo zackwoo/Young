@@ -17,6 +17,7 @@ namespace Young.CustomTable
         }
          
         public DbSet<YoungTable> YoungTables { get; set; }
+        public DbSet<ColumnTypeBase> Columns { get; set; }
         public DbSet<DateType> DateTypes { get; set; }
         public DbSet<LineTextType> LineTextTypes { get; set; }
         public DbSet<NumberType> NumberTypes { get; set; }

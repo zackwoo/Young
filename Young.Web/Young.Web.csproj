@@ -157,6 +157,7 @@
     <Compile Include="Models\Command\CustomListCommandModel.cs" />
     <Compile Include="Models\CustomListItemModel.cs" />
     <Compile Include="Models\CustomListModel.cs" />
+    <Compile Include="Models\CustomList\TableDetailModel.cs" />
     <Compile Include="Models\EasyUIView\DataGridModel.cs" />
     <Compile Include="Models\EasyUIView\PropertyGridRowModel.cs" />
     <Compile Include="Models\EasyUIView\CustomDataGridRowModel.cs" />
@@ -196,6 +197,7 @@
     <Content Include="Content\themes\icons\table_delete.png" />
     <Content Include="Content\themes\icons\table_edit.png" />
     <Content Include="Content\themes\icons\table_multiple.png" />
+    <Content Include="Content\themes\icons\zoom_in.png" />
     <Content Include="Content\ueditor\dialogs\emotion\emotion.css" />
     <Content Include="Content\ueditor\dialogs\emotion\emotion.js" />
     <Content Include="Content\ueditor\dialogs\emotion\images\0.gif" />
@@ -462,12 +464,13 @@
     <Content Include="Views\CustomList\Create.cshtml" />
     <Content Include="Views\CustomList\List.cshtml" />
     <Content Include="Scripts\Young\Young.Prototype.js" />
-    <Content Include="Views\CustomList\Column.cshtml" />
+    <Content Include="Views\CustomList\Detail.cshtml" />
     <Content Include="Views\CustomList\LineTextColumn.cshtml" />
     <Content Include="Views\CustomList\BaseColumnEditor.cshtml" />
     <Content Include="Views\CustomList\NumberColumn.cshtml" />
     <Content Include="Views\CustomList\RichTextColumn.cshtml" />
     <Content Include="Views\CustomList\DateColumn.cshtml" />
+    <Content Include="Views\Shared\_ColumnEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

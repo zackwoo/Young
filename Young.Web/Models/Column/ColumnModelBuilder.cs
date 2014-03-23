@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Young.CustomTable.ColumnType;
 
 namespace Young.Web.Models.Column
 {
@@ -44,19 +45,97 @@ namespace Young.Web.Models.Column
             return model;
         }
 
-        private void CopyProperty(ColumnModel model, ColumnModel source)
+        public ColumnModel BuildColumnModel(ColumnTypeBase source)
         {
-            model.TableCode = source.TableCode;
-            model.TableName = source.TableName;
+            var model = CreateColumnModel(source);
+            model.IsNew = false;
             model.Name = source.Name;
-            model.IsRequired = source.IsRequired;
-            model.IsNeedCustomValidation = source.IsNeedCustomValidation;
-            model.Description = source.Description;
-            model.DatabaseType = source.DatabaseType;
-            model.CustomValidationRegularExpression = source.CustomValidationRegularExpression;
-            model.CustomValidationErrorMessage = source.CustomValidationErrorMessage;
             model.Code = source.Code;
+            model.Description = source.Description;
+            model.IsNeedCustomValidation = source.IsNeedCustomValidation;
+            model.IsRequired = source.IsRequired;
+            model.CustomValidationErrorMessage = source.CustomValidationErrorMessage;
+            model.CustomValidationRegularExpression = source.CustomValidationRegularExpression;
+            model.DatabaseType = source.DatabaseType;
+
+            return model;
         }
+
+        public DateType BuildDateType(DateColumnModel model)
+        {
+            var result = ColumnTypeFactory.CreateDateType();
+            CopyProperty(result, model);
+            return result;
+        }
+        public LineTextType BuildLineTextType(LineTextColumnModel model)
+        {
+            var result = ColumnTypeFactory.CreateLineTextType();
+            CopyProperty(result, model);
+            result.DatabaseColumnLength = model.Length;
+            return result;
+        }
+        public RichTextType BuildRichTextType(RichTextColumnModel model)
+        {
+            var result = ColumnTypeFactory.CreateRichTextType();
+            CopyProperty(result, model);
+            return result;
+        }
+        public NumberType BuildNumberType(NumberColumnModel model)
+        {
+            var result = ColumnTypeFactory.CreateNumberType();
+            CopyProperty(result, model);
+            return result;
+        }
+
+        
+
+        private ColumnModel CreateColumnModel(ColumnTypeBase source)
+        {
+            if (source is LineTextType)
+            {
+                return new LineTextColumnModel();
+            }
+            if (source is RichTextType)
+            {
+                return new RichTextColumnModel();
+            }
+            if (source is NumberType)
+            {
+                return new NumberColumnModel();
+            }
+            if (source is DateType)
+            {
+                return new DateColumnModel();
+            }
+            return null;
+        }
+
+        private void CopyProperty(ColumnTypeBase target, ColumnModel source)
+        {
+            target.Name = source.Name;
+            target.IsRequired = source.IsRequired;
+            target.IsNeedCustomValidation = source.IsNeedCustomValidation;
+            target.Description = source.Description;
+            target.DatabaseType = source.DatabaseType;
+            target.CustomValidationRegularExpression = source.CustomValidationRegularExpression;
+            target.CustomValidationErrorMessage = source.CustomValidationErrorMessage;
+            target.Code = source.Code;
+        }
+
+        private void CopyProperty(ColumnModel target, ColumnModel source)
+        {
+            target.TableCode = source.TableCode;
+            target.TableName = source.TableName;
+            target.Name = source.Name;
+            target.IsRequired = source.IsRequired;
+            target.IsNeedCustomValidation = source.IsNeedCustomValidation;
+            target.Description = source.Description;
+            target.DatabaseType = source.DatabaseType;
+            target.CustomValidationRegularExpression = source.CustomValidationRegularExpression;
+            target.CustomValidationErrorMessage = source.CustomValidationErrorMessage;
+            target.Code = source.Code;
+        }
+
 
         private void SetCode(ColumnModel model)
         {

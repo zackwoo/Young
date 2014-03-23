@@ -10,7 +10,7 @@ namespace Young.CustomTable.ColumnType
     /// <summary>
     /// 列类型基类
     /// </summary>
-    public abstract class ColumnTypeBase
+    public class ColumnTypeBase
     {
         /// <summary>
         /// 内部编号
@@ -44,6 +44,6 @@ namespace Young.CustomTable.ColumnType
         /// <summary>
         /// 指定对应数据库数据类型
         /// </summary>
-        public abstract System.Data.SqlDbType DatabaseType { get; set; }
+        public System.Data.SqlDbType DatabaseType { get; set; }
     }
 }

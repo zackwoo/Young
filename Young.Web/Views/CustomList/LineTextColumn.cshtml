@@ -1,38 +1,15 @@
 ﻿@model Young.Web.Models.Column.LineTextColumnModel
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
+    Layout = "~/Views/Shared/_ColumnEditor.cshtml";
 }
 
-<div id="work-panel">
-    <div class="module">
-        <div class="icon-table-add title">
-            添加栏目
-        </div>
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
 
-            <fieldset>
-                <legend>单行文本类型</legend>
-                @Html.Partial("BaseColumnEditor", Model)
-
-                <div class="editor-label w150 txt-right">
-                    @Html.LabelFor(model => model.Length)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.Length, new { @class="easyui-numberbox" })
-                    @Html.ValidationMessageFor(model => model.Length)
-                </div>
-
-                <div class="button">
-                    <a href="javascript:$('#btn-submit').closest('form').submit();" id="btn-submit" class="easyui-linkbutton" iconcls="icon-save">提交</a>
-                    @Html.ActionLink("返回", "Column", new { code = @Model.TableCode }, new { @class = "easyui-linkbutton", iconcls = "icon-back" })
-                </div>
-            </fieldset>
-        }
-
-
-    </div>
+<div class="editor-label w150 txt-right">
+    @Html.LabelFor(model => model.Length)
 </div>
+<div class="editor-field">
+    @Html.TextBoxFor(model => model.Length, new { @class = "easyui-numberbox" })
+    @Html.ValidationMessageFor(model => model.Length)
+</div>
+

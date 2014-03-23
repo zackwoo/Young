@@ -9,6 +9,11 @@ namespace Young.Web.Models.Column
 {
     public class ColumnModel
     {
+        public ColumnModel()
+        {
+            IsNew = true;//是否新建
+        }
+
         public string TableName { get; set; }
         public string TableCode { get; set; }
 
@@ -81,6 +86,8 @@ namespace Young.Web.Models.Column
                 }).ToList();
             }
         }
+
+        public bool IsNew { get; set; }
     }
 
     public enum ColumnType

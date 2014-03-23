@@ -17,14 +17,5 @@ namespace Young.CustomTable.ColumnType
         /// </summary>
         public int DatabaseColumnLength { get; set; }
 
-        private System.Data.SqlDbType _databaseType = System.Data.SqlDbType.NVarChar;
-        public override System.Data.SqlDbType DatabaseType
-        {
-            get { return _databaseType; }
-            set
-            {
-                _databaseType = value;
-            }
-        }
     }
 }

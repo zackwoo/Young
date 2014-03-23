@@ -1,5 +1,6 @@
 ﻿@model Young.Web.Models.Column.ColumnModel
 
+@Html.HiddenFor(model => model.IsNew)
 @Html.HiddenFor(model => model.TableCode)
 @Html.HiddenFor(model => model.TableName)
 <div class="editor-label w150 txt-right">数据类型</div>
@@ -28,8 +29,16 @@
     @Html.LabelFor(model => model.Code)
 </div>
 <div class="editor-field join200">
-    @Html.EditorFor(model => model.Code)
-    @Html.ValidationMessageFor(model => model.Code)
+    @if (Model.IsNew)
+    {
+        @Html.EditorFor(model => model.Code)
+        @Html.ValidationMessageFor(model => model.Code)    
+    }
+    else
+    {
+        @Html.DisplayFor(model => model.Code)
+    }
+
 </div>
 
 <div class="editor-label w150 txt-right">
@@ -43,8 +52,8 @@
 <div class="editor-label w150 txt-right">
     @Html.LabelFor(model => model.Description)
 </div>
-<div class="editor-field" style="float:left;">
-    @Html.TextAreaFor(model => model.Description, new { style=" height: 150px; width:560px;"})
+<div class="editor-field" style="float: left;">
+    @Html.TextAreaFor(model => model.Description, new { style = " height: 150px; width:560px;" })
 </div>
 <script type="text/javascript">
     $(function () {
@@ -57,7 +66,7 @@
         });
     });
 </script>
-<div style=" clear:both;"></div>
+<div style="clear: both;"></div>
 <div class="editor-label w150 txt-right">
     @Html.LabelFor(model => model.IsRequired)
 </div>

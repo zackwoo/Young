@@ -71,12 +71,11 @@ a { text-decoration: none; }
 
 /*工作区域*/
 #work-panel { padding: 10px; width: 980px; margin: 0 auto; }
-    #work-panel .module { padding: 3px; border: 2px solid #CCC; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; background-color: #F4F4F4; }
+    #work-panel .module { padding: 3px; border: 2px solid #CCC; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; background-color: #F4F4F4; margin:10px; }
         #work-panel .module .title { font-weight: 900; color:#0E2D5F; height: 30px; line-height: 28px; background-position: 5px center; background-color:#5ca1e4; padding-left: 25px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
             #work-panel .module .title a {  float:right; display:inline; background-position: 5px center;padding-left: 25px; margin-right:20px; color:#ff0; }
         #work-panel .module table { border-collapse: collapse; border: none; width: 950px; margin: 10px auto 10px auto; color: #787878; }
-            #work-panel .module table td, #work-panel .module table th { border: 1px solid #CCC; height: 28px; }
-            #work-panel .module table thead th { text-align: center; }
+            #work-panel .module table td, #work-panel .module table th { border: 1px solid #CCC; height: 28px;text-align: center; }
             #work-panel .module table caption { text-align: left; margin-bottom: 5px; font-size: 1.2em; font-weight: 900; color: #0964f3; width: 200px; background: url('themes/icons/bullet_blue.png') no-repeat left center; padding-left: 20px; }
         #work-panel .module .editor-label { float:left; color:#787878;margin-right:10px }
         #work-panel .module .editor-label,#work-panel .module .editor-field{ margin-bottom: 15px;}

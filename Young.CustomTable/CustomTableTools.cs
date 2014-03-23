@@ -9,6 +9,7 @@ namespace Young.CustomTable
 {
     public static class CustomTableTools
     {
+        #region table
         public static void AddCustomTable(YoungTable table)
         {
             using (var db = new CustomTableDatabaseContext())
@@ -28,19 +29,29 @@ namespace Young.CustomTable
             }
         }
 
-        public static YoungTable GetTableByName(string name)
+        public static YoungTable GetTableByName(string name,bool loadColumn = false)
         {
             using (var db = new CustomTableDatabaseContext())
             {
-                return db.YoungTables.SingleOrDefault(f => f.Name == name);
+                var table = db.YoungTables.SingleOrDefault(f => f.Name == name);
+                if (loadColumn)
+                {
+                    table.Columns.ToList();
+                }
+                return table;
             }
         }
 
-        public static YoungTable GetTableByCode(string code)
+        public static YoungTable GetTableByCode(string code, bool loadColumn = false)
         {
             using (var db = new CustomTableDatabaseContext())
             {
-                return db.YoungTables.SingleOrDefault(f => f.Code == code);
+                var table = db.YoungTables.SingleOrDefault(f => f.Code == code);
+                if (loadColumn)
+                {
+                    table.Columns.ToList();
+                }
+                return table;
             }
         }
 
@@ -53,6 +64,10 @@ namespace Young.CustomTable
             }
         }
 
+        #endregion
+
+        #region columns
+
         public static void AddColumn(string tableName, ColumnTypeBase column)
         {
             using (var db = new CustomTableDatabaseContext())
@@ -63,13 +78,22 @@ namespace Young.CustomTable
             }
         }
 
+        public static ColumnTypeBase GetColumn(string tableName, string columnCode)
+        {
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var table = db.YoungTables.Single(f => f.Name == tableName);
+                return table.Columns.SingleOrDefault(f => f.Code == columnCode);                
+            }
+        }
+
         public static void DeleteColumn(string tableName, string columnCode)
         {
             using (var db = new CustomTableDatabaseContext())
             {
                 var table = db.YoungTables.Single(f => f.Name == tableName);
                 var column = table.Columns.SingleOrDefault(f => f.Code == columnCode);
-                if (column==null) return;
+                if (column == null) return;
                 table.Columns.Remove(column);
                 db.SaveChanges();
             }
@@ -82,14 +106,18 @@ namespace Young.CustomTable
                 var table = db.YoungTables.Single(f => f.Name == tableName);
                 var column = table.Columns.SingleOrDefault(f => f.Code == item.Code);
                 if (column == null) return;
-                column.CustomValidationErrorMessage = item.CustomValidationErrorMessage;
-                column.CustomValidationRegularExpression = item.CustomValidationRegularExpression;
-                column.Description = item.Description;
-                column.IsNeedCustomValidation = item.IsNeedCustomValidation;
-                column.IsRequired = item.IsRequired;
-                column.Name = item.Name;
+                //column.CustomValidationErrorMessage = item.CustomValidationErrorMessage;
+                //column.CustomValidationRegularExpression = item.CustomValidationRegularExpression;
+                //column.Description = item.Description;
+                //column.IsNeedCustomValidation = item.IsNeedCustomValidation;
+                //column.IsRequired = item.IsRequired;
+                //column.Name = item.Name;
+                db.Columns.Remove(column);
+                table.Columns.Add(item);
                 db.SaveChanges();
             }
         }
+
+        #endregion
     }
 }

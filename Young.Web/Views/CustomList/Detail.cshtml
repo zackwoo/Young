@@ -1,0 +1,66 @@
+﻿@model Young.Web.Models.CustomList.TableDetailModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
+}
+
+<div id="work-panel">
+    <div class="module">
+        <div class="icon-table title">
+            自定义列表：@Model.TableName
+            <a href="#" class="icon-zoom-in">添加搜索栏目</a>
+            <a href="addColumn?tcode=@Model.TableCode&type=0" class="icon-table-add" >添加栏目</a>
+        </div>
+
+        <table>
+            <caption>现有栏目</caption>
+            <thead>
+                <tr>
+                    <th style="width:200px;">栏目编号</th>
+                    <th>栏目名称</th>
+                    <th style="width:200px;">栏目类型</th>
+                    <th style="width:200px;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Columns)
+                {
+                    <tr id="table_@item.Code">
+                        <td>@item.Code</td>
+                        <td>@item.Name</td>
+                        <td>@Young.Util.EnumHelper.GetEnumDisplayText(item.ColumnType)</td>
+                        <td>
+                            <a href="editColumn?tname=@(Model.TableName)&code=@item.Code" class="easyui-linkbutton" iconcls="icon-table-edit">编辑</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-table-delete">删除</a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <table>
+            <caption>搜索栏目</caption>
+            <thead>
+                <tr>
+                    <th style="width:200px;">栏目编号</th>
+                    <th>栏目名称</th>
+                    <th style="width:200px;">栏目类型</th>
+                   <th style="width:200px;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>自定义列表</td>
+                    <td>自定义列表</td>
+                    <td>自定义列表</td>
+                    <td> <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-table-delete">删除</a></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+
