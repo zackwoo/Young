@@ -3,7 +3,24 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
 }
-
+@section scripts{
+    <script type="text/javascript">
+        function deleteColumn(colCode) {
+            $.messager.confirm('确认', '你确定要删除该列吗?', function(r) {
+                if (r) {
+                    // exit action;
+                    $.ajax({
+                        type: 'delete',
+                        url: '/api/APICustomList?code=' + colCode,
+                        success:function() {
+                            $('#table_' + colCode).remove();
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}
 <div id="work-panel">
     <div class="module">
         <div class="icon-table title">
@@ -31,7 +48,7 @@
                         <td>@Young.Util.EnumHelper.GetEnumDisplayText(item.ColumnType)</td>
                         <td>
                             <a href="editColumn?tname=@(Model.TableName)&code=@item.Code" class="easyui-linkbutton" iconcls="icon-table-edit">编辑</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-table-delete">删除</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-table-delete" onclick="deleteColumn('@item.Code')">删除</a>
                         </td>
                     </tr>
                 }
@@ -59,8 +76,5 @@
             </tbody>
         </table>
     </div>
-
-
-
 </div>
 

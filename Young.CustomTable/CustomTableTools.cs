@@ -87,14 +87,12 @@ namespace Young.CustomTable
             }
         }
 
-        public static void DeleteColumn(string tableName, string columnCode)
+        public static void DeleteColumn( string columnCode)
         {
             using (var db = new CustomTableDatabaseContext())
             {
-                var table = db.YoungTables.Single(f => f.Name == tableName);
-                var column = table.Columns.SingleOrDefault(f => f.Code == columnCode);
-                if (column == null) return;
-                table.Columns.Remove(column);
+                var column = db.Columns.Single(f => f.Code == columnCode);
+                db.Columns.Remove(column);
                 db.SaveChanges();
             }
         }

@@ -90,24 +90,6 @@ namespace Young.Web.Controllers
             return 0;
         }
 
-        
-
-        // POST api/apicustomlistdata
-        public void Post(CustomDataCommandModel data)
-        {
-            switch (data.CommandType)
-            {
-                case CommandType.Create:
-                    AddRecord(data.CustomListName, data.JsonData);
-                    break;
-                case CommandType.Edit:
-                    UpdateRecord(data.CustomListName,data.ID, data.JsonData);
-                    break;
-                case CommandType.Delete:
-                    DeleteRecord(data.CustomListName, data.ID);
-                    break;
-            }
-        }
 
         private void DeleteRecord(string customListName, int id)
         {

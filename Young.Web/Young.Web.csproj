@@ -151,10 +151,8 @@
     <Compile Include="Models\Column\LineTextColumnModel.cs" />
     <Compile Include="Models\Column\NumberColumnModel.cs" />
     <Compile Include="Models\Column\RichTextColumnModel.cs" />
-    <Compile Include="Models\Command\CustomDataCommandModel.cs" />
     <Compile Include="Models\Command\Enums.cs" />
     <Compile Include="Models\CustomColumnModel.cs" />
-    <Compile Include="Models\Command\CustomListCommandModel.cs" />
     <Compile Include="Models\CustomListItemModel.cs" />
     <Compile Include="Models\CustomListModel.cs" />
     <Compile Include="Models\CustomList\TableDetailModel.cs" />
@@ -268,6 +266,8 @@
     <Content Include="Content\ueditor\third-party\mathquill\mathquill.min.js" />
     <Content Include="Content\ueditor\umeditor.config.js" />
     <Content Include="Content\ueditor\umeditor.min.js" />
+    <Content Include="CreateColumn.sql" />
+    <Content Include="CreateTable.sql" />
     <Content Include="Images\user.png" />
     <Content Include="Content\Reset.css" />
     <Content Include="Content\themes\default\accordion.css" />
