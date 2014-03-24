@@ -91,7 +91,7 @@ namespace Young.Web.Controllers
             var column = CustomTableTools.GetColumn(tname, code);
             if (column==null)
             {
-                throw new ArgumentNullException("column");
+                throw new NullReferenceException();
             }
             ColumnModelBuilder builder = new ColumnModelBuilder();
             var model = builder.BuildColumnModel(column);
@@ -106,7 +106,9 @@ namespace Young.Web.Controllers
                 case ColumnType.RichText:
                     return RedirectToAction("RichTextColumn", model);
                 default:
-                    return RedirectToAction("LineTextColumn", model);
+                    var lineTextModel = (LineTextColumnModel)model;
+                    lineTextModel.Length = ((LineTextType)column).DatabaseColumnLength;
+                    return RedirectToAction("LineTextColumn", lineTextModel);
             }
         }
        
@@ -117,7 +119,14 @@ namespace Young.Web.Controllers
         {
             ColumnModelBuilder builder = new ColumnModelBuilder();
             var column = builder.BuildLineTextType(model);
-            CustomTableTools.AddColumn(model.TableName, column);
+            if (model.IsNew)
+            {
+                CustomTableTools.AddColumn(model.TableName, column);
+            }
+            else
+            {
+                CustomTableTools.EditColumn(model.TableName, column);
+            }
             return RedirectToAction("Detail", new { code = model.TableCode });
         }
 

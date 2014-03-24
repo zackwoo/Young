@@ -45,6 +45,8 @@ namespace Young.Web.Models.Column
             return model;
         }
 
+        
+
         public ColumnModel BuildColumnModel(ColumnTypeBase source)
         {
             var model = CreateColumnModel(source);

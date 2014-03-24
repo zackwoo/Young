@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace Young.CustomTable
             {
                 db.YoungTables.Add(table);
                 db.SaveChanges();
+                ExecuteCreateTabelSql(db.Database, table.Code);
             }
         }
 
@@ -75,6 +78,7 @@ namespace Young.CustomTable
                 var table = db.YoungTables.Single(f => f.Name == tableName);
                 table.Columns.Add(column);
                 db.SaveChanges();
+                ExecuteCreateColumnSql(db.Database, table.Code, column);
             }
         }
 
@@ -91,7 +95,8 @@ namespace Young.CustomTable
         {
             using (var db = new CustomTableDatabaseContext())
             {
-                var column = db.Columns.Single(f => f.Code == columnCode);
+                var column = db.Columns.Single(f => f.Code == columnCode);                
+                ExecuteDropColumnSql(db.Database, column.Table.Code, column.Code);
                 db.Columns.Remove(column);
                 db.SaveChanges();
             }
@@ -114,6 +119,74 @@ namespace Young.CustomTable
                 table.Columns.Add(item);
                 db.SaveChanges();
             }
+        }
+
+        #endregion
+
+        #region auto set database
+
+        private static void ExecuteCreateTabelSql(Database db, string tcode)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendFormat(@"if(not Exists(Select * From SysObjects Where xtype='U' And Name='{0}')) 
+                                    begin
+                                    CREATE TABLE {0}
+                                    ( ID int NOT NULL IDENTITY(1,1) PRIMARY KEY) 
+                                    end ", tcode);
+            db.ExecuteSqlCommand(sql.ToString());
+        }
+
+        private static void ExecuteCreateColumnSql(Database db, string tcode, ColumnTypeBase column)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendFormat(@"if not exists(select * from syscolumns where id=object_id('{0}') and name='{1}') 
+                                        begin
+                                        --添加列
+                                        ALTER TABLE {0} ADD [{1}] {2}
+                                        END
+                                        ELSE BEGIN
+                                        --修改列
+                                        ALTER TABLE {0} alter column [{1}] {2}
+                                        end", tcode, column.Code, GetColumnSQL(column));
+            db.ExecuteSqlCommand(sql.ToString());
+        }
+
+        private static void ExecuteDropColumnSql(Database db, string tableCode, string columnCode)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendFormat(@" ALTER TABLE {0}   
+                                DROP COLUMN {1} ", tableCode, columnCode);
+            db.ExecuteSqlCommand(sql.ToString());
+        }
+
+        public static void ResetDatabase(string tcode)
+        {
+            using (var db = new CustomTableDatabaseContext())
+            {
+                 var table = db.YoungTables.Single(f => f.Code == tcode);
+                 ExecuteCreateTabelSql(db.Database, tcode);
+                 foreach (var item in table.Columns)
+                 {
+                     ExecuteCreateColumnSql(db.Database, tcode, item);
+                 }
+                 
+            }
+        }
+
+        private static string GetColumnSQL(ColumnTypeBase col)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(col.DatabaseType);
+            if (col is LineTextType)
+            {
+                sb.AppendFormat(" ({0}) ", ((LineTextType)col).DatabaseColumnLength);
+            }
+            if (col.IsRequired)
+            {
+                sb.Append("NOT NULL ");
+            }
+            return sb.ToString();
         }
 
         #endregion

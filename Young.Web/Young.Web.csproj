@@ -188,6 +188,7 @@
     <Content Include="Content\themes\icons\bullet_blue.png" />
     <Content Include="Content\themes\icons\chart_organisation_add.png" />
     <Content Include="Content\themes\icons\chart_organisation_delete.png" />
+    <Content Include="Content\themes\icons\database_refresh.png" />
     <Content Include="Content\themes\icons\page_add.png" />
     <Content Include="Content\themes\icons\page_delete.png" />
     <Content Include="Content\themes\icons\page_edit.png" />
