@@ -87,6 +87,13 @@ namespace Young.Web.Models.Column
             }
         }
 
+        /// <summary>
+        /// 是否用于查询字段
+        /// </summary>
+        public bool IsForSearch { get; set; }
+        /// <summary>
+        /// 是否新建
+        /// </summary>
         public bool IsNew { get; set; }
     }
 

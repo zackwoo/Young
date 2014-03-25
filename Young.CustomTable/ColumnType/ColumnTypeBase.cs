@@ -45,6 +45,10 @@ namespace Young.CustomTable.ColumnType
         /// 指定对应数据库数据类型
         /// </summary>
         public System.Data.SqlDbType DatabaseType { get; set; }
+        /// <summary>
+        /// 是否用于搜索字段
+        /// </summary>
+        public bool IsForSearch { get; set; }
 
         public virtual YoungTable Table { get; set; }
     }

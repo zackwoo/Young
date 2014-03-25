@@ -77,8 +77,8 @@ namespace Young.CustomTable
             {
                 var table = db.YoungTables.Single(f => f.Name == tableName);
                 table.Columns.Add(column);
-                db.SaveChanges();
                 ExecuteCreateColumnSql(db.Database, table.Code, column);
+                db.SaveChanges();
             }
         }
 
@@ -101,6 +101,32 @@ namespace Young.CustomTable
                 db.SaveChanges();
             }
         }
+        /// <summary>
+        /// 设置列为搜索列
+        /// </summary>
+        /// <param name="columnCode"></param>
+        public static void SetSearchColumn(string columnCode)
+        {
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var column = db.Columns.Single(f => f.Code == columnCode);
+                column.IsForSearch = true;
+                db.SaveChanges();
+            }
+        } 
+        /// <summary>
+        /// 移除搜索列
+        /// </summary>
+        /// <param name="columnCode"></param>
+        public static void RemoveSearchColumn(string columnCode)
+        {
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var column = db.Columns.Single(f => f.Code == columnCode);
+                column.IsForSearch = false;
+                db.SaveChanges();
+            }
+        }
 
         public static void EditColumn(string tableName, ColumnTypeBase item)
         {
@@ -109,12 +135,6 @@ namespace Young.CustomTable
                 var table = db.YoungTables.Single(f => f.Name == tableName);
                 var column = table.Columns.SingleOrDefault(f => f.Code == item.Code);
                 if (column == null) return;
-                //column.CustomValidationErrorMessage = item.CustomValidationErrorMessage;
-                //column.CustomValidationRegularExpression = item.CustomValidationRegularExpression;
-                //column.Description = item.Description;
-                //column.IsNeedCustomValidation = item.IsNeedCustomValidation;
-                //column.IsRequired = item.IsRequired;
-                //column.Name = item.Name;
                 db.Columns.Remove(column);
                 table.Columns.Add(item);
                 db.SaveChanges();
@@ -123,7 +143,7 @@ namespace Young.CustomTable
 
         #endregion
 
-        #region auto set database
+        #region raw sql
 
         private static void ExecuteCreateTabelSql(Database db, string tcode)
         {
@@ -184,7 +204,7 @@ namespace Young.CustomTable
             }
             if (col.IsRequired)
             {
-                sb.Append("NOT NULL ");
+                sb.Append(" NOT NULL ");
             }
             return sb.ToString();
         }

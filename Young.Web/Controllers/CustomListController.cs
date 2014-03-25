@@ -52,7 +52,9 @@ namespace Young.Web.Controllers
                 TableCode = code,
                 TableName = table.Name
             };
-            model.Columns = table.Columns.Select(f => builder.BuildColumnModel(f));
+            model.Columns = table.Columns.Select(builder.BuildColumnModel);
+            model.SearchColumns = model.Columns.Where(f => f.IsForSearch);
+            
             return View(model);
         }
 
@@ -65,6 +67,17 @@ namespace Young.Web.Controllers
                 ViewBag.ID = id;
             }
             return View();
+        }
+
+        public ActionResult AddSearchColumn(string tablecode, string colcode)
+        {
+            CustomTableTools.SetSearchColumn(colcode);
+            return RedirectToAction("Detail", new { code = tablecode });
+        }
+        public ActionResult RemoveSearchColumn(string tablecode, string colcode)
+        {
+            CustomTableTools.RemoveSearchColumn(colcode);
+            return RedirectToAction("Detail", new { code = tablecode });
         }
 
         #region 不同类型列 action
@@ -200,7 +213,6 @@ namespace Young.Web.Controllers
         [ValidateInput(false)]
         public ActionResult LineTextColumn(LineTextColumnModel model)
         {
-            var column = ColumnTypeFactory.CreateLineTextType();
             return View(model);
         }
         #endregion

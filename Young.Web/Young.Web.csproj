@@ -151,7 +151,9 @@
     <Compile Include="Models\Column\LineTextColumnModel.cs" />
     <Compile Include="Models\Column\NumberColumnModel.cs" />
     <Compile Include="Models\Column\RichTextColumnModel.cs" />
+    <Compile Include="Models\Command\CommandBase.cs" />
     <Compile Include="Models\Command\Enums.cs" />
+    <Compile Include="Models\Command\YoungTable\ColumnCommand.cs" />
     <Compile Include="Models\CustomColumnModel.cs" />
     <Compile Include="Models\CustomListItemModel.cs" />
     <Compile Include="Models\CustomListModel.cs" />

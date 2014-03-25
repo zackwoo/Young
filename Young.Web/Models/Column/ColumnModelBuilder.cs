@@ -51,15 +51,7 @@ namespace Young.Web.Models.Column
         {
             var model = CreateColumnModel(source);
             model.IsNew = false;
-            model.Name = source.Name;
-            model.Code = source.Code;
-            model.Description = source.Description;
-            model.IsNeedCustomValidation = source.IsNeedCustomValidation;
-            model.IsRequired = source.IsRequired;
-            model.CustomValidationErrorMessage = source.CustomValidationErrorMessage;
-            model.CustomValidationRegularExpression = source.CustomValidationRegularExpression;
-            model.DatabaseType = source.DatabaseType;
-
+            CopyProperty(model, source);
             return model;
         }
 
@@ -88,9 +80,6 @@ namespace Young.Web.Models.Column
             CopyProperty(result, model);
             return result;
         }
-
-        
-
         private ColumnModel CreateColumnModel(ColumnTypeBase source)
         {
             if (source is LineTextType)
@@ -122,6 +111,18 @@ namespace Young.Web.Models.Column
             target.CustomValidationRegularExpression = source.CustomValidationRegularExpression;
             target.CustomValidationErrorMessage = source.CustomValidationErrorMessage;
             target.Code = source.Code;
+        }
+        private void CopyProperty(ColumnModel target, ColumnTypeBase source)
+        {
+            target.Name = source.Name;
+            target.IsRequired = source.IsRequired;
+            target.IsNeedCustomValidation = source.IsNeedCustomValidation;
+            target.Description = source.Description;
+            target.DatabaseType = source.DatabaseType;
+            target.CustomValidationRegularExpression = source.CustomValidationRegularExpression;
+            target.CustomValidationErrorMessage = source.CustomValidationErrorMessage;
+            target.Code = source.Code;
+            target.IsForSearch = source.IsForSearch;
         }
 
         private void CopyProperty(ColumnModel target, ColumnModel source)
