@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model Young.Web.Models.CustomList.TableDetailModel
 
 @{
     ViewBag.Title = "title";
@@ -9,52 +9,25 @@
     <script>
         var _columns = [];
         //自定义列
-        $(function() {
-            $.get('/api/apicustomlistdata/@ViewBag.ID', function(data) {
-                $.each(data, function(i, item) {
-                    _columns.push({
-                        field: item.InnerName,
-                        title: item.DisplayName,
-                        type: item.Type,
-                        id: item.ID,
-                        condition: item.Condition,
-                        description: item.Description
-                    });
-                });
-                $('#dg').datagrid({
-                    title: '自定义列表：@ViewBag.Name',
-                    singleSelect:true,
-                    toolbar: '#toolbar',
-                    pagination: true,
-                    rownumbers: true,
-                    fitcolumns: true,
-                    queryParams:{clistId:@ViewBag.ID},
-                    columns: [_columns],
-                    loader:function(param,success,error) {
-                        $.get('/api/apicustomlistdata', param, function(cdata) {
-                            var myRows = [];
-                            $.each(cdata.rows, function(i, item) {
-                                var obj = JSON.parse(item.JsonData);
-                                obj.ID = item.ID;
-                                myRows.push(obj);
-                            });
-                            success({
-                                total:cdata.total,
-                                rows:myRows
-                            });
-                        });
-                    }
-                });
+        $(function () {
+
+            $('#dg').datagrid({
+                title: '自定义列表：@Model.TableName',
+                singleSelect: true,
+                toolbar: '#toolbar',
+                pagination: true,
+                rownumbers: true,
+                fitcolumns: true
             });
         });
 
         function newRecord() {
-            Young.CreateRecordDataDialog(_columns, '@ViewBag.Name','#dg');
+            Young.CreateRecordDataDialog(_columns, '@ViewBag.Name', '#dg');
         }
-        
+
         function deleteRecord() {
             var row = $('#dg').datagrid('getSelected');
-            if (row==null) {
+            if (row == null) {
                 $.messager.alert('信息', '请先选中记录。', 'info'); return;
             }
             $.post('/api/apicustomlistdata', {
@@ -62,17 +35,26 @@
                 CommandType: 'Delete',
                 JsonData: '',
                 ID: row.ID
-            }, function() {
+            }, function () {
                 $('#dg').datagrid('reload');
             });
-        }
-        
-        function editRecord() {
-            $.messager.alert('信息', '该功能暂未开通。', 'info'); 
-        }
+            }
+
+            function editRecord() {
+                $.messager.alert('信息', '该功能暂未开通。', 'info');
+            }
     </script>
 }
-<table id="dg" style="width: auto; height: auto"></table>
+<table id="dg" style="width: auto; height: auto">
+    <thead>
+        <tr>
+            @foreach (var column in Model.ListColumns)
+            {
+                <th data-options="field:'@column.Code'">@column.Name</th>
+            }
+        </tr>
+    </thead>
+</table>
 <div id="toolbar" style="padding: 10px 0;">
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-page-add" plain="true" onclick="newRecord()">添加记录</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-page-edit" plain="true" onclick="editRecord()">编辑记录</a>

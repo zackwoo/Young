@@ -70,7 +70,7 @@
             $.get("/api/APICustomList", function (data) {
                 $('#custom-list').empty();
                 $.each(data, function (i, item) {
-                    $('#custom-list').append('<li><a class="icon-table" href="/customlist/list/' + item.ID + '">' + item.Name + '</a></li>');
+                    $('#custom-list').append('<li><a class="icon-table" href="/customlist/list?tcode=' + item.Code + '">' + item.Name + '</a></li>');
                 });
             });
         });

@@ -15,8 +15,20 @@ namespace Young.Web.Controllers
 {
     public class CustomListController : Controller
     {
-        //
-        // GET: /CustomList/
+        private static TableDetailModel GetTableDetailModel(string tcode)
+        {
+            ColumnModelBuilder builder = new ColumnModelBuilder();
+            var table = CustomTableTools.GetTableByCode(tcode, true);
+            var model = new TableDetailModel
+            {
+                TableCode = tcode,
+                TableName = table.Name,
+                Columns = table.Columns.Select(builder.BuildColumnModel)
+            };
+            model.SearchColumns = model.Columns.Where(f => f.IsForSearch);
+            model.ListColumns = model.Columns.Where(f => f.IsForList);
+            return model;
+        }
 
         public ActionResult Index()
         {
@@ -45,29 +57,16 @@ namespace Young.Web.Controllers
 
         public ActionResult Detail(string code)
         {
-            ColumnModelBuilder builder = new ColumnModelBuilder();
-            var table = CustomTableTools.GetTableByCode(code,true);
-            var model = new TableDetailModel
-            {
-                TableCode = code,
-                TableName = table.Name
-            };
-            model.Columns = table.Columns.Select(builder.BuildColumnModel);
-            model.SearchColumns = model.Columns.Where(f => f.IsForSearch);
-            model.ListColumns = model.Columns.Where(f => f.IsForList);
-            
+            var model = GetTableDetailModel(code);
+
             return View(model);
         }
 
-        public ActionResult List(int id)
+        public ActionResult List(string tcode)
         {
-            using (var db = new DataBaseContext())
-            {
-                var info = db.CustomList.Single(f => f.ID == id);
-                ViewBag.Name = info.Name;
-                ViewBag.ID = id;
-            }
-            return View();
+            var model = GetTableDetailModel(tcode);
+
+            return View(model);
         }
 
         public ActionResult AddSearchColumn(string tablecode, string colcode)
