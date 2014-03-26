@@ -54,6 +54,7 @@ namespace Young.Web.Controllers
             };
             model.Columns = table.Columns.Select(builder.BuildColumnModel);
             model.SearchColumns = model.Columns.Where(f => f.IsForSearch);
+            model.ListColumns = model.Columns.Where(f => f.IsForList);
             
             return View(model);
         }
@@ -77,6 +78,16 @@ namespace Young.Web.Controllers
         public ActionResult RemoveSearchColumn(string tablecode, string colcode)
         {
             CustomTableTools.RemoveSearchColumn(colcode);
+            return RedirectToAction("Detail", new { code = tablecode });
+        }
+        public ActionResult AddListColumn(string tablecode, string colcode)
+        {
+            CustomTableTools.SetListColumn(colcode);
+            return RedirectToAction("Detail", new { code = tablecode });
+        }
+        public ActionResult RemoveListColumn(string tablecode, string colcode)
+        {
+            CustomTableTools.RemoveListColumn(colcode);
             return RedirectToAction("Detail", new { code = tablecode });
         }
 

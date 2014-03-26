@@ -113,7 +113,7 @@ namespace Young.CustomTable
                 column.IsForSearch = true;
                 db.SaveChanges();
             }
-        } 
+        }
         /// <summary>
         /// 移除搜索列
         /// </summary>
@@ -124,6 +124,32 @@ namespace Young.CustomTable
             {
                 var column = db.Columns.Single(f => f.Code == columnCode);
                 column.IsForSearch = false;
+                db.SaveChanges();
+            }
+        }
+        /// <summary>
+        /// 设置列表显示列
+        /// </summary>
+        /// <param name="columnCode"></param>
+        public static void SetListColumn(string columnCode)
+        {
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var column = db.Columns.Single(f => f.Code == columnCode);
+                column.IsForList = true;
+                db.SaveChanges();
+            }
+        }
+        /// <summary>
+        /// 移除列表显示列
+        /// </summary>
+        /// <param name="columnCode"></param>
+        public static void RemoveListColumn(string columnCode)
+        {
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var column = db.Columns.Single(f => f.Code == columnCode);
+                column.IsForList = false;
                 db.SaveChanges();
             }
         }

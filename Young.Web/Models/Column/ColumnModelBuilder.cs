@@ -123,6 +123,7 @@ namespace Young.Web.Models.Column
             target.CustomValidationErrorMessage = source.CustomValidationErrorMessage;
             target.Code = source.Code;
             target.IsForSearch = source.IsForSearch;
+            target.IsForList = source.IsForList;
         }
 
         private void CopyProperty(ColumnModel target, ColumnModel source)

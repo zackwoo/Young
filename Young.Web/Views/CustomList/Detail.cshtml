@@ -21,6 +21,7 @@
                             success: function() {
                                 $('#table_' + colCode).remove();
                                 $('#search_' + colCode).remove();
+                                $('#list_' + colCode).remove();
                                 
                             }
                         }
@@ -71,9 +72,10 @@
                         <td>@item.Name</td>
                         <td>@Young.Util.EnumHelper.GetEnumDisplayText(item.ColumnType)</td>
                         <td>
-                            <a href="editColumn?tname=@(Model.TableName)&code=@item.Code" class="easyui-linkbutton" iconcls="icon-table-edit">编辑</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-table-delete" onclick="deleteColumn('@item.Code')">删除</a>
-                            <a href="AddSearchColumn?tablecode=@(Model.TableCode)&colcode=@item.Code" class="easyui-linkbutton" iconcls="icon-zoom-in">设为搜索</a>
+                            <a href="editColumn?tname=@(Model.TableName)&code=@item.Code" class="easyui-linkbutton" iconcls="icon-table-edit"  plain="true">编辑</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-table-delete" onclick="deleteColumn('@item.Code')" plain="true">删除</a>
+                            <a href="AddSearchColumn?tablecode=@(Model.TableCode)&colcode=@item.Code" class="easyui-linkbutton" iconcls="icon-zoom-in" plain="true">添加搜索</a>
+                            <a href="AddListColumn?tablecode=@(Model.TableCode)&colcode=@item.Code" class="easyui-linkbutton" iconcls="icon-table-add" plain="true">列表显示</a>
                         </td>
                     </tr>
                 }
@@ -87,7 +89,7 @@
                     <th style="width:200px;">栏目编号</th>
                     <th>栏目名称</th>
                     <th style="width:200px;">栏目类型</th>
-                   <th style="width:300px;">操作</th>
+                    <th style="width:300px;">操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -98,7 +100,32 @@
                         <td>@item.Name</td>
                         <td>@Young.Util.EnumHelper.GetEnumDisplayText(item.ColumnType)</td>
                         <td>
-                            <a href="RemoveSearchColumn?tablecode=@(Model.TableCode)&colcode=@item.Code" class="easyui-linkbutton" iconcls="icon-table-delete">删除</a>
+                            <a href="RemoveSearchColumn?tablecode=@(Model.TableCode)&colcode=@item.Code" class="easyui-linkbutton" iconcls="icon-table-delete"  plain="true">删除</a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <table>
+            <caption>列表显示栏目</caption>
+            <thead>
+                <tr>
+                    <th style="width:200px;">栏目编号</th>
+                    <th>栏目名称</th>
+                    <th style="width:200px;">栏目类型</th>
+                   <th style="width:300px;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListColumns)
+                {
+                    <tr id="list_@item.Code">
+                        <td>@item.Code</td>
+                        <td>@item.Name</td>
+                        <td>@Young.Util.EnumHelper.GetEnumDisplayText(item.ColumnType)</td>
+                        <td>
+                            <a href="RemoveListColumn?tablecode=@(Model.TableCode)&colcode=@item.Code" class="easyui-linkbutton" iconcls="icon-table-delete" plain="true">删除</a>
                         </td>
                     </tr>
                 }

@@ -14,5 +14,6 @@ namespace Young.Web.Models.CustomList
         public IEnumerable<Column.ColumnModel> Columns { get; set; }
 
         public IEnumerable<Column.ColumnModel> SearchColumns { get; set; }
+        public IEnumerable<Column.ColumnModel> ListColumns { get; set; }
     }
 }

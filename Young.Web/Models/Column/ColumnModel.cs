@@ -92,6 +92,10 @@ namespace Young.Web.Models.Column
         /// </summary>
         public bool IsForSearch { get; set; }
         /// <summary>
+        /// 是否用于列表显示
+        /// </summary>
+        public bool IsForList { get; set; }
+        /// <summary>
         /// 是否新建
         /// </summary>
         public bool IsNew { get; set; }
