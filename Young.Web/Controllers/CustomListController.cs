@@ -62,12 +62,7 @@ namespace Young.Web.Controllers
             return View(model);
         }
 
-        public ActionResult List(string tcode)
-        {
-            var model = GetTableDetailModel(tcode);
-
-            return View(model);
-        }
+        
 
         public ActionResult AddSearchColumn(string tablecode, string colcode)
         {

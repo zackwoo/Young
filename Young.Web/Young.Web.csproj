@@ -132,6 +132,7 @@
     <Compile Include="Controllers\APISysConfigController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\CustomListController.cs" />
+    <Compile Include="Controllers\DynamicTableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\APIMembershipController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
@@ -465,7 +466,6 @@
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\CustomList\Index.cshtml" />
     <Content Include="Views\CustomList\Create.cshtml" />
-    <Content Include="Views\CustomList\List.cshtml" />
     <Content Include="Scripts\Young\Young.Prototype.js" />
     <Content Include="Views\CustomList\Detail.cshtml" />
     <Content Include="Views\CustomList\LineTextColumn.cshtml" />
@@ -474,6 +474,8 @@
     <Content Include="Views\CustomList\RichTextColumn.cshtml" />
     <Content Include="Views\CustomList\DateColumn.cshtml" />
     <Content Include="Views\Shared\_ColumnEditor.cshtml" />
+    <Content Include="Views\DynamicTable\Index.cshtml" />
+    <Content Include="Views\DynamicTable\AddData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
