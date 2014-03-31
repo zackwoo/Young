@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Young.CustomTable.View
 {
-    public class JqueryUIFactory : ViewFactory
+    internal class JqueryUIFactory : ViewFactory
     {
         public override string CreateNumberTypeUI(ColumnType.ColumnTypeBase columnType)
         {
@@ -14,11 +14,6 @@ namespace Young.CustomTable.View
         }
 
         public override string CreateLineTextTypeUI(ColumnType.ColumnTypeBase columnType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string CreateRichTextTypeUI(ColumnType.ColumnTypeBase columnType)
         {
             throw new NotImplementedException();
         }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Young.CustomTable;
 using Young.Web.Models.Column;
 using Young.Web.Models.CustomList;
+using Young.Web.Models.DynamicTable;
 
 namespace Young.Web.Controllers
 {
@@ -39,7 +40,14 @@ namespace Young.Web.Controllers
 
         public ActionResult AddData(string tcode)
         {
-            return View();
+            var table = CustomTableTools.GetTableByCode(tcode, true);
+            var model = new DataEditorModel
+            {
+                TableCode = tcode,
+                TableName = table.Name,
+                ColumnTypes = table.Columns
+            };
+            return View(model);
         }
 
     }

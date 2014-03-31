@@ -5,7 +5,9 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Young.CustomTable.ColumnType;
+using Young.CustomTable.View;
 
 namespace Young.CustomTable
 {
@@ -233,6 +235,42 @@ namespace Young.CustomTable
                 sb.Append(" NOT NULL ");
             }
             return sb.ToString();
+        }
+
+        #endregion
+
+        #region 创建列控件
+
+        public static MvcHtmlString CreateColumnControl(ColumnTypeBase column)
+        {
+            var uiFactory = GetViewFactory();
+            if (column is DateType)
+            {
+                return MvcHtmlString.Create(uiFactory.CreateDateTypeUI(column));
+            }
+            if (column is NumberType)
+            {
+                return MvcHtmlString.Create(uiFactory.CreateNumberTypeUI(column));
+            }
+            if (column is RichTextType)
+            {
+                return MvcHtmlString.Create(uiFactory.CreateRichTextTypeUI(column));
+            }
+            if (column is LineTextType)
+            {
+                return MvcHtmlString.Create(uiFactory.CreateLineTextTypeUI(column));
+            }
+            return MvcHtmlString.Empty;
+        }
+
+        private static ViewFactory GetViewFactory()
+        {
+            var ui = System.Configuration.ConfigurationManager.AppSettings["UIFactory"];
+            if (!string.IsNullOrWhiteSpace(ui) && ui.Trim().ToLower() == "jqueryui")
+            {
+                return new JqueryUIFactory();
+            }
+            return new EasyUIFactory();
         }
 
         #endregion

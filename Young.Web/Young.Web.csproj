@@ -159,6 +159,7 @@
     <Compile Include="Models\CustomListItemModel.cs" />
     <Compile Include="Models\CustomListModel.cs" />
     <Compile Include="Models\CustomList\TableDetailModel.cs" />
+    <Compile Include="Models\DynamicTable\DataEditorModel.cs" />
     <Compile Include="Models\EasyUIView\DataGridModel.cs" />
     <Compile Include="Models\EasyUIView\PropertyGridRowModel.cs" />
     <Compile Include="Models\EasyUIView\CustomDataGridRowModel.cs" />
@@ -382,7 +383,7 @@
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Content\themes\default\images\Thumbs.db" />
     <Content Include="Scripts\json2.js" />
-    <Content Include="Scripts\Young\Young.CustomListDialog.js" />
+    <Content Include="Scripts\Young\Young.js" />
     <Content Include="问题.txt" />
     <Content Include="Content\ueditor\third-party\mathquill\font\stixgeneral-bundle\stixgeneral-webfont.eot" />
     <Content Include="Content\ueditor\third-party\mathquill\font\stixgeneral-bundle\stixgeneral-webfont.svg" />
