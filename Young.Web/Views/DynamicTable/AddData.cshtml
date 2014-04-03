@@ -30,7 +30,7 @@
 
 
                 <div class="button">
-                    <a href="#" id="btn-submit" class="easyui-linkbutton" iconcls="icon-save">提交</a>
+                    <a href="javascript:$('form').submit();" id="btn-submit" class="easyui-linkbutton" iconcls="icon-save">提交</a>
                     @Html.ActionLink("返回", "index", new { tcode = @Model.TableCode }, new { @class = "easyui-linkbutton", iconcls = "icon-back" })
                 </div>
             </fieldset>

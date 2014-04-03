@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Young.CustomTable.ViewModel;
 
 
 namespace Young.Web.Controllers
@@ -14,6 +15,7 @@ namespace Young.Web.Controllers
         {
             return View();
         }
+        
 
         [HttpPost]
         public ActionResult Login(string name, string password)

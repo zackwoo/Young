@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Young.CustomTable;
+using Young.CustomTable.ViewModel;
 using Young.Web.Models.Column;
 using Young.Web.Models.CustomList;
 using Young.Web.Models.DynamicTable;
@@ -48,6 +49,11 @@ namespace Young.Web.Controllers
                 ColumnTypes = table.Columns
             };
             return View(model);
+        }
+        [HttpPost]        
+        public ActionResult AddData(YoungTableDataModel model)
+        {
+            return View();
         }
 
     }
