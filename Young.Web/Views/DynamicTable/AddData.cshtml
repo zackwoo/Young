@@ -3,13 +3,20 @@
     ViewBag.Title = "添加数据";
     Layout = "~/Views/Shared/_WebmasterLayout.cshtml";
 }
+
+@section scripts{
+    <script type="text/javascript">
+      
+    </script>
+}
+
 <div id="work-panel">
     <div class="module">
         <div class="icon-table title">
             自定义列表：@Model.TableName
         </div>
 
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("addData", "DynamicTable", FormMethod.Post, new { onsubmit = "Young.encodeRichText()" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)

@@ -15,7 +15,7 @@ namespace Young.Web.Controllers
         {
             return View();
         }
-        
+       
 
         [HttpPost]
         public ActionResult Login(string name, string password)

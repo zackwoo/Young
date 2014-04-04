@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Young.CustomTable.ViewModel
@@ -19,14 +20,14 @@ namespace Young.CustomTable.ViewModel
             var queryStringKeys = request.QueryString.AllKeys.Where(f => f.StartsWith(_prefix, true, null));
             foreach (var item in queryStringKeys)
             {
-                
-                model.YoungProperty.Add(item.Substring(_prefix.Length), bindingContext.ValueProvider.GetValue(item).AttemptedValue);
+                var val = HttpUtility.HtmlDecode(bindingContext.ValueProvider.GetValue(item).AttemptedValue);
+                model.YoungProperty.Add(item.Substring(_prefix.Length), val);
             }
             var formStringKeys = request.Form.AllKeys.Where(f => f.StartsWith(_prefix, true, null));
             foreach (var item in formStringKeys)
             {
-                
-                model.YoungProperty.Add(item.Substring(_prefix.Length), bindingContext.ValueProvider.GetValue(item).AttemptedValue);
+                var val = HttpUtility.HtmlDecode(bindingContext.ValueProvider.GetValue(item).AttemptedValue);
+                model.YoungProperty.Add(item.Substring(_prefix.Length), val);
             }
 
             return model;
