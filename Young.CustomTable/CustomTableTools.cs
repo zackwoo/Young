@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Young.CustomTable.ColumnType;
 using Young.CustomTable.View;
+using Young.CustomTable.ViewModel;
 
 namespace Young.CustomTable
 {
@@ -274,5 +275,106 @@ namespace Young.CustomTable
         }
 
         #endregion
+
+        #region DynamicData
+
+        public static void SaveData(YoungTableDataModel model,string tableCode)
+        {
+            var tableInfo = GetTableByCode(tableCode, true);
+
+            var builder = new SQLBuilder();
+            builder.TabelName = tableInfo.Code;
+            builder.Columns = tableInfo.Columns.Select(f => f.Code).ToArray();
+            builder.Type = SQLBuilder.SqlType.INSERT;
+            var sql = builder.ToString();
+
+            //TODO exec sql
+
+        }
+
+        #endregion
+
     }
+
+    class SQLBuilder
+    {
+        public SQLBuilder()
+        {
+            Type = SqlType.NONE;
+            PrimaryKey = "ID";
+        }
+
+        public override string ToString()
+        {
+            if (this.Type == SqlType.NONE || Columns == null || !Columns.Any())
+            {
+                return string.Empty;
+            }
+            StringBuilder sql = new StringBuilder();
+            switch (Type)
+            {
+                case SqlType.DELETE:
+                    sql.AppendFormat("DELETE FROM {0} WHERE {1}=@{1} ", TabelName, PrimaryKey);
+                    break;
+                case SqlType.INSERT:
+                    StringBuilder keys = new StringBuilder();
+                    StringBuilder values = new StringBuilder();
+                    foreach (var column in Columns)
+                    {
+                        keys.Append(column + ",");
+                        values.Append("@" + column + ",");
+                    }
+                    keys.Remove(keys.Length - 1, 1);
+                    values.Remove(values.Length - 1, 1);
+                    sql.AppendFormat("INSERT INTO {0} ({1}) VALUES ({2}) ", TabelName, keys, values);
+                    break;
+                case SqlType.SELECT:
+                    sql.AppendFormat("SELECT * FROM {0} ", TabelName);
+                    break;
+                case SqlType.UPDATE:
+                    StringBuilder col = new StringBuilder();
+                    foreach (var column in Columns)
+                    {
+                        col.AppendFormat(" {0}=@{0},", column);
+                    }
+                    col.Remove(col.Length - 1, 1);
+                    sql.AppendFormat("UPDATE {0} set {2} where {1}=@{1}", TabelName, PrimaryKey, col);
+                    break;
+            }
+            return sql.ToString();
+        }
+
+        
+
+        public string[] Columns { get; set; }
+        /// <summary>
+        /// 创建SQL语句类型
+        /// </summary>
+        public SqlType Type { get; set; }
+        /// <summary>
+        /// 表名
+        /// </summary>
+        public string TabelName { get; set; }
+        /// <summary>
+        /// 标识主键
+        /// </summary>
+        public string PrimaryKey { get; set; }
+
+        
+        #region sqlType
+        public enum SqlType
+        {
+            SELECT,
+            UPDATE,
+            INSERT,
+            DELETE,
+            NONE
+        }
+        #endregion
+
+        
+        
+    }
+
+    
 }
