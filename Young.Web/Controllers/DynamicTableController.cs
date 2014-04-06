@@ -56,6 +56,17 @@ namespace Young.Web.Controllers
             CustomTableTools.SaveData(model, tableCode);
             return RedirectToAction("index", new { tcode = tableCode });
         }
-
+        public ActionResult EditData(string tcode,int id)
+        {
+            var table = CustomTableTools.GetTableByCode(tcode, true);
+            var model = new DataEditorModel
+            {
+                TableCode = tcode,
+                TableName = table.Name,
+                ColumnTypes = table.Columns 
+            };
+            //TODO set values
+            return View(model);
+        }
     }
 }

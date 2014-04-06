@@ -74,7 +74,7 @@
                 $.messager.alert('信息', '请先选中记录。', 'info'); return;
             }
             else {
-                $.messager.alert('信息', '该功能暂未开通。', 'info');
+                location.href = "/DynamicTable/AddData?tcode=@(Model.TableCode)&id=" + row.ID;
             }
         }
     </script>

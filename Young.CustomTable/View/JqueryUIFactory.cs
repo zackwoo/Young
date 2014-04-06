@@ -8,17 +8,17 @@ namespace Young.CustomTable.View
 {
     internal class JqueryUIFactory : ViewFactory
     {
-        public override string CreateNumberTypeUI(ColumnType.ColumnTypeBase columnType)
+        public override string CreateNumberTypeUI(ColumnType.ColumnTypeBase columnType, string value = "")
         {
             throw new NotImplementedException();
         }
 
-        public override string CreateLineTextTypeUI(ColumnType.ColumnTypeBase columnType)
+        public override string CreateLineTextTypeUI(ColumnType.ColumnTypeBase columnType, string value = "")
         {
             throw new NotImplementedException();
         }
 
-        public override string CreateDateTypeUI(ColumnType.ColumnTypeBase columnType)
+        public override string CreateDateTypeUI(ColumnType.ColumnTypeBase columnType, string value = "")
         {
             throw new NotImplementedException();
         }

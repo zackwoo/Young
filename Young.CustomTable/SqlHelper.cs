@@ -670,7 +670,7 @@ namespace Young.CustomTable
                 // HACK: There is a problem here, the output parameter values are fletched 
                 // when the reader is closed, so if the parameters are detached from the command
                 // then the SqlReader can磘 set its values. 
-                // When this happen, the parameters can磘 be used again in other command.
+                // When this happen, the parameters can be used again in other command.
                 bool canClear = true;
                 foreach(SqlParameter commandParameter in cmd.Parameters)
                 {

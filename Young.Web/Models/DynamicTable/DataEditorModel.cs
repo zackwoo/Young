@@ -11,5 +11,20 @@ namespace Young.Web.Models.DynamicTable
         public string TableCode { get; set; }
 
         public IEnumerable<Young.CustomTable.ColumnType.ColumnTypeBase> ColumnTypes { get; set; }
+
+        public Dictionary<string,string> Valus { get; set; }
+        /// <summary>
+        /// 获取列值
+        /// </summary>
+        /// <param name="columnCode"></param>
+        /// <returns></returns>
+        public string GetValue(string columnCode)
+        {
+            if (Valus==null || !Valus.ContainsKey(columnCode))
+            {
+                return string.Empty;
+            }
+            return Valus[columnCode];
+        }
     }
 }

@@ -479,6 +479,8 @@
     <Content Include="Views\Shared\_ColumnEditor.cshtml" />
     <Content Include="Views\DynamicTable\Index.cshtml" />
     <Content Include="Views\DynamicTable\AddData.cshtml" />
+    <Content Include="Views\DynamicTable\EditData.cshtml" />
+    <Content Include="Views\DynamicTable\Editor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -244,24 +244,24 @@ namespace Young.CustomTable
 
         #region 创建列控件
 
-        public static MvcHtmlString CreateColumnControl(ColumnTypeBase column)
+        public static MvcHtmlString CreateColumnControl(ColumnTypeBase column,string value)
         {
             var uiFactory = GetViewFactory();
             if (column is DateType)
             {
-                return MvcHtmlString.Create(uiFactory.CreateDateTypeUI(column));
+                return MvcHtmlString.Create(uiFactory.CreateDateTypeUI(column, value));
             }
             if (column is NumberType)
             {
-                return MvcHtmlString.Create(uiFactory.CreateNumberTypeUI(column));
+                return MvcHtmlString.Create(uiFactory.CreateNumberTypeUI(column, value));
             }
             if (column is RichTextType)
             {
-                return MvcHtmlString.Create(uiFactory.CreateRichTextTypeUI(column));
+                return MvcHtmlString.Create(uiFactory.CreateRichTextTypeUI(column, value));
             }
             if (column is LineTextType)
             {
-                return MvcHtmlString.Create(uiFactory.CreateLineTextTypeUI(column));
+                return MvcHtmlString.Create(uiFactory.CreateLineTextTypeUI(column, value));
             }
             return MvcHtmlString.Empty;
         }
@@ -284,12 +284,12 @@ namespace Young.CustomTable
         {
             var tableInfo = GetTableByCode(tableCode, true);
 
-            var builder = new SQLBuilder();
+            var builder = new SQLInsertBuilder();
             builder.TabelName = tableInfo.Code;
-            builder.Columns = tableInfo.Columns.Select(f => f.Code).ToArray();
-            builder.Type = SQLBuilder.SqlType.INSERT;
-            var sql = builder.ToString();
-
+            builder.Fields = tableInfo.Columns.Select(f => f.Code).ToArray();
+            builder.Init();
+            builder.BuildFields();
+            var sql = builder.GetResult();
             using (var db = new CustomTableDatabaseContext())
             {
                 db.Database.ExecuteSqlCommand(sql, model.GetSqlParameter());
@@ -297,52 +297,62 @@ namespace Young.CustomTable
 
         }
 
-        public static DataTable Query(string tableCode, string[] column = null)
+        public static DataTable Query(string tableCode, string[] column)
         {
-            SQLBuilder builder = new SQLBuilder();
-            builder.Type = SQLBuilder.SqlType.SELECT;
+            var builder = new SQLSelectBuilder();
             builder.TabelName = tableCode;
-            builder.Columns = column;
+            builder.Fields = column;
+            builder.IsPaging = false;
+            builder.Init();
+            builder.BuildFields();
+            builder.BuildWhere();
+            builder.BuildOrder();
             using (var db = new CustomTableDatabaseContext())
             {
-                var ds = SqlHelper.ExecuteDataset(db.Database.Connection.ConnectionString, CommandType.Text, builder.ToString());
+                var ds = SqlHelper.ExecuteDataset(db.Database.Connection.ConnectionString, CommandType.Text, builder.GetResult());
                 return ds.Tables[0];
             }
         }
-        public static DataTable Query(string tableCode,int page,int pageSize, string[] column = null)
+        public static DataTable Query(string tableCode,int page,int pageSize, string[] column )
         {
-            SQLBuilder builder = new SQLBuilder();
-            builder.Type = SQLBuilder.SqlType.SELECT;
+            var builder = new SQLSelectBuilder();
             builder.TabelName = tableCode;
-            builder.Columns = column;
-            builder.PageSize = pageSize;
-            builder.Page = page;
+            builder.Fields = column;
+            builder.IsPaging = true;
+            builder.Init();
+            builder.BuildFields();
+            builder.BuildWhere();
+            builder.BuildOrder();
             using (var db = new CustomTableDatabaseContext())
             {
-                var ds = SqlHelper.ExecuteDataset(db.Database.Connection.ConnectionString, CommandType.Text, builder.ToString());
+                var ds = SqlHelper.ExecuteDataset(db.Database.Connection.ConnectionString, CommandType.Text, builder.GetResult()
+                    , new SqlParameter(SQLSelectBuilder.SQL_MIN_ROW_Field, page * pageSize)
+                    , new SqlParameter(SQLSelectBuilder.SQL_MAX_ROW_Field, pageSize * (page + 1)));
                 return ds.Tables[0];
             }
         }
         public static int QueryCount(string tableCode)
         {
-            SQLBuilder builder = new SQLBuilder();
-            builder.Type = SQLBuilder.SqlType.COUNT;
+            var builder = new SQLCountBuilder();
             builder.TabelName = tableCode;
+            builder.Init();
+            builder.BuildWhere();
             using (var db = new CustomTableDatabaseContext())
             {
-               object obj = SqlHelper.ExecuteScalar(db.Database.Connection.ConnectionString, CommandType.Text, builder.ToString());
+               object obj = SqlHelper.ExecuteScalar(db.Database.Connection.ConnectionString, CommandType.Text, builder.GetResult());
                return Convert.ToInt32(obj);
             }
         }
 
         public static void DeleteData(string tableCode, int id)
         {
-            SQLBuilder builder = new SQLBuilder();
+            var builder = new SQLDeleteBuilder();
             builder.TabelName = tableCode;
-            builder.Type = SQLBuilder.SqlType.DELETE;
+            builder.Init();
+            builder.BuildWhere();
             using (var db = new CustomTableDatabaseContext())
             {
-                db.Database.ExecuteSqlCommand(builder.ToString(), new SqlParameter("ID", id));
+                db.Database.ExecuteSqlCommand(builder.GetResult(), new SqlParameter("ID", id));
             }
         }
 
@@ -353,151 +363,7 @@ namespace Young.CustomTable
        
     }
 
-    class SQLBuilder
-    {
-        public SQLBuilder()
-        {
-            Type = SqlType.NONE;
-            PrimaryKey = "ID";
-        }
-
-        public override string ToString()
-        {
-            if (this.Type == SqlType.NONE)
-            {
-                return string.Empty;
-            }
-            StringBuilder sql = new StringBuilder();
-            switch (Type)
-            {
-                case SqlType.COUNT:
-                    sql.AppendFormat("SELECT COUNT(1) FROM {0} ", TabelName);
-                    break;
-                case SqlType.DELETE:
-                    sql.AppendFormat("DELETE FROM {0} WHERE {1}=@{1} ", TabelName, PrimaryKey);
-                    break;
-                case SqlType.INSERT:
-                    StringBuilder keys = new StringBuilder();
-                    StringBuilder values = new StringBuilder();
-                    foreach (var column in Columns)
-                    {
-                        keys.Append(column + ",");
-                        values.Append("@" + column + ",");
-                    }
-                    keys.Remove(keys.Length - 1, 1);
-                    values.Remove(values.Length - 1, 1);
-                    sql.AppendFormat("INSERT INTO {0} ({1}) VALUES ({2}) ", TabelName, keys, values);
-                    break;
-                case SqlType.SELECT:
-                    if (Columns == null)
-                    {
-                        if (IsPaging)
-                        {
-                            //SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY keyField DESC) AS rowNum, * FROM tableName) AS t WHERE rowNum > start AND rowNum <= end
-                            sql.AppendFormat(
-                                "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {1}) AS rowNum, * FROM {0}) AS t WHERE rowNum > {2} AND rowNum <= {3} ",
-                                TabelName, PrimaryKey, Page * PageSize, Page * PageSize + PageSize);
-                        }
-                        else
-                        {
-                            sql.AppendFormat("SELECT * FROM {0} ", TabelName);
-                        }
-                    }
-                    else
-                    {
-                        StringBuilder sb = new StringBuilder();
-                        foreach (var item in Columns)
-                        {
-                            sb.AppendFormat("[{0}],", item);
-                        }
-                        if (Columns.Contains(PrimaryKey))
-                        {
-                            sb.Remove(sb.Length - 1, 1);
-                        }
-                        else
-                        {
-                            sb.AppendFormat("[{0}]", PrimaryKey);
-                        }
-                        if (IsPaging)
-                        {
-                            sql.AppendFormat(
-                               "SELECT {4} FROM (SELECT ROW_NUMBER() OVER(ORDER BY {1}) AS rowNum, * FROM {0}) AS t WHERE rowNum > {2} AND rowNum <= {3} ",
-                               TabelName, PrimaryKey, Page * PageSize, Page * PageSize + PageSize, sb);
-                        }
-                        else
-                        {
-                            sql.AppendFormat("SELECT {1} FROM {0} ", TabelName, sb);
-                        }
-                        
-                    }
-                    
-                    
-                    break;
-                case SqlType.UPDATE:
-                    StringBuilder col = new StringBuilder();
-                    foreach (var column in Columns)
-                    {
-                        col.AppendFormat(" {0}=@{0},", column);
-                    }
-                    col.Remove(col.Length - 1, 1);
-                    sql.AppendFormat("UPDATE {0} set {2} where {1}=@{1}", TabelName, PrimaryKey, col);
-                    break;
-            }
-            return sql.ToString();
-        }
-
-        
-
-        public string[] Columns { get; set; }
-        /// <summary>
-        /// 创建SQL语句类型
-        /// </summary>
-        public SqlType Type { get; set; }
-        /// <summary>
-        /// 表名
-        /// </summary>
-        public string TabelName { get; set; }
-        /// <summary>
-        /// 标识主键
-        /// </summary>
-        public string PrimaryKey { get; set; }
-
-        /// <summary>
-        /// 分页使用-页码
-        /// </summary>
-        public int Page { get; set; }
-        /// <summary>
-        /// 分页使用-记录数
-        /// </summary>
-        public int PageSize { get; set; }
-
-        /// <summary>
-        /// 是否分页
-        /// </summary>
-        public bool IsPaging
-        {
-            get
-            {
-                return !(Page == PageSize && Page == 0);
-            }
-        }
-
-        
-        #region sqlType
-        public enum SqlType
-        {
-            SELECT,
-            UPDATE,
-            INSERT,
-            DELETE,
-            COUNT,
-            NONE
-        }
-        #endregion
-
-        
-        
-    }
+   
 
     
 }

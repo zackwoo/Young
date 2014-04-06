@@ -14,18 +14,19 @@ namespace Young.CustomTable.View
     internal  abstract class ViewFactory
     {
 
-        public abstract string CreateNumberTypeUI(ColumnTypeBase columnType);
-        public abstract string CreateLineTextTypeUI(ColumnTypeBase columnType);
-        
-        public abstract string CreateDateTypeUI(ColumnTypeBase columnType);
+        public abstract string CreateNumberTypeUI(ColumnTypeBase columnType,string value="");
+        public abstract string CreateLineTextTypeUI(ColumnTypeBase columnType, string value = "");
 
-        public virtual string CreateRichTextTypeUI(ColumnType.ColumnTypeBase columnType)
+        public abstract string CreateDateTypeUI(ColumnTypeBase columnType, string value = "");
+
+        public virtual string CreateRichTextTypeUI(ColumnType.ColumnTypeBase columnType, string value = "")
         {
             var tag = new TagBuilder("textarea");
             tag.MergeAttribute("style", "height: 150px; width:560px;");
             tag.GenerateId(columnType.Code);
             tag.MergeAttribute("name", "young_" + columnType.Code, true);
             tag.AddCssClass("young-richbox");
+            tag.InnerHtml = value;
             return tag.ToString();
         }
 

@@ -9,7 +9,7 @@ namespace Young.CustomTable.View
 {
     internal class EasyUIFactory : ViewFactory
     {
-        public override string CreateNumberTypeUI(ColumnType.ColumnTypeBase columnType)
+        public override string CreateNumberTypeUI(ColumnType.ColumnTypeBase columnType, string value = "")
         {
             var tag = base.GenerateInputTag(InputType.Text, columnType.Code);
             tag.AddCssClass("easyui-numberbox");
@@ -20,7 +20,7 @@ namespace Young.CustomTable.View
             return tag.ToString(TagRenderMode.SelfClosing);
         }
 
-        public override string CreateLineTextTypeUI(ColumnType.ColumnTypeBase columnType)
+        public override string CreateLineTextTypeUI(ColumnType.ColumnTypeBase columnType, string value = "")
         {
             var tag = base.GenerateInputTag(InputType.Text, columnType.Code);
             if (columnType.IsRequired)
@@ -30,7 +30,7 @@ namespace Young.CustomTable.View
             return tag.ToString(TagRenderMode.SelfClosing);
         }
 
-        public override string CreateDateTypeUI(ColumnType.ColumnTypeBase columnType)
+        public override string CreateDateTypeUI(ColumnType.ColumnTypeBase columnType, string value = "")
         {
             var tag = base.GenerateInputTag(InputType.Text, columnType.Code);
             tag.AddCssClass("easyui-datebox");

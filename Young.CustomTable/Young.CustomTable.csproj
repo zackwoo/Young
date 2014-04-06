@@ -65,7 +65,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLBuilder.cs" />
+    <Compile Include="SQLCountBuilder.cs" />
+    <Compile Include="SQLDeleteBuilder.cs" />
     <Compile Include="SqlHelper.cs" />
+    <Compile Include="SQLInsertBuilder.cs" />
+    <Compile Include="SQLSelectBuilder.cs" />
+    <Compile Include="SQLUpdateBuilder.cs" />
     <Compile Include="ViewModel\YoungTableDataModelBinder.cs" />
     <Compile Include="View\EasyUIFactory.cs" />
     <Compile Include="View\JqueryUIFactory.cs" />
