@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -288,12 +290,67 @@ namespace Young.CustomTable
             builder.Type = SQLBuilder.SqlType.INSERT;
             var sql = builder.ToString();
 
-            //TODO exec sql
+            using (var db = new CustomTableDatabaseContext())
+            {
+                db.Database.ExecuteSqlCommand(sql, model.GetSqlParameter());
+            }
 
         }
 
+        public static DataTable Query(string tableCode, string[] column = null)
+        {
+            SQLBuilder builder = new SQLBuilder();
+            builder.Type = SQLBuilder.SqlType.SELECT;
+            builder.TabelName = tableCode;
+            builder.Columns = column;
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var ds = SqlHelper.ExecuteDataset(db.Database.Connection.ConnectionString, CommandType.Text, builder.ToString());
+                return ds.Tables[0];
+            }
+        }
+        public static DataTable Query(string tableCode,int page,int pageSize, string[] column = null)
+        {
+            SQLBuilder builder = new SQLBuilder();
+            builder.Type = SQLBuilder.SqlType.SELECT;
+            builder.TabelName = tableCode;
+            builder.Columns = column;
+            builder.PageSize = pageSize;
+            builder.Page = page;
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var ds = SqlHelper.ExecuteDataset(db.Database.Connection.ConnectionString, CommandType.Text, builder.ToString());
+                return ds.Tables[0];
+            }
+        }
+        public static int QueryCount(string tableCode)
+        {
+            SQLBuilder builder = new SQLBuilder();
+            builder.Type = SQLBuilder.SqlType.COUNT;
+            builder.TabelName = tableCode;
+            using (var db = new CustomTableDatabaseContext())
+            {
+               object obj = SqlHelper.ExecuteScalar(db.Database.Connection.ConnectionString, CommandType.Text, builder.ToString());
+               return Convert.ToInt32(obj);
+            }
+        }
+
+        public static void DeleteData(string tableCode, int id)
+        {
+            SQLBuilder builder = new SQLBuilder();
+            builder.TabelName = tableCode;
+            builder.Type = SQLBuilder.SqlType.DELETE;
+            using (var db = new CustomTableDatabaseContext())
+            {
+                db.Database.ExecuteSqlCommand(builder.ToString(), new SqlParameter("ID", id));
+            }
+        }
+
+
         #endregion
 
+
+       
     }
 
     class SQLBuilder
@@ -306,13 +363,16 @@ namespace Young.CustomTable
 
         public override string ToString()
         {
-            if (this.Type == SqlType.NONE || Columns == null || !Columns.Any())
+            if (this.Type == SqlType.NONE)
             {
                 return string.Empty;
             }
             StringBuilder sql = new StringBuilder();
             switch (Type)
             {
+                case SqlType.COUNT:
+                    sql.AppendFormat("SELECT COUNT(1) FROM {0} ", TabelName);
+                    break;
                 case SqlType.DELETE:
                     sql.AppendFormat("DELETE FROM {0} WHERE {1}=@{1} ", TabelName, PrimaryKey);
                     break;
@@ -329,7 +389,49 @@ namespace Young.CustomTable
                     sql.AppendFormat("INSERT INTO {0} ({1}) VALUES ({2}) ", TabelName, keys, values);
                     break;
                 case SqlType.SELECT:
-                    sql.AppendFormat("SELECT * FROM {0} ", TabelName);
+                    if (Columns == null)
+                    {
+                        if (IsPaging)
+                        {
+                            //SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY keyField DESC) AS rowNum, * FROM tableName) AS t WHERE rowNum > start AND rowNum <= end
+                            sql.AppendFormat(
+                                "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {1}) AS rowNum, * FROM {0}) AS t WHERE rowNum > {2} AND rowNum <= {3} ",
+                                TabelName, PrimaryKey, Page * PageSize, Page * PageSize + PageSize);
+                        }
+                        else
+                        {
+                            sql.AppendFormat("SELECT * FROM {0} ", TabelName);
+                        }
+                    }
+                    else
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        foreach (var item in Columns)
+                        {
+                            sb.AppendFormat("[{0}],", item);
+                        }
+                        if (Columns.Contains(PrimaryKey))
+                        {
+                            sb.Remove(sb.Length - 1, 1);
+                        }
+                        else
+                        {
+                            sb.AppendFormat("[{0}]", PrimaryKey);
+                        }
+                        if (IsPaging)
+                        {
+                            sql.AppendFormat(
+                               "SELECT {4} FROM (SELECT ROW_NUMBER() OVER(ORDER BY {1}) AS rowNum, * FROM {0}) AS t WHERE rowNum > {2} AND rowNum <= {3} ",
+                               TabelName, PrimaryKey, Page * PageSize, Page * PageSize + PageSize, sb);
+                        }
+                        else
+                        {
+                            sql.AppendFormat("SELECT {1} FROM {0} ", TabelName, sb);
+                        }
+                        
+                    }
+                    
+                    
                     break;
                 case SqlType.UPDATE:
                     StringBuilder col = new StringBuilder();
@@ -360,6 +462,26 @@ namespace Young.CustomTable
         /// </summary>
         public string PrimaryKey { get; set; }
 
+        /// <summary>
+        /// 分页使用-页码
+        /// </summary>
+        public int Page { get; set; }
+        /// <summary>
+        /// 分页使用-记录数
+        /// </summary>
+        public int PageSize { get; set; }
+
+        /// <summary>
+        /// 是否分页
+        /// </summary>
+        public bool IsPaging
+        {
+            get
+            {
+                return !(Page == PageSize && Page == 0);
+            }
+        }
+
         
         #region sqlType
         public enum SqlType
@@ -368,6 +490,7 @@ namespace Young.CustomTable
             UPDATE,
             INSERT,
             DELETE,
+            COUNT,
             NONE
         }
         #endregion

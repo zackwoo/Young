@@ -127,7 +127,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\APICustomListController.cs" />
-    <Compile Include="Controllers\APICustomListDataController.cs" />
+    <Compile Include="Controllers\APIDynamicDataController.cs" />
     <Compile Include="Controllers\APIRoleController.cs" />
     <Compile Include="Controllers\APISysConfigController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
@@ -155,6 +155,8 @@
     <Compile Include="Models\Command\CommandBase.cs" />
     <Compile Include="Models\Command\Enums.cs" />
     <Compile Include="Models\Command\YoungTable\ColumnCommand.cs" />
+    <Compile Include="Models\Command\YoungTable\DeleteDataCommand.cs" />
+    <Compile Include="Models\Command\YoungTable\QueryDataCommand.cs" />
     <Compile Include="Models\CustomColumnModel.cs" />
     <Compile Include="Models\CustomListItemModel.cs" />
     <Compile Include="Models\CustomListModel.cs" />

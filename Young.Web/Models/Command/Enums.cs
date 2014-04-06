@@ -9,6 +9,7 @@ namespace Young.Web.Models.Command
     {
         Create,
         Edit,
-        Delete
+        Delete,
+        Query
     }
 }

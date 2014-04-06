@@ -17,32 +17,66 @@
                 toolbar: '#toolbar',
                 pagination: true,
                 rownumbers: true,
-                fitcolumns: true
-            });
-        });
+                fitcolumns: true,
+                url: '/api/APIDynamicData',
+                method: 'get',
+                queryParams: {
+                    TableCode: '@Model.TableCode',
+                    IsPaging: true,
+                    Columns: [
+                        @{
+                            for (int i = Model.ListColumns.Count()-1; i >=0 ; i--)
+                            {
+                                var item = Model.ListColumns.ElementAt(i);
+                                <text>'@item.Code'</text>
+                                if (i > 0)
+                                {
+                                    <text>,</text>
+                                }
 
-        function newRecord() {
-            Young.CreateRecordDataDialog(_columns, '@ViewBag.Name', '#dg');
-        }
+                            }
+                          }
+                    ]
+                }
+            });
+
+
+        });
 
         function deleteRecord() {
             var row = $('#dg').datagrid('getSelected');
             if (row == null) {
                 $.messager.alert('信息', '请先选中记录。', 'info'); return;
             }
-            $.post('/api/apicustomlistdata', {
-                CustomListName: '@ViewBag.Name',
-                CommandType: 'Delete',
-                JsonData: '',
-                ID: row.ID
-            }, function () {
-                $('#dg').datagrid('reload');
-            });
+            else {
+                $.messager.confirm('删除', '你确定要删除记录吗？', function (r) {
+                    if (r) {
+                        $.ajax({
+                            type: 'delete',
+                            url: '/api/APIDynamicData',
+                            data: {
+                                TableCode: '@Model.TableCode',
+                                DataID: row.ID
+                            },
+                            success: function () {
+                                $('#dg').datagrid('reload');
+                            }
+                        });
+                        
+                    }
+                })
             }
-
-            function editRecord() {
+            
+        }
+        function editRecord() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row == null) {
+                $.messager.alert('信息', '请先选中记录。', 'info'); return;
+            }
+            else {
                 $.messager.alert('信息', '该功能暂未开通。', 'info');
             }
+        }
     </script>
 }
 <table id="dg" style="width: auto; height: auto">

@@ -20,7 +20,7 @@
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-
+            @Html.HiddenFor(f=>f.TableCode)
             <fieldset>
                 <legend>数据录入</legend>
 

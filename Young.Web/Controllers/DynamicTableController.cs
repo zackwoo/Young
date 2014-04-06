@@ -51,9 +51,10 @@ namespace Young.Web.Controllers
             return View(model);
         }
         [HttpPost]        
-        public ActionResult AddData(YoungTableDataModel model)
+        public ActionResult AddData(YoungTableDataModel model,string tableCode)
         {
-            return View();
+            CustomTableTools.SaveData(model, tableCode);
+            return RedirectToAction("index", new { tcode = tableCode });
         }
 
     }
