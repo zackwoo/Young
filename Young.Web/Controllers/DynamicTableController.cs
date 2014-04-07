@@ -50,10 +50,18 @@ namespace Young.Web.Controllers
             };
             return View(model);
         }
-        [HttpPost]        
-        public ActionResult AddData(YoungTableDataModel model,string tableCode)
+        [HttpPost]
+        public ActionResult AddData(YoungTableDataModel model, string tableCode)
         {
             CustomTableTools.SaveData(model, tableCode);
+            return RedirectToAction("index", new { tcode = tableCode });
+        }
+        [HttpPost]
+        public ActionResult EditData(YoungTableDataModel model, string tableCode,int dataID)
+        {
+            var where = new Dictionary<string, object>();
+            where.Add("ID", dataID);
+            CustomTableTools.UpdateData(model, tableCode, where);
             return RedirectToAction("index", new { tcode = tableCode });
         }
         public ActionResult EditData(string tcode,int id)
@@ -65,7 +73,19 @@ namespace Young.Web.Controllers
                 TableName = table.Name,
                 ColumnTypes = table.Columns 
             };
-            //TODO set values
+            var columns = table.Columns.Select(f=>f.Code).ToArray();
+            Dictionary<string,object> where = new Dictionary<string,object>();
+            where.Add("ID",id);
+            var data = CustomTableTools.Query(tcode, columns, where);
+            if (data.Rows.Count==1)
+            {
+                var row = data.Rows[0];
+                foreach (var columnName in columns)
+                {
+                    model.Valus.Add(columnName, row[columnName].ToString());
+                }
+            }
+            model.DataID = id;
             return View(model);
         }
     }

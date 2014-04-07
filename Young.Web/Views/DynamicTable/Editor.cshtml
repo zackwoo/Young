@@ -1,37 +1,26 @@
 ﻿@model Young.Web.Models.DynamicTable.DataEditorModel
-<div id="work-panel">
-    <div class="module">
-        <div class="icon-table title">
-            自定义列表：@Model.TableName
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+@Html.HiddenFor(f => f.TableCode)
+@Html.HiddenFor(f => f.DataID)
+
+<fieldset>
+    <legend>数据录入</legend>
+
+    @foreach (var item in Model.ColumnTypes)
+    {
+        <div class="editor-label w150 txt-right">
+            @item.Name
         </div>
-
-        @using (Html.BeginForm("addData", "DynamicTable", FormMethod.Post, new { onsubmit = "Young.encodeRichText()" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
-            @Html.HiddenFor(f=>f.TableCode)
-            <fieldset>
-                <legend>数据录入</legend>
-
-                @foreach (var item in Model.ColumnTypes)
-                {
-                    <div class="editor-label w150 txt-right">
-                        @item.Name
-                    </div>
-                    <div class="editor-field" style="float: left;">
-                        @Young.CustomTable.CustomTableTools.CreateColumnControl(item,Model.GetValue(item.Code))
-                    </div>
-                    <div style =" clear:both;"></div>
-                }
+        <div class="editor-field" style="float: left;">
+            @Young.CustomTable.CustomTableTools.CreateColumnControl(item, Model.GetValue(item.Code))
+        </div>
+        <div style="clear: both;"></div>
+    }
 
 
-                <div class="button">
-                    <a href="javascript:$('form').submit();" id="btn-submit" class="easyui-linkbutton" iconcls="icon-save">提交</a>
-                    @Html.ActionLink("返回", "index", new { tcode = @Model.TableCode }, new { @class = "easyui-linkbutton", iconcls = "icon-back" })
-                </div>
-            </fieldset>
-        }
-
-
+    <div class="button">
+        <a href="javascript:$('form').submit();" id="btn-submit" class="easyui-linkbutton" iconcls="icon-save">提交</a>
+        @Html.ActionLink("返回", "index", new { tcode = @Model.TableCode }, new { @class = "easyui-linkbutton", iconcls = "icon-back" })
     </div>
-</div>
+</fieldset>

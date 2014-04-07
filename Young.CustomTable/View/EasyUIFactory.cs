@@ -17,6 +17,7 @@ namespace Young.CustomTable.View
             {
                 tag.MergeAttribute("required", "required");
             }
+            tag.MergeAttribute("value", value);
             return tag.ToString(TagRenderMode.SelfClosing);
         }
 
@@ -27,6 +28,7 @@ namespace Young.CustomTable.View
             {
                 tag.MergeAttribute("required", "required");
             }
+            tag.MergeAttribute("value", value);
             return tag.ToString(TagRenderMode.SelfClosing);
         }
 
@@ -39,6 +41,7 @@ namespace Young.CustomTable.View
                 tag.MergeAttribute("required", "required");
             }
             tag.MergeAttribute("data-options", "editable:false");
+            tag.MergeAttribute("value", value);
             return tag.ToString(TagRenderMode.SelfClosing);
         }
     }

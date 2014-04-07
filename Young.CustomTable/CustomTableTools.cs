@@ -37,7 +37,7 @@ namespace Young.CustomTable
             }
         }
 
-        public static YoungTable GetTableByName(string name,bool loadColumn = false)
+        public static YoungTable GetTableByName(string name, bool loadColumn = false)
         {
             using (var db = new CustomTableDatabaseContext())
             {
@@ -92,15 +92,15 @@ namespace Young.CustomTable
             using (var db = new CustomTableDatabaseContext())
             {
                 var table = db.YoungTables.Single(f => f.Name == tableName);
-                return table.Columns.SingleOrDefault(f => f.Code == columnCode);                
+                return table.Columns.SingleOrDefault(f => f.Code == columnCode);
             }
         }
 
-        public static void DeleteColumn( string columnCode)
+        public static void DeleteColumn(string columnCode)
         {
             using (var db = new CustomTableDatabaseContext())
             {
-                var column = db.Columns.Single(f => f.Code == columnCode);                
+                var column = db.Columns.Single(f => f.Code == columnCode);
                 ExecuteDropColumnSql(db.Database, column.Table.Code, column.Code);
                 db.Columns.Remove(column);
                 db.SaveChanges();
@@ -214,13 +214,13 @@ namespace Young.CustomTable
         {
             using (var db = new CustomTableDatabaseContext())
             {
-                 var table = db.YoungTables.Single(f => f.Code == tcode);
-                 ExecuteCreateTabelSql(db.Database, tcode);
-                 foreach (var item in table.Columns)
-                 {
-                     ExecuteCreateColumnSql(db.Database, tcode, item);
-                 }
-                 
+                var table = db.YoungTables.Single(f => f.Code == tcode);
+                ExecuteCreateTabelSql(db.Database, tcode);
+                foreach (var item in table.Columns)
+                {
+                    ExecuteCreateColumnSql(db.Database, tcode, item);
+                }
+
             }
         }
 
@@ -244,7 +244,7 @@ namespace Young.CustomTable
 
         #region 创建列控件
 
-        public static MvcHtmlString CreateColumnControl(ColumnTypeBase column,string value)
+        public static MvcHtmlString CreateColumnControl(ColumnTypeBase column, string value)
         {
             var uiFactory = GetViewFactory();
             if (column is DateType)
@@ -280,7 +280,7 @@ namespace Young.CustomTable
 
         #region DynamicData
 
-        public static void SaveData(YoungTableDataModel model,string tableCode)
+        public static void SaveData(YoungTableDataModel model, string tableCode)
         {
             var tableInfo = GetTableByCode(tableCode, true);
 
@@ -313,7 +313,7 @@ namespace Young.CustomTable
                 return ds.Tables[0];
             }
         }
-        public static DataTable Query(string tableCode,int page,int pageSize, string[] column )
+        public static DataTable Query(string tableCode, int page, int pageSize, string[] column)
         {
             var builder = new SQLSelectBuilder();
             builder.TabelName = tableCode;
@@ -331,6 +331,41 @@ namespace Young.CustomTable
                 return ds.Tables[0];
             }
         }
+        public static DataTable Query(string tableCode, int page, int pageSize, string[] column, Dictionary<string, object> where)
+        {
+            var builder = new SQLSelectBuilder();
+            builder.TabelName = tableCode;
+            builder.Fields = column;
+            if (page==pageSize && pageSize==0)
+            {
+                builder.IsPaging = false;
+            }
+            else
+            {
+                builder.IsPaging = true;
+            }
+            builder.WhereFields = where.Keys.ToArray();
+            builder.Init();
+            builder.BuildFields();
+            builder.BuildWhere();
+            builder.BuildOrder();
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var sp = new List<SqlParameter>();
+                foreach (var item in where)
+                {
+                    sp.Add(new SqlParameter(item.Key, item.Value));
+                }
+                var ds = SqlHelper.ExecuteDataset(db.Database.Connection.ConnectionString, CommandType.Text, builder.GetResult(),sp.ToArray());
+                return ds.Tables[0];
+            }
+            
+        }
+        public static DataTable Query(string tableCode, string[] column, Dictionary<string, object> where)
+        {
+            return Query(tableCode, 0, 0, column, where);
+        }
+
         public static int QueryCount(string tableCode)
         {
             var builder = new SQLCountBuilder();
@@ -339,8 +374,30 @@ namespace Young.CustomTable
             builder.BuildWhere();
             using (var db = new CustomTableDatabaseContext())
             {
-               object obj = SqlHelper.ExecuteScalar(db.Database.Connection.ConnectionString, CommandType.Text, builder.GetResult());
-               return Convert.ToInt32(obj);
+                object obj = SqlHelper.ExecuteScalar(db.Database.Connection.ConnectionString, CommandType.Text, builder.GetResult());
+                return Convert.ToInt32(obj);
+            }
+        }
+
+        public static void UpdateData(YoungTableDataModel model, string tableCode, Dictionary<string, object> where)
+        {
+            var tableInfo = GetTableByCode(tableCode, true);
+            var builder = new SQLUpdateBuilder();
+            builder.Fields = tableInfo.Columns.Select(f => f.Code).ToArray();
+            builder.WhereFields = where.Keys.ToArray();
+            builder.TabelName = tableCode;
+            builder.Init();
+            builder.BuildFields();
+            builder.BuildWhere();
+            using (var db = new CustomTableDatabaseContext())
+            {
+                var sp = new List<SqlParameter>();
+                foreach (var item in where)
+                {
+                    sp.Add(new SqlParameter(item.Key, item.Value));
+                }
+                sp.AddRange(model.GetSqlParameter());
+                SqlHelper.ExecuteNonQuery(db.Database.Connection.ConnectionString, CommandType.Text, builder.GetResult(), sp.ToArray());
             }
         }
 
@@ -360,10 +417,10 @@ namespace Young.CustomTable
         #endregion
 
 
-       
+
     }
 
-   
 
-    
+
+
 }
