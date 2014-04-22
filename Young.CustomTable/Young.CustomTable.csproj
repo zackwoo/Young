@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EqualExpression.cs" />
+    <Compile Include="Expression.cs" />
     <Compile Include="ColumnType\ColumnTypeFactory.cs" />
     <Compile Include="ColumnType\BaseTextType.cs" />
     <Compile Include="ColumnType\ColumnTypeBase.cs" />
