@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Young.CustomTable
+namespace Young.CustomTable.Condition
 {
     /// <summary>
     /// 等于表达式

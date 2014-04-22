@@ -50,8 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EqualExpression.cs" />
-    <Compile Include="Expression.cs" />
+    <Compile Include="Condition\EqualExpression.cs" />
+    <Compile Include="Condition\Expression.cs" />
     <Compile Include="ColumnType\ColumnTypeFactory.cs" />
     <Compile Include="ColumnType\BaseTextType.cs" />
     <Compile Include="ColumnType\ColumnTypeBase.cs" />
@@ -61,6 +61,9 @@
     <Compile Include="ColumnType\RichTextType.cs" />
     <Compile Include="CustomTableDatabaseContext.cs" />
     <Compile Include="CustomTableTools.cs" />
+    <Compile Include="Condition\GreaterThanEqualToExpression.cs" />
+    <Compile Include="Condition\GreaterThanExpression.cs" />
+    <Compile Include="Condition\LikeExpression.cs" />
     <Compile Include="Migrations\201403181427571_InitialCreate.cs" />
     <Compile Include="Migrations\201403181427571_InitialCreate.Designer.cs">
       <DependentUpon>201403181427571_InitialCreate.cs</DependentUpon>
